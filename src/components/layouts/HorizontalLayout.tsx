@@ -77,8 +77,17 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <div className="flex items-center">
-              <h1 className="text-xl font-bold text-primary">SaaS App</h1>
+            <div className="flex items-center gap-3">
+              <img 
+                src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png" 
+                alt="Logo" 
+                className="h-8 w-8"
+              />
+              <img 
+                src="/lovable-uploads/4ab292c0-f52e-45b0-8352-96cfa9636b16.png" 
+                alt="Spark" 
+                className="h-6"
+              />
             </div>
 
             {/* Main Navigation */}
