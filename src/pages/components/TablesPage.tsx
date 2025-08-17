@@ -40,7 +40,7 @@ const TablesPage = () => {
           title="Lista de Usuários"
           description="Exemplo de tabela básica com dados de usuários"
           actions={
-            <>
+            <div className="flex items-center space-x-2">
               <Button variant="outline" size="sm">
                 <Download className="h-4 w-4 mr-2" />
                 Exportar
@@ -49,7 +49,7 @@ const TablesPage = () => {
                 <Plus className="h-4 w-4 mr-2" />
                 Adicionar
               </Button>
-            </>
+            </div>
           }
         >
           <Table>
@@ -198,8 +198,8 @@ const TablesPage = () => {
 
       {/* Compact Table Example */}
       <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-foreground">Tabela Compacta</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <h2 className="text-2xl font-semibold text-foreground">Tabelas Compactas</h2>
+        <div className="space-y-6">
           <TableCard
             title="Últimas Atividades"
             description="Lista compacta de atividades recentes"
