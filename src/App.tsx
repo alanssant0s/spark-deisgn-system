@@ -18,6 +18,10 @@ import DialogsPage from "./pages/components/DialogsPage";
 import ChartsPage from "./pages/components/ChartsPage";
 import FormsPage from "./pages/components/FormsPage";
 import TablesPage from "./pages/components/TablesPage";
+import DashboardPage from "./pages/examples/DashboardPage";
+import ProjectsPage from "./pages/examples/ProjectsPage";
+import AnalyticsPage from "./pages/examples/AnalyticsPage";
+import TeamPage from "./pages/examples/TeamPage";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +41,10 @@ const App = () => (
           <Route path="/components/charts" element={<ChartsPage />} />
           <Route path="/components/forms" element={<FormsPage />} />
           <Route path="/components/tables" element={<TablesPage />} />
+          <Route path="/examples/dashboard" element={<DashboardPage />} />
+          <Route path="/examples/projects" element={<ProjectsPage />} />
+          <Route path="/examples/analytics" element={<AnalyticsPage />} />
+          <Route path="/examples/team" element={<TeamPage />} />
           <Route path="/design-system" element={<DesignSystem />} />
           <Route path="/metrics" element={<Metrics />} />
           <Route path="/confirmation" element={<Confirmation />} />
