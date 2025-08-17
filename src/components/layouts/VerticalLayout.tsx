@@ -36,15 +36,15 @@ const saasPages = [
 ];
 
 const componentPages = [
-  { name: "Botões", path: "/components/buttons", icon: Package },
-  { name: "Cards", path: "/components/cards", icon: Package },
-  { name: "Formulários", path: "/components/forms", icon: Package },
-  { name: "Date Picker", path: "/components/datepicker", icon: Package },
-  { name: "Tabelas", path: "/components/tables", icon: Package },
-  { name: "DataTable", path: "/components/datatable", icon: Package },
-  { name: "Alertas", path: "/components/alerts", icon: Package },
-  { name: "Diálogos", path: "/components/dialogs", icon: Package },
-  { name: "Gráficos", path: "/components/charts", icon: Package },
+  { name: "Botões", path: "/components/buttons", icon: MousePointer2 },
+  { name: "Cards", path: "/components/cards", icon: CreditCard },
+  { name: "Formulários", path: "/components/forms", icon: FileInput },
+  { name: "Date Picker", path: "/components/datepicker", icon: Calendar },
+  { name: "Tabelas", path: "/components/tables", icon: Table },
+  { name: "DataTable", path: "/components/datatable", icon: Database },
+  { name: "Alertas", path: "/components/alerts", icon: AlertTriangle },
+  { name: "Diálogos", path: "/components/dialogs", icon: MessageSquare },
+  { name: "Gráficos", path: "/components/charts", icon: PieChart },
   { name: "Processador Logo", path: "/logo-processor", icon: Zap },
 ];
 
