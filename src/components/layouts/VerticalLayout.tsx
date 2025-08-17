@@ -98,7 +98,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                   className="h-8 object-contain"
                 />
                 <img
-                  src="/lovable-uploads/4ab292c0-f52e-45b0-8352-96cfa9636b16.png"
+                  src="/logo.png"
                   alt="Spark"
                   className="w-20 h-8 object-contain"
                 />
@@ -126,7 +126,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                     ? "bg-primary text-primary-foreground"
                     : sidebarTheme === 'dark'
                       ? "text-slate-300 hover:bg-slate-700 hover:text-slate-50"
-                      : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
+                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                     }`}
                 >
                   <item.icon className="w-5 h-5 flex-shrink-0" />
@@ -144,7 +144,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                       ? "bg-primary text-primary-foreground"
                       : sidebarTheme === 'dark'
                         ? "text-slate-300 hover:bg-slate-700 hover:text-slate-50"
-                        : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                       }`}
                   >
                     <Zap className="w-5 h-5 flex-shrink-0" />
@@ -167,7 +167,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                           ? "bg-primary text-primary-foreground"
                           : sidebarTheme === 'dark'
                             ? "text-slate-400 hover:bg-slate-700 hover:text-slate-100"
-                            : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
+                            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                           }`}
                       >
                         <item.icon className="w-4 h-4 flex-shrink-0" />
@@ -188,7 +188,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                       ? "bg-primary text-primary-foreground"
                       : sidebarTheme === 'dark'
                         ? "text-slate-300 hover:bg-slate-700 hover:text-slate-50"
-                        : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                       }`}
                   >
                     <Package className="w-5 h-5 flex-shrink-0" />
@@ -211,7 +211,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                           ? "bg-primary text-primary-foreground"
                           : sidebarTheme === 'dark'
                             ? "text-slate-400 hover:bg-slate-700 hover:text-slate-100"
-                            : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
+                            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                           }`}
                       >
                         <item.icon className="w-4 h-4 flex-shrink-0" />
@@ -234,7 +234,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-2 rounded-lg hover:bg-primary-hover-bg hover:text-foreground transition-colors"
+              className="lg:hidden p-2 rounded-lg hover:bg-muted hover:text-foreground transition-colors"
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -242,7 +242,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
             {/* Desktop sidebar toggle */}
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="hidden lg:block p-2 rounded-lg hover:bg-primary-hover-bg hover:text-foreground transition-colors"
+              className="hidden lg:block p-2 rounded-lg hover:bg-muted hover:text-foreground transition-colors"
             >
               <Menu className="h-5 w-5" />
             </button>

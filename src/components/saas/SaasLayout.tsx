@@ -2,11 +2,11 @@ import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { 
-  LayoutDashboard, 
-  Palette, 
-  Component, 
-  BarChart3, 
+import {
+  LayoutDashboard,
+  Palette,
+  Component,
+  BarChart3,
   Settings,
   Menu,
   X,
@@ -41,8 +41,8 @@ interface SaasLayoutProps {
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  { 
-    name: "Exemplos", 
+  {
+    name: "Exemplos",
     icon: FolderKanban,
     children: [
       { name: "Dashboard", href: "/examples/dashboard" },
@@ -51,8 +51,8 @@ const navigation = [
       { name: "Equipe", href: "/examples/team" },
     ]
   },
-  { 
-    name: "Componentes UI", 
+  {
+    name: "Componentes UI",
     icon: Component,
     children: [
       { name: "Visão Geral", href: "/components" },
@@ -84,7 +84,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
     <div className="min-h-screen bg-background">
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
@@ -98,7 +98,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
       )}>
         <div className="flex items-center justify-between h-16 px-6 border-b border-card-border">
           {!sidebarCollapsed && (
-            <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <h1 className="text-xl font-bold text-primary">
               SaaS Design
             </h1>
           )}
@@ -121,10 +121,10 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
         </div>
 
         <nav className="flex-1 p-4 space-y-2 overflow-y-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent"
-             style={{ 
-               scrollbarWidth: 'thin',
-               scrollbarColor: 'hsl(var(--muted)) transparent'
-             }}>
+          style={{
+            scrollbarWidth: 'thin',
+            scrollbarColor: 'hsl(var(--muted)) transparent'
+          }}>
           {navigation.map((item) => {
             if (item.children) {
               const hasActiveChild = item.children.some(child => location.pathname === child.href);
@@ -132,11 +132,11 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
               const isExamplesPage = item.name === "Exemplos" && location.pathname.startsWith('/examples');
               const isOpen = item.name === "Componentes UI" ? componentsOpen : examplesOpen;
               const setOpen = item.name === "Componentes UI" ? setComponentsOpen : setExamplesOpen;
-              
+
               return (
-                <Collapsible 
-                  key={item.name} 
-                  open={isOpen && !sidebarCollapsed} 
+                <Collapsible
+                  key={item.name}
+                  open={isOpen && !sidebarCollapsed}
                   onOpenChange={setOpen}
                 >
                   <CollapsibleTrigger asChild>
@@ -146,7 +146,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
                         "w-full justify-start px-3 py-2.5 text-sm font-medium transition-all duration-200",
                         "hover:bg-muted group",
                         (isComponentsPage || isExamplesPage)
-                          ? "bg-primary text-primary-foreground shadow-sm" 
+                          ? "bg-primary text-primary-foreground shadow-sm"
                           : "text-muted-foreground hover:text-foreground"
                       )}
                     >
@@ -175,8 +175,8 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
                           className={cn(
                             "flex items-center gap-3 px-6 py-2 rounded-lg text-sm transition-all duration-200",
                             "hover:bg-muted",
-                            isActive 
-                              ? "bg-accent text-accent-foreground border-l-4 border-primary" 
+                            isActive
+                              ? "bg-accent text-accent-foreground border-l-4 border-primary"
                               : "text-muted-foreground hover:text-foreground"
                           )}
                           onClick={() => setSidebarOpen(false)}
@@ -198,8 +198,8 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
                   "hover:bg-muted group",
-                  isActive 
-                    ? "bg-primary text-primary-foreground shadow-sm" 
+                  isActive
+                    ? "bg-primary text-primary-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
                 )}
                 onClick={() => setSidebarOpen(false)}
@@ -229,7 +229,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
           >
             <Menu className="h-5 w-5" />
           </button>
-          
+
           <div className="flex items-center justify-between flex-1">
             <h2 className="text-lg font-semibold text-foreground">
               {(() => {

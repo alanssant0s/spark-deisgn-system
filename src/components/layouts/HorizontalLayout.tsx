@@ -83,12 +83,12 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
             {/* Logo */}
             <div className="flex items-center gap-3">
               <img
-                src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png"
+                src="/favicon.png"
                 alt="Logo"
                 className="h-8 w-8"
               />
               <img
-                src="/lovable-uploads/4ab292c0-f52e-45b0-8352-96cfa9636b16.png"
+                src="/logo.png"
                 alt="Spark"
                 className="h-6"
               />
@@ -235,7 +235,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                       "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors",
                       isActive(item.path)
                         ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                     )}
                   >
                     <item.icon className="h-4 w-4" />
@@ -257,7 +257,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                         "flex items-center gap-3 px-6 py-2 rounded-lg transition-colors text-sm",
                         isActive(item.path)
                           ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
+                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                       )}
                     >
                       <item.icon className="h-4 w-4" />
@@ -280,7 +280,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                         "flex items-center gap-3 px-6 py-2 rounded-lg transition-colors text-sm",
                         isActive(item.path)
                           ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
+                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                       )}
                     >
                       <item.icon className="h-4 w-4" />
@@ -297,7 +297,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                       toggleLayout();
                       setIsMobileMenuOpen(false);
                     }}
-                    className="flex items-center w-full justify-start px-3 py-2 text-sm font-medium hover:bg-primary-hover-bg hover:text-foreground rounded-lg"
+                    className="flex items-center w-full justify-start px-3 py-2 text-sm font-medium hover:bg-muted hover:text-foreground rounded-lg"
                   >
                     <Monitor className="w-4 h-4 mr-3" />
                     Layout Vertical

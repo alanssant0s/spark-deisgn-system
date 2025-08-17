@@ -401,7 +401,7 @@ export function DataTable<T = any>({
                     style={{ width: column.width }}
                     className={cn(
                       "select-none",
-                      column.sortable && "cursor-pointer hover:bg-primary-hover-bg",
+                      column.sortable && "cursor-pointer hover:bg-muted",
                       column.align === "center" && "text-center",
                       column.align === "right" && "text-right"
                     )}

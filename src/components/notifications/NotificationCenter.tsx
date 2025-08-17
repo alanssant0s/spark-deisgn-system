@@ -109,7 +109,7 @@ export function NotificationCenter() {
               <DropdownMenuItem
                 key={notification.id}
                 className={cn(
-                  'flex items-start space-x-3 p-3 cursor-pointer hover:bg-primary-hover-bg hover:text-foreground transition-colors',
+                  'flex items-start space-x-3 p-3 cursor-pointer hover:bg-muted hover:text-foreground transition-colors',
                   !notification.read && 'bg-primary/5'
                 )}
                 onClick={() => markAsRead(notification.id)}
@@ -179,7 +179,7 @@ export function NotificationCenter() {
 
         {/* Footer */}
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild className="p-3 justify-center text-sm text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground">
+        <DropdownMenuItem asChild className="p-3 justify-center text-sm text-muted-foreground hover:bg-muted hover:text-foreground">
           <Link to="/notifications" className="flex items-center">
             <Settings className="h-4 w-4 mr-2" />
             Configurações de Notificação
