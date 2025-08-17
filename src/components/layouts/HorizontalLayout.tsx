@@ -292,13 +292,6 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
         )}
       </header>
 
-      {/* Page Header */}
-      <div className="bg-muted/30 border-b border-border">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <h1 className="text-2xl font-bold text-foreground">{getCurrentPageName()}</h1>
-        </div>
-      </div>
-
       {/* Main Content */}
       <main className="mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {children}
