@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { useLayout } from '@/contexts/LayoutContext';
 import { VerticalLayout } from './VerticalLayout';
 import { HorizontalLayout } from './HorizontalLayout';
+import { SidebarLayout } from './SidebarLayout';
 
 interface LayoutProviderProps {
   children: ReactNode;
@@ -29,5 +30,5 @@ export function LayoutProvider({ children }: LayoutProviderProps) {
     return <HorizontalLayout>{children}</HorizontalLayout>;
   }
 
-  return <VerticalLayout>{children}</VerticalLayout>;
+  return <SidebarLayout>{children}</SidebarLayout>;
 }
