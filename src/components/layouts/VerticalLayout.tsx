@@ -1,32 +1,17 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import {
-  Home,
-  Settings,
-  User,
-  BarChart3,
-  FileText,
-  Menu,
-  Users,
-  Package,
-  FolderKanban,
-  TrendingUp,
-  UserCheck,
-  PieChart,
-  LogOut,
-  Bell,
-  Monitor,
-  Smartphone,
-  X
-} from "lucide-react";
-import { useState } from "react";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { useLayout } from "@/contexts/LayoutContext";
-import { LayoutSettings } from "@/components/LayoutSettings";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { cn } from "@/lib/utils";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
+import { LayoutSettings } from "@/components/LayoutSettings";
+import { useLayout } from "@/contexts/LayoutContext";
+import { 
+  Menu, X, Home, BarChart3, Users, FileText, Package, Bell, Settings, 
+  ChevronDown, User, LogOut, Zap, PieChart, TrendingUp
+} from "lucide-react";
 import userAvatar from "@/assets/user-avatar.jpg";
 
 interface VerticalLayoutProps {
@@ -35,11 +20,14 @@ interface VerticalLayoutProps {
 
 const mainNavItems = [
   { name: "Dashboard", path: "/", icon: Home },
+  { name: "Notificações", path: "/notifications", icon: Bell },
+];
+
+const saasPages = [
   { name: "Analytics", path: "/saas/analytics", icon: BarChart3 },
   { name: "Clientes", path: "/saas/customers", icon: Users },
   { name: "Pedidos", path: "/saas/orders", icon: FileText },
   { name: "Produtos", path: "/saas/products", icon: Package },
-  { name: "Notificações", path: "/notifications", icon: Bell },
 ];
 
 const componentPages = [
@@ -69,6 +57,9 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
   // Abrir seções por padrão se a rota atual estiver nelas
   const [isComponentsOpen, setIsComponentsOpen] = useState<boolean>(true);
   const [isExamplesOpen, setIsExamplesOpen] = useState<boolean>(true);
+  const [isSaasOpen, setIsSaasOpen] = useState<boolean>(
+    saasPages.some(page => location.pathname === page.path)
+  );
 
   const isActive = (path: string) => {
     if (path === "/") {
@@ -119,6 +110,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
         {/* Navigation */}
         <nav className="flex-1 p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
           <ul className="space-y-2">
+            {/* Main Navigation */}
             {mainNavItems.map((item) => (
               <li key={item.name}>
                 <Link
@@ -136,6 +128,48 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
               </li>
             ))}
 
+            {/* SaaS Section */}
+            <li>
+              <Collapsible open={isSaasOpen} onOpenChange={setIsSaasOpen}>
+                <CollapsibleTrigger asChild>
+                  <button
+                    className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors group ${
+                      saasPages.some(page => isActive(page.path))
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    }`}
+                  >
+                    <Zap className="w-5 h-5 flex-shrink-0" />
+                    {isSidebarOpen && (
+                      <>
+                        <span className="ml-3">SaaS</span>
+                        <ChevronDown className={`w-4 h-4 ml-auto transition-transform ${isSaasOpen ? "rotate-180" : ""}`} />
+                      </>
+                    )}
+                  </button>
+                </CollapsibleTrigger>
+                {isSidebarOpen && (
+                  <CollapsibleContent className="ml-4 mt-1 space-y-1">
+                     {saasPages.map((item) => (
+                       <Link
+                         key={item.name}
+                         to={item.path}
+                         onClick={() => setIsMobileMenuOpen(false)}
+                         className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
+                           isActive(item.path)
+                             ? "bg-primary text-primary-foreground"
+                             : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                         }`}
+                       >
+                         <item.icon className="w-4 h-4 flex-shrink-0" />
+                         <span className="ml-3">{item.name}</span>
+                       </Link>
+                     ))}
+                  </CollapsibleContent>
+                )}
+              </Collapsible>
+            </li>
+
             {/* Components Section */}
             <li>
               <Collapsible open={isComponentsOpen} onOpenChange={setIsComponentsOpen}>
@@ -151,7 +185,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                     {isSidebarOpen && (
                       <>
                         <span className="ml-3">Componentes</span>
-                        <PieChart className={`w-4 h-4 ml-auto transition-transform ${isComponentsOpen ? "rotate-90" : ""}`} />
+                        <ChevronDown className={`w-4 h-4 ml-auto transition-transform ${isComponentsOpen ? "rotate-180" : ""}`} />
                       </>
                     )}
                   </button>
@@ -193,7 +227,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                     {isSidebarOpen && (
                       <>
                         <span className="ml-3">Exemplos</span>
-                        <PieChart className={`w-4 h-4 ml-auto transition-transform ${isExamplesOpen ? "rotate-90" : ""}`} />
+                        <ChevronDown className={`w-4 h-4 ml-auto transition-transform ${isExamplesOpen ? "rotate-180" : ""}`} />
                       </>
                     )}
                   </button>
@@ -246,7 +280,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
             
             <h2 className="text-lg font-semibold text-foreground">
               {(() => {
-                const currentPage = [...mainNavItems, ...componentPages, ...examplePages].find(
+                const currentPage = [...mainNavItems, ...saasPages, ...componentPages, ...examplePages].find(
                   (item) => item.path === location.pathname
                 );
                 return currentPage?.name || "Dashboard";
