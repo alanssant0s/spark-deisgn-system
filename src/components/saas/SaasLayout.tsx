@@ -33,6 +33,7 @@ import { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import userAvatar from "@/assets/user-avatar.jpg";
 
 interface SaasLayoutProps {
   children: ReactNode;
@@ -269,7 +270,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                     <Avatar className="h-10 w-10">
-                      <AvatarImage src="/placeholder.svg" alt="João Silva" />
+                      <AvatarImage src={userAvatar} alt="João Silva" />
                       <AvatarFallback className="bg-primary text-primary-foreground">JS</AvatarFallback>
                     </Avatar>
                   </Button>
