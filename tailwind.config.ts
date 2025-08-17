@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			maxWidth: {
-				'5xl': '65rem'
+				'5xl': '56rem'
 			},
 			colors: {
 				border: 'hsl(var(--border))',
