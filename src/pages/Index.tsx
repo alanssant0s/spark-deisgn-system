@@ -19,7 +19,7 @@ const Index = () => {
         <section className="text-center space-y-6 py-12">
           <div className="space-y-4">
             <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-primary bg-clip-text text-transparent animate-fade-in">
-              SaaS Design System
+              Spark Design System
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in-up">
               Design system profissional com componentes React, Tailwind CSS e tokens semânticos para aplicações SaaS modernas

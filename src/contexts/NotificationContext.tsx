@@ -32,8 +32,8 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     // Sample notifications
     {
       id: '1',
-      title: 'Bem-vindo!',
-      message: 'Seu design system está pronto para uso.',
+      title: 'Bem-vindo ao Spark!',
+      message: 'Seu design system Spark está pronto para uso.',
       type: 'success',
       timestamp: new Date(Date.now() - 1000 * 60 * 5), // 5 minutes ago
       read: false,

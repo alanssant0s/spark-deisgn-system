@@ -1,73 +1,221 @@
-# Welcome to your Lovable project
+# ⚡ Spark Design System
 
-## Project info
+Um design system profissional e moderno construído com React, TypeScript, Tailwind CSS e Shadcn/ui. Spark oferece uma base sólida para desenvolvimento de aplicações SaaS com componentes reutilizáveis e tokens de design semânticos.
 
-**URL**: https://lovable.dev/projects/356038dc-61f4-4690-8ea5-a0e01d7894f1
+## ✨ Características
 
-## How can I edit this code?
+- 🎨 **Design Tokens Semânticos** - Sistema de cores e estilos consistente
+- 🌙 **Modo Escuro/Claro** - Suporte completo a temas
+- 📱 **Totalmente Responsivo** - Design adaptável para todos os dispositivos
+- ⚡ **Performance Otimizada** - Construído com Vite e React 18
+- 🔧 **TypeScript** - Tipagem completa para melhor DX
+- 🎯 **Componentes Prontos** - Biblioteca completa de UI components
+- 📊 **Gráficos e Métricas** - Componentes para dashboards
+- 🔔 **Sistema de Notificações** - Toast e centro de notificações
+- 📅 **Date Picker** - Seletor de datas com localização pt-BR
+- 📋 **Tabelas Avançadas** - TableCard com filtros e ações
 
-There are several ways of editing your application.
+## 🛠️ Stack Tecnológica
 
-**Use Lovable**
+- **Framework**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **Components**: Shadcn/ui + Radix UI
+- **Forms**: React Hook Form + Zod
+- **Charts**: Recharts
+- **Icons**: Lucide React
+- **Routing**: React Router DOM
+- **Notifications**: Sonner + Custom Toast System
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/356038dc-61f4-4690-8ea5-a0e01d7894f1) and start prompting.
+## 🚀 Começando
 
-Changes made via Lovable will be committed automatically to this repo.
+### Pré-requisitos
 
-**Use your preferred IDE**
+- Node.js 18+ 
+- npm ou yarn
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Instalação
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Clone o repositório:
+```bash
+git clone [seu-repositório]
+cd spark-design-system
+```
 
-Follow these steps:
+2. Instale as dependências:
+```bash
+npm install
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Execute o projeto:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Abra [http://localhost:5173](http://localhost:5173) no seu navegador
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📁 Estrutura do Projeto
 
-**Use GitHub Codespaces**
+```
+src/
+├── components/          # Componentes reutilizáveis
+│   ├── ui/             # Componentes base (Shadcn/ui)
+│   ├── layouts/        # Layouts da aplicação
+│   ├── notifications/  # Sistema de notificações
+│   └── saas/          # Componentes específicos SaaS
+├── contexts/           # Context providers
+├── hooks/             # Custom hooks
+├── lib/              # Utilitários e configurações
+├── pages/            # Páginas da aplicação
+│   └── components/   # Páginas de demonstração de componentes
+└── assets/           # Recursos estáticos
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🎨 Design System
 
-## What technologies are used for this project?
+### Tokens de Design
 
-This project is built with:
+O Spark utiliza tokens semânticos definidos em `src/index.css`:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Cores**: Primary, Secondary, Accent, Background, Foreground
+- **Gradientes**: Gradientes predefinidos para efeitos visuais
+- **Sombras**: Sistema de sombras consistente
+- **Tipografia**: Hierarquia tipográfica clara
+- **Espaçamento**: Grid system baseado em Tailwind
 
-## How can I deploy this project?
+### Componentes Disponíveis
 
-Simply open [Lovable](https://lovable.dev/projects/356038dc-61f4-4690-8ea5-a0e01d7894f1) and click on Share -> Publish.
+#### Layout & Navegação
+- `VerticalLayout` - Layout com sidebar vertical
+- `HorizontalLayout` - Layout com navegação horizontal
+- `SaasLayout` - Layout específico para dashboards SaaS
 
-## Can I connect a custom domain to my Lovable project?
+#### UI Components
+- `Button` - Botões com múltiplas variantes
+- `Card` - Cards para organização de conteúdo
+- `TableCard` - Cards especializados para tabelas
+- `Badge` - Indicadores de status
+- `Avatar` - Componente de avatar com fallback
+- `Input` - Campos de entrada customizáveis
+- `Select` - Seletores dropdown
+- `Dialog` - Modais e dialogs
+- `Toast` - Notificações temporárias
 
-Yes, you can!
+#### Componentes Avançados
+- `NotificationCenter` - Centro de notificações
+- `DatePicker` - Seletor de datas localizado
+- `Charts` - Gráficos usando Recharts
+- `MetricCard` - Cards para métricas e KPIs
+- `StatusBadge` - Badges de status customizáveis
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📱 Layouts Disponíveis
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### Vertical Layout
+Layout com sidebar fixa à esquerda, ideal para dashboards administrativos.
+
+### Horizontal Layout
+Layout com navegação horizontal no topo, ideal para aplicações com menos itens de menu.
+
+### SaaS Layout
+Layout otimizado para aplicações SaaS com navegação hierárquica e seções organizadas.
+
+## 🔔 Sistema de Notificações
+
+O Spark inclui um sistema completo de notificações:
+
+- **Toast Notifications**: Notificações temporárias com tipos (success, error, warning, info)
+- **Notification Center**: Centro persistente de notificações com contadores
+- **Custom Actions**: Suporte a ações customizadas nas notificações
+
+## 📅 Date Picker
+
+Componente de seleção de datas com:
+
+- Localização pt-BR
+- Seleção única, múltipla e por intervalo
+- Integração com React Hook Form
+- Validação com Zod
+- Restrições de datas
+- Modo inline disponível
+
+## 📊 Gráficos e Métricas
+
+Componentes para visualização de dados:
+
+- **Line Charts**: Gráficos de linha
+- **Bar Charts**: Gráficos de barras
+- **Area Charts**: Gráficos de área
+- **Pie Charts**: Gráficos de pizza
+- **Metric Cards**: Cards para exibição de KPIs
+
+## 🎯 Páginas de Demonstração
+
+- `/` - Landing page do design system
+- `/design-system` - Tokens e cores
+- `/components` - Galeria de componentes
+- `/components/buttons` - Demonstração de botões
+- `/components/cards` - Demonstração de cards
+- `/components/forms` - Demonstração de formulários
+- `/components/charts` - Demonstração de gráficos
+- `/components/dialogs` - Demonstração de dialogs
+- `/components/tables` - Demonstração de tabelas
+- `/components/datepicker` - Demonstração do date picker
+- `/notifications` - Centro de notificações
+- `/users` - Gestão de usuários
+- `/metrics` - Dashboard de métricas
+
+## 🔧 Customização
+
+### Cores e Temas
+
+Edite o arquivo `src/index.css` para customizar as cores do tema:
+
+```css
+:root {
+  --primary: [sua-cor-primária];
+  --secondary: [sua-cor-secundária];
+  /* ... outros tokens */
+}
+```
+
+### Componentes
+
+Todos os componentes Shadcn/ui podem ser customizados editando os arquivos em `src/components/ui/`.
+
+### Layouts
+
+Crie novos layouts estendendo os componentes existentes em `src/components/layouts/`.
+
+## 📚 Scripts Disponíveis
+
+- `npm run dev` - Inicia o servidor de desenvolvimento
+- `npm run build` - Constrói a aplicação para produção
+- `npm run build:dev` - Constrói em modo de desenvolvimento
+- `npm run preview` - Visualiza a build de produção
+- `npm run lint` - Executa o linter
+
+## 🤝 Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 🌟 Créditos
+
+Construído com:
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Shadcn/ui](https://ui.shadcn.com/)
+- [Radix UI](https://www.radix-ui.com/)
+- [Vite](https://vitejs.dev/)
+
+---
+
+⚡ **Spark Design System** - Criando interfaces modernas e consistentes

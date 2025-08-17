@@ -26,9 +26,9 @@ const DesignSystem = () => {
     <div className="space-y-8">
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-foreground">Design System</h1>
+        <h1 className="text-3xl font-bold text-foreground">Spark Design System</h1>
         <p className="text-muted-foreground">
-          Tokens de design, cores, gradientes e estilos do sistema
+          Tokens de design, cores, gradientes e estilos do Spark
         </p>
       </div>
 
