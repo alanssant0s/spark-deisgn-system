@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
 export type LayoutType = 'vertical' | 'horizontal';
+export type SidebarTheme = 'light' | 'dark';
 
 interface LayoutContextType {
   layoutType: LayoutType;
@@ -8,8 +9,10 @@ interface LayoutContextType {
   toggleLayout: () => void;
   desktopLayoutType: LayoutType;
   mobileLayoutType: LayoutType;
+  sidebarTheme: SidebarTheme;
   setDesktopLayoutType: (type: LayoutType) => void;
   setMobileLayoutType: (type: LayoutType) => void;
+  setSidebarTheme: (theme: SidebarTheme) => void;
   getCurrentLayoutType: () => LayoutType;
 }
 
@@ -19,6 +22,7 @@ export function LayoutProvider({ children }: { children: ReactNode }) {
   const [layoutType, setLayoutType] = useState<LayoutType>('horizontal');
   const [desktopLayoutType, setDesktopLayoutType] = useState<LayoutType>('horizontal');
   const [mobileLayoutType, setMobileLayoutType] = useState<LayoutType>('vertical');
+  const [sidebarTheme, setSidebarTheme] = useState<SidebarTheme>('light');
 
   const toggleLayout = () => {
     setLayoutType(prev => prev === 'vertical' ? 'horizontal' : 'vertical');
@@ -37,8 +41,10 @@ export function LayoutProvider({ children }: { children: ReactNode }) {
       toggleLayout,
       desktopLayoutType,
       mobileLayoutType,
+      sidebarTheme,
       setDesktopLayoutType,
       setMobileLayoutType,
+      setSidebarTheme,
       getCurrentLayoutType
     }}>
       {children}

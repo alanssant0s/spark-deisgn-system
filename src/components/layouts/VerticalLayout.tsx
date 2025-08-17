@@ -49,7 +49,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { toggleLayout } = useLayout();
+  const { toggleLayout, sidebarTheme } = useLayout();
   
   // Abrir seções por padrão se a rota atual estiver nelas
   const [isComponentsOpen, setIsComponentsOpen] = useState<boolean>(true);
@@ -80,10 +80,14 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
           isSidebarOpen ? "w-64" : "w-16"
         } ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        } fixed lg:relative z-50 lg:z-auto bg-card border-r border-border transition-all duration-300 flex flex-col shadow-sm h-full`}
+        } ${
+          sidebarTheme === 'dark' 
+            ? "bg-slate-900 border-slate-800 text-slate-100" 
+            : "bg-card border-border"
+        } fixed lg:relative z-50 lg:z-auto transition-all duration-300 flex flex-col shadow-sm h-full`}
       >
         {/* Logo/Header */}
-        <div className="p-4 border-b border-border">
+        <div className={`p-4 border-b ${sidebarTheme === 'dark' ? 'border-slate-800' : 'border-border'}`}>
           <div className="flex items-center justify-center">
             {isSidebarOpen ? (
               <div className="flex items-center justify-center space-x-3">
@@ -120,7 +124,9 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                   className={`flex items-center px-3 py-2 rounded-lg transition-colors group ${
                     isActive(item.path)
                       ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      : sidebarTheme === 'dark'
+                        ? "text-slate-300 hover:bg-slate-800 hover:text-slate-100"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                   }`}
                 >
                   <item.icon className="w-5 h-5 flex-shrink-0" />
@@ -137,7 +143,9 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                     className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors group ${
                       saasPages.some(page => isActive(page.path))
                         ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        : sidebarTheme === 'dark'
+                          ? "text-slate-300 hover:bg-slate-800 hover:text-slate-100"
+                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                     }`}
                   >
                     <Zap className="w-5 h-5 flex-shrink-0" />
@@ -156,11 +164,13 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                          key={item.name}
                          to={item.path}
                          onClick={() => setIsMobileMenuOpen(false)}
-                         className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
-                           isActive(item.path)
-                             ? "bg-primary text-primary-foreground"
-                             : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                         }`}
+                          className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
+                            isActive(item.path)
+                              ? "bg-primary text-primary-foreground"
+                              : sidebarTheme === 'dark'
+                                ? "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          }`}
                        >
                          <item.icon className="w-4 h-4 flex-shrink-0" />
                          <span className="ml-3">{item.name}</span>
@@ -179,7 +189,9 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                     className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors group ${
                       isActive("/components")
                         ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        : sidebarTheme === 'dark'
+                          ? "text-slate-300 hover:bg-slate-800 hover:text-slate-100"
+                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                     }`}
                   >
                     <Package className="w-5 h-5 flex-shrink-0" />
@@ -198,11 +210,13 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                          key={item.name}
                          to={item.path}
                          onClick={() => setIsMobileMenuOpen(false)}
-                         className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
-                           isActive(item.path)
-                             ? "bg-primary text-primary-foreground"
-                             : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                         }`}
+                          className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
+                            isActive(item.path)
+                              ? "bg-primary text-primary-foreground"
+                              : sidebarTheme === 'dark'
+                                ? "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          }`}
                        >
                          <item.icon className="w-4 h-4 flex-shrink-0" />
                          <span className="ml-3">{item.name}</span>

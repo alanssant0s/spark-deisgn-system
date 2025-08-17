@@ -3,14 +3,16 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useLayout } from "@/contexts/LayoutContext";
-import { Settings, Monitor, Smartphone } from "lucide-react";
+import { Settings, Monitor, Smartphone, Palette } from "lucide-react";
 
 export function LayoutSettings() {
   const { 
     desktopLayoutType, 
     mobileLayoutType, 
+    sidebarTheme,
     setDesktopLayoutType, 
-    setMobileLayoutType 
+    setMobileLayoutType,
+    setSidebarTheme
   } = useLayout();
   
   const [isOpen, setIsOpen] = useState(false);
@@ -131,12 +133,62 @@ export function LayoutSettings() {
               </div>
             </div>
 
+            {/* Sidebar Theme */}
+            <div className="space-y-3">
+              <div className="flex items-center space-x-2">
+                <Palette className="h-5 w-5 text-muted-foreground" />
+                <Label className="text-base font-medium">Tema da Sidebar</Label>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={() => setSidebarTheme('light')}
+                  className={`p-4 border rounded-lg text-left transition-colors ${
+                    sidebarTheme === 'light' 
+                      ? 'border-primary bg-primary/5 text-primary' 
+                      : 'border-border hover:bg-accent'
+                  }`}
+                >
+                  <div className="space-y-2">
+                    <div className="font-medium">Claro</div>
+                    <div className="text-sm text-muted-foreground">
+                      Menu com fundo claro
+                    </div>
+                    <div className="w-full h-8 bg-muted rounded flex">
+                      <div className="w-6 bg-background border rounded-l"></div>
+                      <div className="flex-1"></div>
+                    </div>
+                  </div>
+                </button>
+                
+                <button
+                  onClick={() => setSidebarTheme('dark')}
+                  className={`p-4 border rounded-lg text-left transition-colors ${
+                    sidebarTheme === 'dark' 
+                      ? 'border-primary bg-primary/5 text-primary' 
+                      : 'border-border hover:bg-accent'
+                  }`}
+                >
+                  <div className="space-y-2">
+                    <div className="font-medium">Escuro</div>
+                    <div className="text-sm text-muted-foreground">
+                      Menu com fundo escuro
+                    </div>
+                    <div className="w-full h-8 bg-muted rounded flex">
+                      <div className="w-6 bg-slate-800 rounded-l"></div>
+                      <div className="flex-1"></div>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
             {/* Current Settings Display */}
             <div className="p-4 bg-muted/50 rounded-lg">
               <div className="text-sm font-medium mb-2">Configuração Atual:</div>
               <div className="text-sm text-muted-foreground space-y-1">
                 <div>Desktop: {desktopLayoutType === 'vertical' ? 'Vertical' : 'Horizontal'}</div>
                 <div>Mobile: {mobileLayoutType === 'vertical' ? 'Vertical' : 'Horizontal'}</div>
+                <div>Sidebar: {sidebarTheme === 'light' ? 'Tema Claro' : 'Tema Escuro'}</div>
               </div>
             </div>
           </div>

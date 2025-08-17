@@ -47,7 +47,7 @@ const componentPages = [
 export function HorizontalLayout({ children }: HorizontalLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { toggleLayout } = useLayout();
+  const { toggleLayout, sidebarTheme } = useLayout();
 
   const isActive = (path: string) => {
     if (path === "/") {
@@ -73,7 +73,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
       )}
 
       {/* Header */}
-      <header className="bg-card border-b border-border shadow-sm sticky top-0 z-50">
+      <header className={`${sidebarTheme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-card border-border'} border-b shadow-sm sticky top-0 z-50`}>
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -98,7 +98,8 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                   to={item.path}
                   className={cn(
                     "text-sm font-medium transition-colors hover:text-primary",
-                    isActive(item.path) ? "text-primary" : "text-muted-foreground"
+                    isActive(item.path) ? "text-primary" : 
+                    sidebarTheme === 'dark' ? "text-slate-300" : "text-muted-foreground"
                   )}
                 >
                   {item.name}
@@ -109,7 +110,8 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
               <DropdownMenu>
                 <DropdownMenuTrigger className={cn(
                   "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary",
-                  saasPages.some(page => isActive(page.path)) ? "text-primary" : "text-muted-foreground"
+                  saasPages.some(page => isActive(page.path)) ? "text-primary" : 
+                  sidebarTheme === 'dark' ? "text-slate-300" : "text-muted-foreground"
                 )}>
                   <Zap className="h-4 w-4" />
                   <span>SaaS</span>
@@ -131,7 +133,8 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
               <DropdownMenu>
                 <DropdownMenuTrigger className={cn(
                   "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary",
-                  componentPages.some(page => isActive(page.path)) ? "text-primary" : "text-muted-foreground"
+                  componentPages.some(page => isActive(page.path)) ? "text-primary" : 
+                  sidebarTheme === 'dark' ? "text-slate-300" : "text-muted-foreground"
                 )}>
                   <Package className="h-4 w-4" />
                   <span>Componentes</span>
@@ -214,7 +217,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-border bg-card shadow-lg fixed left-0 right-0 top-16 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <div className={`md:hidden border-t ${sidebarTheme === 'dark' ? 'border-slate-800 bg-slate-900' : 'border-border bg-card'} shadow-lg fixed left-0 right-0 top-16 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto`}>
             <div className="px-4 py-4 space-y-2">
               {/* Mobile Navigation */}
               <nav className="space-y-2">
