@@ -26,11 +26,22 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="flex items-center justify-center gap-4 animate-scale-in">
-            <GradientButton variant="primary" size="lg" icon={Rocket}>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-scale-in">
+            <GradientButton 
+              variant="primary" 
+              size="lg" 
+              icon={Rocket}
+              className="w-full sm:w-auto shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+            >
               Explorar Componentes
             </GradientButton>
-            <GradientButton variant="secondary" size="lg" icon={Sparkles}>
+            <GradientButton 
+              variant="secondary" 
+              size="lg" 
+              icon={Sparkles}
+              className="w-full sm:w-auto border-2 hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
+            >
               Ver Design System
             </GradientButton>
           </div>
