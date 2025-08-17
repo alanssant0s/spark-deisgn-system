@@ -25,6 +25,7 @@ import DatePickerPage from "./pages/components/DatePickerPage";
 import DialogsPage from "./pages/components/DialogsPage";
 import TablesPage from "./pages/components/TablesPage";
 import ChartsPage from "./pages/components/ChartsPage";
+import LogoProcessorPage from "./pages/LogoProcessor";
 
 // Lazy load SaaS pages
 const Analytics = lazy(() => import("./pages/saas/Analytics"));
@@ -72,6 +73,7 @@ const App = () => (
               <Route path="/users" element={<UserManagement />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/logo-processor" element={<LogoProcessorPage />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

@@ -20,6 +20,7 @@ interface HorizontalLayoutProps {
 const mainNavItems = [
   { name: "Dashboard", path: "/", icon: Home },
   { name: "Notificações", path: "/notifications", icon: Bell },
+  { name: "Processador Logo", path: "/logo-processor", icon: Zap },
 ];
 
 const saasPages = [
