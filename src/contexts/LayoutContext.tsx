@@ -16,9 +16,9 @@ interface LayoutContextType {
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
 
 export function LayoutProvider({ children }: { children: ReactNode }) {
-  const [layoutType, setLayoutType] = useState<LayoutType>('vertical');
-  const [desktopLayoutType, setDesktopLayoutType] = useState<LayoutType>('vertical');
-  const [mobileLayoutType, setMobileLayoutType] = useState<LayoutType>('horizontal');
+  const [layoutType, setLayoutType] = useState<LayoutType>('horizontal');
+  const [desktopLayoutType, setDesktopLayoutType] = useState<LayoutType>('horizontal');
+  const [mobileLayoutType, setMobileLayoutType] = useState<LayoutType>('vertical');
 
   const toggleLayout = () => {
     setLayoutType(prev => prev === 'vertical' ? 'horizontal' : 'vertical');
