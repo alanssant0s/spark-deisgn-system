@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogBody, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -227,7 +227,8 @@ const DialogsPage = () => {
                       Análise detalhada de performance de vendas com dados mensais e regionais
                     </DialogDescription>
                   </DialogHeader>
-                  <div className="space-y-6">
+                  <DialogBody>
+                    <div className="space-y-6">
                     {/* Seção 1: Resumo Executivo */}
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold">Resumo Executivo</h3>
@@ -378,12 +379,13 @@ const DialogsPage = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex justify-end space-x-2 pt-4 border-t mt-6">
+                    </div>
+                  </DialogBody>
+                  <DialogFooter>
                     <Button variant="outline">Exportar PDF</Button>
                     <Button variant="outline">Compartilhar</Button>
                     <Button>Agendar Apresentação</Button>
-                  </div>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
             </CardContent>
@@ -406,7 +408,8 @@ const DialogsPage = () => {
                       Preencha todas as informações para criar uma conta enterprise completa.
                     </DialogDescription>
                   </DialogHeader>
-                  <div className="space-y-6">
+                  <DialogBody>
+                    <div className="space-y-6">
                     {/* Informações Básicas */}
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold border-b pb-2">Informações Básicas</h3>
@@ -548,11 +551,12 @@ const DialogsPage = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex justify-end space-x-2 pt-4 border-t mt-6">
+                    </div>
+                  </DialogBody>
+                  <DialogFooter>
                     <Button variant="outline">Salvar Rascunho</Button>
                     <Button>Enviar Solicitação</Button>
-                  </div>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
             </CardContent>
