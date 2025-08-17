@@ -84,9 +84,9 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
       >
         {/* Logo/Header */}
         <div className="p-4 border-b border-border">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-center">
             {isSidebarOpen ? (
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center justify-center space-x-3">
                 <img 
                   src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png" 
                   alt="Spark Logo" 
@@ -100,19 +100,11 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
               </div>
             ) : (
               <img 
-                src="/lovable-uploads/4ab292c0-f52e-45b0-8352-96cfa9636b16.png" 
+                src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png" 
                 alt="Spark" 
-                className="w-8 h-8"
+                className="w-8 h-8 object-contain"
               />
             )}
-            
-            {/* Mobile close button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="lg:hidden p-1 rounded-md hover:bg-accent"
-            >
-              <X className="h-5 w-5" />
-            </button>
           </div>
         </div>
 
