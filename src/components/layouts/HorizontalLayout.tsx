@@ -74,7 +74,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
 
       {/* Header */}
       <header className="bg-card border-b border-border shadow-sm sticky top-0 z-50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
@@ -293,7 +293,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {children}
       </main>
     </div>
