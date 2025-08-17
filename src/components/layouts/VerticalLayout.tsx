@@ -49,10 +49,12 @@ const examplePages = [
 
 export function VerticalLayout({ children }: VerticalLayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [isComponentsOpen, setIsComponentsOpen] = useState(false);
-  const [isExamplesOpen, setIsExamplesOpen] = useState(false);
   const location = useLocation();
   const { toggleLayout } = useLayout();
+  
+  // Abrir seções por padrão se a rota atual estiver nelas
+  const [isComponentsOpen, setIsComponentsOpen] = useState<boolean>(true);
+  const [isExamplesOpen, setIsExamplesOpen] = useState<boolean>(true);
 
   const isActive = (path: string) => {
     if (path === "/") {
