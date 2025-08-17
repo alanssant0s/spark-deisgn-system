@@ -75,20 +75,20 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
       {/* Header */}
       <header className="bg-card border-b border-border shadow-sm sticky top-0 z-50">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-12">
+          <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
               <h1 className="text-xl font-bold text-primary">SaaS App</h1>
             </div>
 
             {/* Main Navigation */}
-            <nav className="hidden md:flex items-center space-x-6">
+            <nav className="hidden md:flex items-center space-x-8">
               {mainNavItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
                   className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary py-1",
+                    "text-sm font-medium transition-colors hover:text-primary",
                     isActive(item.path) ? "text-primary" : "text-muted-foreground"
                   )}
                 >
@@ -99,18 +99,18 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
               {/* SaaS Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger className={cn(
-                  "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary py-1",
+                  "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary",
                   saasPages.some(page => isActive(page.path)) ? "text-primary" : "text-muted-foreground"
                 )}>
-                  <Zap className="h-3 w-3" />
+                  <Zap className="h-4 w-4" />
                   <span>SaaS</span>
                   <ChevronDown className="h-3 w-3" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-44">
+                <DropdownMenuContent align="start" className="w-48">
                   {saasPages.map((page) => (
                     <DropdownMenuItem key={page.path} asChild>
-                      <Link to={page.path} className="flex items-center gap-2 text-sm">
-                        <page.icon className="h-3 w-3" />
+                      <Link to={page.path} className="flex items-center gap-2">
+                        <page.icon className="h-4 w-4" />
                         {page.name}
                       </Link>
                     </DropdownMenuItem>
@@ -121,18 +121,18 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
               {/* Components Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger className={cn(
-                  "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary py-1",
+                  "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary",
                   componentPages.some(page => isActive(page.path)) ? "text-primary" : "text-muted-foreground"
                 )}>
-                  <Package className="h-3 w-3" />
+                  <Package className="h-4 w-4" />
                   <span>Componentes</span>
                   <ChevronDown className="h-3 w-3" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-44">
+                <DropdownMenuContent align="start" className="w-48">
                   {componentPages.map((page) => (
                     <DropdownMenuItem key={page.path} asChild>
-                      <Link to={page.path} className="flex items-center gap-2 text-sm">
-                        <page.icon className="h-3 w-3" />
+                      <Link to={page.path} className="flex items-center gap-2">
+                        <page.icon className="h-4 w-4" />
                         {page.name}
                       </Link>
                     </DropdownMenuItem>
@@ -142,17 +142,17 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
             </nav>
 
             {/* Right side actions */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-4">
               <LayoutSettings />
               <NotificationCenter />
 
               {/* User Menu */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                    <Avatar className="h-8 w-8">
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Avatar className="h-10 w-10">
                       <AvatarImage src={userAvatar} alt="João Silva" />
-                      <AvatarFallback className="bg-primary text-primary-foreground text-xs">JS</AvatarFallback>
+                      <AvatarFallback className="bg-primary text-primary-foreground">JS</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
@@ -190,13 +190,13 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
               <Button
                 variant="ghost"
                 size="sm"
-                className="md:hidden h-8 w-8 p-0"
+                className="md:hidden"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? (
-                  <X className="h-4 w-4" />
+                  <X className="h-6 w-6" />
                 ) : (
-                  <Menu className="h-4 w-4" />
+                  <Menu className="h-6 w-6" />
                 )}
               </Button>
             </div>
@@ -205,8 +205,8 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-border bg-card shadow-lg fixed left-0 right-0 top-12 z-40 max-h-[calc(100vh-3rem)] overflow-y-auto">
-            <div className="px-4 py-3 space-y-2">
+          <div className="md:hidden border-t border-border bg-card shadow-lg fixed left-0 right-0 top-16 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <div className="px-4 py-4 space-y-2">
               {/* Mobile Navigation */}
               <nav className="space-y-2">
                 {mainNavItems.map((item) => (
@@ -293,7 +293,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
       </header>
 
       {/* Main Content */}
-      <main className="mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <main className="mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {children}
       </main>
     </div>
