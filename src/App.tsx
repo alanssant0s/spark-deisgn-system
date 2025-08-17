@@ -12,10 +12,7 @@ import Metrics from "./pages/Metrics";
 import NotFound from "./pages/NotFound";
 import Confirmation from "./pages/Confirmation";
 import UserManagement from "./pages/UserManagement";
-import DashboardPage from "./pages/examples/DashboardPage";
-import ProjectsPage from "./pages/examples/ProjectsPage";
-import AnalyticsPage from "./pages/examples/AnalyticsPage";
-import TeamPage from "./pages/examples/TeamPage";
+
 
 const queryClient = new QueryClient();
 
@@ -30,10 +27,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/components" element={<Components />} />
-              <Route path="/examples/dashboard" element={<DashboardPage />} />
-              <Route path="/examples/projects" element={<ProjectsPage />} />
-              <Route path="/examples/analytics" element={<AnalyticsPage />} />
-              <Route path="/examples/team" element={<TeamPage />} />
+              
               <Route path="/design-system" element={<DesignSystem />} />
               <Route path="/metrics" element={<Metrics />} />
               <Route path="/confirmation" element={<Confirmation />} />

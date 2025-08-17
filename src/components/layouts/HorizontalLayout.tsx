@@ -48,10 +48,7 @@ const componentPages = [
 ];
 
 const examplePages = [
-  { name: "Dashboard", path: "/examples/dashboard", icon: Home },
-  { name: "Projetos", path: "/examples/projects", icon: FolderKanban },
-  { name: "Análises", path: "/examples/analytics", icon: TrendingUp },
-  { name: "Equipe", path: "/examples/team", icon: UserCheck },
+  { name: "Em breve", path: "#", icon: Home },
 ];
 
 export function HorizontalLayout({ children }: HorizontalLayoutProps) {
