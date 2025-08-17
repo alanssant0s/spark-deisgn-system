@@ -117,7 +117,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                     <ChevronDown className="w-4 h-4 ml-1" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuContent align="start" className="w-48 bg-card border border-border shadow-lg z-50">
                   {componentPages.map((item) => (
                     <DropdownMenuItem key={item.name} asChild>
                       <Link to={item.path} className="flex items-center">
@@ -145,7 +145,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                     <ChevronDown className="w-4 h-4 ml-1" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuContent align="start" className="w-48 bg-card border border-border shadow-lg z-50">
                   {examplePages.map((item) => (
                     <DropdownMenuItem key={item.name} asChild>
                       <Link to={item.path} className="flex items-center">
@@ -187,7 +187,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuContent className="w-56 bg-card border border-border shadow-lg z-50" align="end" forceMount>
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
                       <p className="font-medium">João Silva</p>
