@@ -1,4 +1,3 @@
-import { SaasLayout } from "@/components/saas/SaasLayout";
 import { MetricCard } from "@/components/saas/MetricCard";
 import { GradientButton } from "@/components/saas/GradientButton";
 import { FeatureCard } from "@/components/saas/FeatureCard";
@@ -15,8 +14,7 @@ import {
 
 const Index = () => {
   return (
-    <SaasLayout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         {/* Hero Section */}
         <section className="text-center space-y-6 py-12">
           <div className="space-y-4">
@@ -99,7 +97,6 @@ const Index = () => {
           </div>
         </section>
       </div>
-    </SaasLayout>
   );
 };
 

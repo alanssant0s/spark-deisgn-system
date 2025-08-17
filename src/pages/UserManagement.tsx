@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { SaasLayout } from "@/components/saas/SaasLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -151,8 +150,7 @@ const UserManagement = () => {
   };
 
   return (
-    <SaasLayout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
           <div>
@@ -410,7 +408,6 @@ const UserManagement = () => {
           </CardContent>
         </Card>
       </div>
-    </SaasLayout>
   );
 };
 

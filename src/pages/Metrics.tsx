@@ -1,4 +1,3 @@
-import { SaasLayout } from "@/components/saas/SaasLayout";
 import { MetricCard } from "@/components/saas/MetricCard";
 import { StatCard } from "@/components/saas/StatCard";
 import { StatusBadge } from "@/components/saas/StatusBadge";
@@ -17,8 +16,7 @@ import {
 
 const Metrics = () => {
   return (
-    <SaasLayout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         {/* Header */}
         <div className="space-y-2">
           <h1 className="text-3xl font-bold text-foreground">Métricas & Analytics</h1>
@@ -153,7 +151,6 @@ const Metrics = () => {
           </div>
         </section>
       </div>
-    </SaasLayout>
   );
 };
 
