@@ -90,12 +90,12 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                 <img 
                   src="/lovable-uploads/4ab292c0-f52e-45b0-8352-96cfa9636b16.png" 
                   alt="Spark" 
-                  className="w-8 h-8"
+                  className="w-8 h-8 object-contain"
                 />
                 <img 
                   src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png" 
                   alt="Spark Logo" 
-                  className="h-6"
+                  className="h-8 object-contain"
                 />
               </div>
             ) : (
