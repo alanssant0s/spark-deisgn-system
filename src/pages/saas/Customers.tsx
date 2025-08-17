@@ -117,8 +117,7 @@ export default function Customers() {
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Clientes</h1>
-          <p className="text-muted-foreground mt-2">
+          <p className="text-muted-foreground">
             Gerencie e acompanhe seus clientes
           </p>
         </div>
