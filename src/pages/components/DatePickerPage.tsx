@@ -222,6 +222,20 @@ export default function DatePickerPage() {
                       initialFocus
                       className="p-3 pointer-events-auto"
                       locale={ptBR}
+                      modifiersStyles={{
+                        range_start: { 
+                          background: 'hsl(var(--primary))',
+                          color: 'hsl(var(--primary-foreground))'
+                        },
+                        range_end: { 
+                          background: 'hsl(var(--primary))',
+                          color: 'hsl(var(--primary-foreground))'
+                        },
+                        range_middle: { 
+                          background: 'hsl(var(--primary) / 0.15)',
+                          color: 'hsl(var(--foreground))'
+                        }
+                      }}
                     />
                   </PopoverContent>
                 </Popover>
