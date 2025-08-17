@@ -12,7 +12,7 @@ import {
   Menu, X, Home, BarChart3, Users, FileText, Package, Bell, Settings,
   ChevronDown, User, LogOut, Zap, PieChart, TrendingUp, MousePointer2,
   CreditCard, FileInput, Calendar, Table, Database, AlertTriangle,
-  MessageSquare, CheckCircle, Palette, ShoppingBag, ShoppingCart
+  MessageSquare, CheckCircle, Palette, ShoppingBag, ShoppingCart, Bug
 } from "lucide-react";
 import userAvatar from "@/assets/user-avatar.jpg";
 
@@ -33,6 +33,7 @@ const saasPages = [
   { name: "Usuários", path: "/users", icon: Users },
   { name: "Confirmação", path: "/confirmation", icon: CheckCircle },
   { name: "Sistema", path: "/design-system", icon: Palette },
+  { name: "Páginas de Erro", path: "/error-pages", icon: Bug },
 ];
 
 const componentPages = [

@@ -27,6 +27,14 @@ import TablesPage from "./pages/components/TablesPage";
 import DataTablePage from "./pages/components/DataTablePage";
 import ChartsPage from "./pages/components/ChartsPage";
 import LogoProcessorPage from "./pages/LogoProcessor";
+import ErrorPages from "./pages/ErrorPages";
+
+// Error Pages
+import NotFoundError from "./pages/errors/NotFound";
+import ServerError from "./pages/errors/ServerError";
+import Forbidden from "./pages/errors/Forbidden";
+import Maintenance from "./pages/errors/Maintenance";
+import ErrorBoundary from "./components/errors/ErrorBoundary";
 
 // Lazy load SaaS pages
 const Analytics = lazy(() => import("./pages/saas/Analytics"));
@@ -45,42 +53,51 @@ const App = () => (
       <BrowserRouter>
         <NotificationProvider>
           <LayoutContextProvider>
-            <LayoutProvider>
-              <Routes>
-                <Route path="/" element={<Index />} />
+            <ErrorBoundary>
+              <LayoutProvider>
+                <Routes>
+                  <Route path="/" element={<Index />} />
 
-                {/* SaaS Pages */}
-                <Route path="/saas/analytics" element={<Suspense fallback={<div>Carregando...</div>}><Analytics /></Suspense>} />
-                <Route path="/saas/customers" element={<Suspense fallback={<div>Carregando...</div>}><Customers /></Suspense>} />
-                <Route path="/saas/orders" element={<Suspense fallback={<div>Carregando...</div>}><Orders /></Suspense>} />
-                <Route path="/saas/products" element={<Suspense fallback={<div>Carregando...</div>}><Products /></Suspense>} />
+                  {/* SaaS Pages */}
+                  <Route path="/saas/analytics" element={<Suspense fallback={<div>Carregando...</div>}><Analytics /></Suspense>} />
+                  <Route path="/saas/customers" element={<Suspense fallback={<div>Carregando...</div>}><Customers /></Suspense>} />
+                  <Route path="/saas/orders" element={<Suspense fallback={<div>Carregando...</div>}><Orders /></Suspense>} />
+                  <Route path="/saas/products" element={<Suspense fallback={<div>Carregando...</div>}><Products /></Suspense>} />
 
-                {/* Component Pages */}
-                <Route path="/components" element={<Components />} />
-                <Route path="/components/buttons" element={<ButtonsPage />} />
-                <Route path="/components/cards" element={<CardsPage />} />
-                <Route path="/components/alerts" element={<AlertsPage />} />
-                <Route path="/components/forms" element={<FormsPage />} />
-                <Route path="/components/datepicker" element={<DatePickerPage />} />
-                <Route path="/components/dialogs" element={<DialogsPage />} />
-                <Route path="/components/tables" element={<TablesPage />} />
-                <Route path="/components/datatable" element={<DataTablePage />} />
-                <Route path="/components/charts" element={<ChartsPage />} />
+                  {/* Component Pages */}
+                  <Route path="/components" element={<Components />} />
+                  <Route path="/components/buttons" element={<ButtonsPage />} />
+                  <Route path="/components/cards" element={<CardsPage />} />
+                  <Route path="/components/alerts" element={<AlertsPage />} />
+                  <Route path="/components/forms" element={<FormsPage />} />
+                  <Route path="/components/datepicker" element={<DatePickerPage />} />
+                  <Route path="/components/dialogs" element={<DialogsPage />} />
+                  <Route path="/components/tables" element={<TablesPage />} />
+                  <Route path="/components/datatable" element={<DataTablePage />} />
+                  <Route path="/components/charts" element={<ChartsPage />} />
 
-                {/* Example Pages */}
-                <Route path="/design-system" element={<DesignSystem />} />
-                <Route path="/metrics" element={<Metrics />} />
-                <Route path="/confirmation" element={<Confirmation />} />
-                <Route path="/notifications" element={<NotificationsPage />} />
-                <Route path="/users" element={<UserManagement />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/logo-processor" element={<LogoProcessorPage />} />
+                  {/* Example Pages */}
+                  <Route path="/design-system" element={<DesignSystem />} />
+                  <Route path="/metrics" element={<Metrics />} />
+                  <Route path="/confirmation" element={<Confirmation />} />
+                  <Route path="/notifications" element={<NotificationsPage />} />
+                  <Route path="/users" element={<UserManagement />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/logo-processor" element={<LogoProcessorPage />} />
+                  <Route path="/error-pages" element={<ErrorPages />} />
 
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </LayoutProvider>
+                  {/* Error Pages */}
+                  <Route path="/errors/404" element={<NotFoundError />} />
+                  <Route path="/errors/500" element={<ServerError />} />
+                  <Route path="/errors/403" element={<Forbidden />} />
+                  <Route path="/errors/maintenance" element={<Maintenance />} />
+
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFoundError />} />
+                </Routes>
+              </LayoutProvider>
+            </ErrorBoundary>
           </LayoutContextProvider>
         </NotificationProvider>
       </BrowserRouter>
