@@ -8,9 +8,11 @@ import { cn } from "@/lib/utils";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { LayoutSettings } from "@/components/LayoutSettings";
 import { useLayout } from "@/contexts/LayoutContext";
-import { 
-  Menu, X, Home, BarChart3, Users, FileText, Package, Bell, Settings, 
-  ChevronDown, User, LogOut, Zap, PieChart, TrendingUp
+import {
+  Menu, X, Home, BarChart3, Users, FileText, Package, Bell, Settings,
+  ChevronDown, User, LogOut, Zap, PieChart, TrendingUp, MousePointer2,
+  CreditCard, FileInput, Calendar, Table, Database, AlertTriangle,
+  MessageSquare, CheckCircle, Palette, ShoppingBag, ShoppingCart
 } from "lucide-react";
 import userAvatar from "@/assets/user-avatar.jpg";
 
@@ -20,19 +22,17 @@ interface VerticalLayoutProps {
 
 const mainNavItems = [
   { name: "Dashboard", path: "/", icon: Home },
-  { name: "Notificações", path: "/notifications", icon: Bell },
-  { name: "Processador Logo", path: "/logo-processor", icon: Zap },
 ];
 
 const saasPages = [
   { name: "Analytics", path: "/saas/analytics", icon: BarChart3 },
   { name: "Clientes", path: "/saas/customers", icon: Users },
-  { name: "Pedidos", path: "/saas/orders", icon: FileText },
-  { name: "Produtos", path: "/saas/products", icon: Package },
+  { name: "Pedidos", path: "/saas/orders", icon: ShoppingCart },
+  { name: "Produtos", path: "/saas/products", icon: ShoppingBag },
   { name: "Métricas", path: "/metrics", icon: TrendingUp },
   { name: "Usuários", path: "/users", icon: Users },
-  { name: "Confirmação", path: "/confirmation", icon: FileText },
-  { name: "Sistema", path: "/design-system", icon: Settings },
+  { name: "Confirmação", path: "/confirmation", icon: CheckCircle },
+  { name: "Sistema", path: "/design-system", icon: Palette },
 ];
 
 const componentPages = [
@@ -41,9 +41,11 @@ const componentPages = [
   { name: "Formulários", path: "/components/forms", icon: Package },
   { name: "Date Picker", path: "/components/datepicker", icon: Package },
   { name: "Tabelas", path: "/components/tables", icon: Package },
+  { name: "DataTable", path: "/components/datatable", icon: Package },
   { name: "Alertas", path: "/components/alerts", icon: Package },
   { name: "Diálogos", path: "/components/dialogs", icon: Package },
   { name: "Gráficos", path: "/components/charts", icon: Package },
+  { name: "Processador Logo", path: "/logo-processor", icon: Zap },
 ];
 
 export function VerticalLayout({ children }: VerticalLayoutProps) {
@@ -51,7 +53,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { toggleLayout, sidebarTheme } = useLayout();
-  
+
   // Abrir seções por padrão se a rota atual estiver nelas
   const [isComponentsOpen, setIsComponentsOpen] = useState<boolean>(true);
   const [isSaasOpen, setIsSaasOpen] = useState<boolean>(
@@ -69,7 +71,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
     <div className="flex h-screen bg-background overflow-hidden">
       {/* Mobile Overlay */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
@@ -77,36 +79,33 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
 
       {/* Sidebar */}
       <aside
-        className={`${
-          isSidebarOpen ? "w-64" : "w-16"
-        } ${
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        } ${
-          sidebarTheme === 'dark' 
-            ? "bg-slate-900 border-slate-800 text-slate-100" 
+        className={`${isSidebarOpen ? "w-64" : "w-16"
+          } ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+          } ${sidebarTheme === 'dark'
+            ? "bg-slate-900 border-slate-800 text-slate-100"
             : "bg-card border-border"
-        } fixed lg:relative z-50 lg:z-auto transition-all duration-300 flex flex-col shadow-sm h-full`}
+          } fixed lg:relative z-50 lg:z-auto transition-all duration-300 flex flex-col shadow-sm h-full`}
       >
         {/* Logo/Header */}
         <div className={`p-4 border-b ${sidebarTheme === 'dark' ? 'border-slate-800' : 'border-border'}`}>
           <div className="flex items-center justify-center">
             {isSidebarOpen ? (
               <div className="flex items-center justify-center space-x-3">
-                <img 
-                  src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png" 
-                  alt="Spark Logo" 
+                <img
+                  src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png"
+                  alt="Spark Logo"
                   className="h-8 object-contain"
                 />
-                <img 
-                  src="/lovable-uploads/4ab292c0-f52e-45b0-8352-96cfa9636b16.png" 
-                  alt="Spark" 
+                <img
+                  src="/lovable-uploads/4ab292c0-f52e-45b0-8352-96cfa9636b16.png"
+                  alt="Spark"
                   className="w-20 h-8 object-contain"
                 />
               </div>
             ) : (
-              <img 
-                src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png" 
-                alt="Spark" 
+              <img
+                src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png"
+                alt="Spark"
                 className="w-8 h-8 object-contain"
               />
             )}
@@ -122,13 +121,12 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                 <Link
                   to={item.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center px-3 py-2 rounded-lg transition-colors group ${
-                    isActive(item.path)
-                      ? "bg-primary text-primary-foreground"
-                      : sidebarTheme === 'dark'
-                        ? "text-slate-300 hover:bg-slate-800 hover:text-slate-100"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                  }`}
+                  className={`flex items-center px-3 py-2 rounded-lg transition-colors group ${isActive(item.path)
+                    ? "bg-primary text-primary-foreground"
+                    : sidebarTheme === 'dark'
+                      ? "text-slate-300 hover:bg-slate-700 hover:text-slate-50"
+                      : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
+                    }`}
                 >
                   <item.icon className="w-5 h-5 flex-shrink-0" />
                   {isSidebarOpen && <span className="ml-3">{item.name}</span>}
@@ -141,18 +139,17 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
               <Collapsible open={isSaasOpen} onOpenChange={setIsSaasOpen}>
                 <CollapsibleTrigger asChild>
                   <button
-                    className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors group ${
-                      saasPages.some(page => isActive(page.path))
-                        ? "bg-primary text-primary-foreground"
-                        : sidebarTheme === 'dark'
-                          ? "text-slate-300 hover:bg-slate-800 hover:text-slate-100"
-                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                    }`}
+                    className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors group ${saasPages.some(page => isActive(page.path))
+                      ? "bg-primary text-primary-foreground"
+                      : sidebarTheme === 'dark'
+                        ? "text-slate-300 hover:bg-slate-700 hover:text-slate-50"
+                        : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
+                      }`}
                   >
                     <Zap className="w-5 h-5 flex-shrink-0" />
                     {isSidebarOpen && (
                       <>
-                        <span className="ml-3">SaaS</span>
+                        <span className="ml-3">Pages</span>
                         <ChevronDown className={`w-4 h-4 ml-auto transition-transform ${isSaasOpen ? "rotate-180" : ""}`} />
                       </>
                     )}
@@ -160,23 +157,22 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                 </CollapsibleTrigger>
                 {isSidebarOpen && (
                   <CollapsibleContent className="ml-4 mt-1 space-y-1">
-                     {saasPages.map((item) => (
-                       <Link
-                         key={item.name}
-                         to={item.path}
-                         onClick={() => setIsMobileMenuOpen(false)}
-                          className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
-                            isActive(item.path)
-                              ? "bg-primary text-primary-foreground"
-                              : sidebarTheme === 'dark'
-                                ? "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
-                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    {saasPages.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.path}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${isActive(item.path)
+                          ? "bg-primary text-primary-foreground"
+                          : sidebarTheme === 'dark'
+                            ? "text-slate-400 hover:bg-slate-700 hover:text-slate-100"
+                            : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
                           }`}
-                       >
-                         <item.icon className="w-4 h-4 flex-shrink-0" />
-                         <span className="ml-3">{item.name}</span>
-                       </Link>
-                     ))}
+                      >
+                        <item.icon className="w-4 h-4 flex-shrink-0" />
+                        <span className="ml-3">{item.name}</span>
+                      </Link>
+                    ))}
                   </CollapsibleContent>
                 )}
               </Collapsible>
@@ -187,13 +183,12 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
               <Collapsible open={isComponentsOpen} onOpenChange={setIsComponentsOpen}>
                 <CollapsibleTrigger asChild>
                   <button
-                    className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors group ${
-                      isActive("/components")
-                        ? "bg-primary text-primary-foreground"
-                        : sidebarTheme === 'dark'
-                          ? "text-slate-300 hover:bg-slate-800 hover:text-slate-100"
-                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                    }`}
+                    className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors group ${isActive("/components")
+                      ? "bg-primary text-primary-foreground"
+                      : sidebarTheme === 'dark'
+                        ? "text-slate-300 hover:bg-slate-700 hover:text-slate-50"
+                        : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
+                      }`}
                   >
                     <Package className="w-5 h-5 flex-shrink-0" />
                     {isSidebarOpen && (
@@ -206,23 +201,22 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                 </CollapsibleTrigger>
                 {isSidebarOpen && (
                   <CollapsibleContent className="ml-4 mt-1 space-y-1">
-                     {componentPages.map((item) => (
-                       <Link
-                         key={item.name}
-                         to={item.path}
-                         onClick={() => setIsMobileMenuOpen(false)}
-                          className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
-                            isActive(item.path)
-                              ? "bg-primary text-primary-foreground"
-                              : sidebarTheme === 'dark'
-                                ? "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
-                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    {componentPages.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.path}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${isActive(item.path)
+                          ? "bg-primary text-primary-foreground"
+                          : sidebarTheme === 'dark'
+                            ? "text-slate-400 hover:bg-slate-700 hover:text-slate-100"
+                            : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
                           }`}
-                       >
-                         <item.icon className="w-4 h-4 flex-shrink-0" />
-                         <span className="ml-3">{item.name}</span>
-                       </Link>
-                     ))}
+                      >
+                        <item.icon className="w-4 h-4 flex-shrink-0" />
+                        <span className="ml-3">{item.name}</span>
+                      </Link>
+                    ))}
                   </CollapsibleContent>
                 )}
               </Collapsible>
@@ -239,19 +233,19 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-2 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="lg:hidden p-2 rounded-lg hover:bg-primary-hover-bg hover:text-foreground transition-colors"
             >
               <Menu className="h-5 w-5" />
             </button>
-            
+
             {/* Desktop sidebar toggle */}
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="hidden lg:block p-2 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="hidden lg:block p-2 rounded-lg hover:bg-primary-hover-bg hover:text-foreground transition-colors"
             >
               <Menu className="h-5 w-5" />
             </button>
-            
+
             <h2 className="text-lg font-semibold text-foreground">
               {(() => {
                 const currentPage = [...mainNavItems, ...saasPages, ...componentPages].find(

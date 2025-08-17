@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 import { useLayout } from "@/contexts/LayoutContext";
 import { LayoutSettings } from "@/components/LayoutSettings";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
-import { 
-  Menu, X, Home, BarChart3, Users, FileText, Package, Bell, Settings, 
+import {
+  Menu, X, Home, BarChart3, Users, FileText, Package, Bell, Settings,
   ChevronDown, User, LogOut, Zap, TrendingUp, Monitor
 } from "lucide-react";
 import userAvatar from "@/assets/user-avatar.jpg";
@@ -19,8 +19,6 @@ interface HorizontalLayoutProps {
 
 const mainNavItems = [
   { name: "Dashboard", path: "/", icon: Home },
-  { name: "Notificações", path: "/notifications", icon: Bell },
-  { name: "Processador Logo", path: "/logo-processor", icon: Zap },
 ];
 
 const saasPages = [
@@ -40,9 +38,11 @@ const componentPages = [
   { name: "Formulários", path: "/components/forms", icon: Package },
   { name: "Date Picker", path: "/components/datepicker", icon: Package },
   { name: "Tabelas", path: "/components/tables", icon: Package },
+  { name: "DataTable", path: "/components/datatable", icon: Package },
   { name: "Alertas", path: "/components/alerts", icon: Package },
   { name: "Diálogos", path: "/components/dialogs", icon: Package },
   { name: "Gráficos", path: "/components/charts", icon: Package },
+  { name: "Processador Logo", path: "/logo-processor", icon: Zap },
 ];
 
 export function HorizontalLayout({ children }: HorizontalLayoutProps) {
@@ -67,7 +67,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
     <div className="min-h-screen bg-background">
       {/* Mobile Overlay */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
@@ -79,14 +79,14 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <img 
-                src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png" 
-                alt="Logo" 
+              <img
+                src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png"
+                alt="Logo"
                 className="h-8 w-8"
               />
-              <img 
-                src="/lovable-uploads/4ab292c0-f52e-45b0-8352-96cfa9636b16.png" 
-                alt="Spark" 
+              <img
+                src="/lovable-uploads/4ab292c0-f52e-45b0-8352-96cfa9636b16.png"
+                alt="Spark"
                 className="h-6"
               />
             </div>
@@ -99,8 +99,8 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                   to={item.path}
                   className={cn(
                     "text-sm font-medium transition-colors hover:text-primary",
-                    isActive(item.path) ? "text-primary" : 
-                    sidebarTheme === 'dark' ? "text-slate-300" : "text-muted-foreground"
+                    isActive(item.path) ? "text-primary" :
+                      sidebarTheme === 'dark' ? "text-slate-300" : "text-muted-foreground"
                   )}
                 >
                   {item.name}
@@ -111,11 +111,11 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
               <DropdownMenu>
                 <DropdownMenuTrigger className={cn(
                   "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary",
-                  saasPages.some(page => isActive(page.path)) ? "text-primary" : 
-                  sidebarTheme === 'dark' ? "text-slate-300" : "text-muted-foreground"
+                  saasPages.some(page => isActive(page.path)) ? "text-primary" :
+                    sidebarTheme === 'dark' ? "text-slate-300" : "text-muted-foreground"
                 )}>
                   <Zap className="h-4 w-4" />
-                  <span>SaaS</span>
+                  <span>Pages</span>
                   <ChevronDown className="h-3 w-3" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48">
@@ -134,8 +134,8 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
               <DropdownMenu>
                 <DropdownMenuTrigger className={cn(
                   "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary",
-                  componentPages.some(page => isActive(page.path)) ? "text-primary" : 
-                  sidebarTheme === 'dark' ? "text-slate-300" : "text-muted-foreground"
+                  componentPages.some(page => isActive(page.path)) ? "text-primary" :
+                    sidebarTheme === 'dark' ? "text-slate-300" : "text-muted-foreground"
                 )}>
                   <Package className="h-4 w-4" />
                   <span>Componentes</span>
@@ -231,14 +231,14 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                       "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors",
                       isActive(item.path)
                         ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
                     )}
                   >
                     <item.icon className="h-4 w-4" />
                     {item.name}
                   </Link>
                 ))}
-                
+
                 {/* SaaS Pages */}
                 <div className="space-y-1">
                   <div className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -253,7 +253,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                         "flex items-center gap-3 px-6 py-2 rounded-lg transition-colors text-sm",
                         isActive(item.path)
                           ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
                       )}
                     >
                       <item.icon className="h-4 w-4" />
@@ -276,7 +276,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                         "flex items-center gap-3 px-6 py-2 rounded-lg transition-colors text-sm",
                         isActive(item.path)
                           ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          : "text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground"
                       )}
                     >
                       <item.icon className="h-4 w-4" />
@@ -287,13 +287,13 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
 
                 {/* Layout Toggle */}
                 <div className="pt-4 border-t border-border/50">
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     onClick={() => {
                       toggleLayout();
                       setIsMobileMenuOpen(false);
                     }}
-                    className="flex items-center w-full justify-start px-3 py-2 text-sm font-medium hover:bg-accent"
+                    className="flex items-center w-full justify-start px-3 py-2 text-sm font-medium hover:bg-primary-hover-bg hover:text-foreground rounded-lg"
                   >
                     <Monitor className="w-4 h-4 mr-3" />
                     Layout Vertical

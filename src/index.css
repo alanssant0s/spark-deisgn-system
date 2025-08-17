@@ -25,6 +25,8 @@ All colors MUST be HSL. Semantic tokens for consistent theming.
     --primary-foreground: 0 0% 100%;
     --primary-hover: 217 91% 55%;
     --primary-light: 217 91% 95%;
+    --primary-hover-bg: 217 91% 92%;
+    --primary-hover-subtle: 217 91% 88%;
 
     /* Secondary colors */
     --secondary: 210 40% 96%;
@@ -52,6 +54,9 @@ All colors MUST be HSL. Semantic tokens for consistent theming.
     /* Neutral colors */
     --muted: 210 40% 98%;
     --muted-foreground: 215 16% 47%;
+    --muted-hover: 210 40% 94%;
+    --hover-bg: 210 20% 92%;
+    --hover-subtle: 210 20% 88%;
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
@@ -105,12 +110,17 @@ All colors MUST be HSL. Semantic tokens for consistent theming.
 
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
+    --primary-hover-bg: 217.2 32.6% 25%;
+    --primary-hover-subtle: 217.2 32.6% 30%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
+    --muted-hover: 217.2 32.6% 22%;
+    --hover-bg: 217.2 32.6% 25%;
+    --hover-subtle: 217.2 32.6% 30%;
 
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;

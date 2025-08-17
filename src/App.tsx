@@ -24,6 +24,7 @@ import FormsPage from "./pages/components/FormsPage";
 import DatePickerPage from "./pages/components/DatePickerPage";
 import DialogsPage from "./pages/components/DialogsPage";
 import TablesPage from "./pages/components/TablesPage";
+import DataTablePage from "./pages/components/DataTablePage";
 import ChartsPage from "./pages/components/ChartsPage";
 import LogoProcessorPage from "./pages/LogoProcessor";
 
@@ -45,39 +46,40 @@ const App = () => (
         <NotificationProvider>
           <LayoutContextProvider>
             <LayoutProvider>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              
-              {/* SaaS Pages */}
-              <Route path="/saas/analytics" element={<Suspense fallback={<div>Carregando...</div>}><Analytics /></Suspense>} />
-              <Route path="/saas/customers" element={<Suspense fallback={<div>Carregando...</div>}><Customers /></Suspense>} />
-              <Route path="/saas/orders" element={<Suspense fallback={<div>Carregando...</div>}><Orders /></Suspense>} />
-              <Route path="/saas/products" element={<Suspense fallback={<div>Carregando...</div>}><Products /></Suspense>} />
-              
-              {/* Component Pages */}
-              <Route path="/components" element={<Components />} />
-              <Route path="/components/buttons" element={<ButtonsPage />} />
-              <Route path="/components/cards" element={<CardsPage />} />
-              <Route path="/components/alerts" element={<AlertsPage />} />
-              <Route path="/components/forms" element={<FormsPage />} />
-              <Route path="/components/datepicker" element={<DatePickerPage />} />
-              <Route path="/components/dialogs" element={<DialogsPage />} />
-              <Route path="/components/tables" element={<TablesPage />} />
-              <Route path="/components/charts" element={<ChartsPage />} />
-              
-              {/* Example Pages */}
-              <Route path="/design-system" element={<DesignSystem />} />
-              <Route path="/metrics" element={<Metrics />} />
-              <Route path="/confirmation" element={<Confirmation />} />
-              <Route path="/notifications" element={<NotificationsPage />} />
-              <Route path="/users" element={<UserManagement />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/logo-processor" element={<LogoProcessorPage />} />
-              
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+              <Routes>
+                <Route path="/" element={<Index />} />
+
+                {/* SaaS Pages */}
+                <Route path="/saas/analytics" element={<Suspense fallback={<div>Carregando...</div>}><Analytics /></Suspense>} />
+                <Route path="/saas/customers" element={<Suspense fallback={<div>Carregando...</div>}><Customers /></Suspense>} />
+                <Route path="/saas/orders" element={<Suspense fallback={<div>Carregando...</div>}><Orders /></Suspense>} />
+                <Route path="/saas/products" element={<Suspense fallback={<div>Carregando...</div>}><Products /></Suspense>} />
+
+                {/* Component Pages */}
+                <Route path="/components" element={<Components />} />
+                <Route path="/components/buttons" element={<ButtonsPage />} />
+                <Route path="/components/cards" element={<CardsPage />} />
+                <Route path="/components/alerts" element={<AlertsPage />} />
+                <Route path="/components/forms" element={<FormsPage />} />
+                <Route path="/components/datepicker" element={<DatePickerPage />} />
+                <Route path="/components/dialogs" element={<DialogsPage />} />
+                <Route path="/components/tables" element={<TablesPage />} />
+                <Route path="/components/datatable" element={<DataTablePage />} />
+                <Route path="/components/charts" element={<ChartsPage />} />
+
+                {/* Example Pages */}
+                <Route path="/design-system" element={<DesignSystem />} />
+                <Route path="/metrics" element={<Metrics />} />
+                <Route path="/confirmation" element={<Confirmation />} />
+                <Route path="/notifications" element={<NotificationsPage />} />
+                <Route path="/users" element={<UserManagement />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/logo-processor" element={<LogoProcessorPage />} />
+
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
             </LayoutProvider>
           </LayoutContextProvider>
         </NotificationProvider>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, DropdownMenuLabel } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
@@ -63,7 +64,7 @@ export function NotificationCenter() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      
+
       <DropdownMenuContent
         className="w-80 max-h-96 overflow-hidden bg-background border shadow-lg z-50"
         align="end"
@@ -108,7 +109,7 @@ export function NotificationCenter() {
               <DropdownMenuItem
                 key={notification.id}
                 className={cn(
-                  'flex items-start space-x-3 p-3 cursor-pointer hover:bg-accent/50 transition-colors',
+                  'flex items-start space-x-3 p-3 cursor-pointer hover:bg-primary-hover-bg hover:text-foreground transition-colors',
                   !notification.read && 'bg-primary/5'
                 )}
                 onClick={() => markAsRead(notification.id)}
@@ -121,7 +122,7 @@ export function NotificationCenter() {
                     )}
                   />
                 </div>
-                
+
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center space-x-2">
@@ -130,7 +131,7 @@ export function NotificationCenter() {
                         {notification.title}
                       </p>
                     </div>
-                    
+
                     <Button
                       variant="ghost"
                       size="sm"
@@ -143,11 +144,11 @@ export function NotificationCenter() {
                       <X className="h-3 w-3" />
                     </Button>
                   </div>
-                  
+
                   <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                     {notification.message}
                   </p>
-                  
+
                   <div className="flex items-center justify-between mt-2">
                     <p className="text-xs text-muted-foreground">
                       {formatDistanceToNow(notification.timestamp, {
@@ -155,7 +156,7 @@ export function NotificationCenter() {
                         locale: ptBR,
                       })}
                     </p>
-                    
+
                     {notification.action && (
                       <Button
                         variant="outline"
@@ -178,9 +179,11 @@ export function NotificationCenter() {
 
         {/* Footer */}
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="p-3 justify-center text-sm text-muted-foreground hover:bg-accent/50">
-          <Settings className="h-4 w-4 mr-2" />
-          Configurações de Notificação
+        <DropdownMenuItem asChild className="p-3 justify-center text-sm text-muted-foreground hover:bg-primary-hover-bg hover:text-foreground">
+          <Link to="/notifications" className="flex items-center">
+            <Settings className="h-4 w-4 mr-2" />
+            Configurações de Notificação
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
