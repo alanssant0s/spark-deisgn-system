@@ -21,7 +21,11 @@ import {
   Table,
   ToggleLeft,
   FileText,
-  MessageSquare
+  MessageSquare,
+  FolderKanban,
+  TrendingUp,
+  UserCheck,
+  PieChart
 } from "lucide-react";
 import { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -32,6 +36,16 @@ interface SaasLayoutProps {
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
+  { 
+    name: "Exemplos", 
+    icon: FolderKanban,
+    children: [
+      { name: "Dashboard", href: "/examples/dashboard" },
+      { name: "Projetos", href: "/examples/projects" },
+      { name: "Analytics", href: "/examples/analytics" },
+      { name: "Equipe", href: "/examples/team" },
+    ]
+  },
   { 
     name: "Componentes UI", 
     icon: Component,
@@ -44,10 +58,6 @@ const navigation = [
       { name: "Forms", href: "/components/forms" },
       { name: "Tables", href: "/components/tables" },
       { name: "Charts", href: "/components/charts" },
-      { name: "Tabs", href: "/components/tabs" },
-      { name: "Badges", href: "/components/badges" },
-      { name: "Progress", href: "/components/progress" },
-      { name: "Toasts", href: "/components/toasts" }
     ]
   },
   { name: "Design System", href: "/design-system", icon: Palette },
@@ -63,6 +73,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [componentsOpen, setComponentsOpen] = useState(true);
+  const [examplesOpen, setExamplesOpen] = useState(true);
 
   return (
     <div className="min-h-screen bg-background">
@@ -76,7 +87,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
 
       {/* Sidebar */}
       <aside className={cn(
-        "fixed top-0 left-0 z-50 h-full bg-card border-r border-card-border transform transition-all duration-300 lg:translate-x-0",
+        "fixed top-0 left-0 z-50 h-full bg-card border-r border-card-border transform transition-all duration-300 lg:translate-x-0 flex flex-col",
         sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         sidebarCollapsed ? "lg:w-16" : "w-64"
       )}>
@@ -104,17 +115,24 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
           </div>
         </div>
 
-        <nav className="p-4 space-y-2 overflow-y-auto">
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent"
+             style={{ 
+               scrollbarWidth: 'thin',
+               scrollbarColor: 'hsl(var(--muted)) transparent'
+             }}>
           {navigation.map((item) => {
             if (item.children) {
               const hasActiveChild = item.children.some(child => location.pathname === child.href);
-              const isComponentsPage = location.pathname.startsWith('/components');
+              const isComponentsPage = item.name === "Componentes UI" && location.pathname.startsWith('/components');
+              const isExamplesPage = item.name === "Exemplos" && location.pathname.startsWith('/examples');
+              const isOpen = item.name === "Componentes UI" ? componentsOpen : examplesOpen;
+              const setOpen = item.name === "Componentes UI" ? setComponentsOpen : setExamplesOpen;
               
               return (
                 <Collapsible 
                   key={item.name} 
-                  open={componentsOpen && !sidebarCollapsed} 
-                  onOpenChange={setComponentsOpen}
+                  open={isOpen && !sidebarCollapsed} 
+                  onOpenChange={setOpen}
                 >
                   <CollapsibleTrigger asChild>
                     <Button
@@ -122,7 +140,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
                       className={cn(
                         "w-full justify-start px-3 py-2.5 text-sm font-medium transition-all duration-200",
                         "hover:bg-muted group",
-                        isComponentsPage 
+                        (isComponentsPage || isExamplesPage)
                           ? "bg-primary text-primary-foreground shadow-sm" 
                           : "text-muted-foreground hover:text-foreground"
                       )}
@@ -136,7 +154,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
                           <span className="flex-1 text-left">{item.name}</span>
                           <ChevronDown className={cn(
                             "h-4 w-4 transition-transform duration-200",
-                            componentsOpen ? "rotate-180" : ""
+                            isOpen ? "rotate-180" : ""
                           )} />
                         </>
                       )}
@@ -221,6 +239,16 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
                       return child.name;
                     }
                   }
+                }
+                // Special cases for example pages
+                if (location.pathname.startsWith('/examples/')) {
+                  const pageMap: { [key: string]: string } = {
+                    '/examples/dashboard': 'Dashboard Exemplo',
+                    '/examples/projects': 'Projetos Exemplo',
+                    '/examples/analytics': 'Analytics Exemplo',
+                    '/examples/team': 'Equipe Exemplo'
+                  };
+                  return pageMap[location.pathname] || 'Exemplo';
                 }
                 return "Dashboard";
               })()}
