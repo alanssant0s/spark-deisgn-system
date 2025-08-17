@@ -14,6 +14,8 @@ import NotFound from "./pages/NotFound";
 import Confirmation from "./pages/Confirmation";
 import UserManagement from "./pages/UserManagement";
 import NotificationsPage from "./pages/NotificationsPage";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import ButtonsPage from "./pages/components/ButtonsPage";
 import CardsPage from "./pages/components/CardsPage";
 import AlertsPage from "./pages/components/AlertsPage";
@@ -51,6 +53,8 @@ const App = () => (
                 <Route path="/confirmation" element={<Confirmation />} />
                 <Route path="/notifications" element={<NotificationsPage />} />
                 <Route path="/users" element={<UserManagement />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/settings" element={<Settings />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
