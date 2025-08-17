@@ -86,11 +86,24 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
         <div className="p-4 border-b border-border">
           <div className="flex items-center justify-between">
             {isSidebarOpen ? (
-              <h1 className="text-xl font-bold text-primary">SaaS App</h1>
-            ) : (
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">S</span>
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="/lovable-uploads/4ab292c0-f52e-45b0-8352-96cfa9636b16.png" 
+                  alt="Spark" 
+                  className="w-8 h-8"
+                />
+                <img 
+                  src="/lovable-uploads/6c8cd236-d552-4a9b-8b41-7493ef7a762a.png" 
+                  alt="Spark Logo" 
+                  className="h-6"
+                />
               </div>
+            ) : (
+              <img 
+                src="/lovable-uploads/4ab292c0-f52e-45b0-8352-96cfa9636b16.png" 
+                alt="Spark" 
+                className="w-8 h-8"
+              />
             )}
             
             {/* Mobile close button */}
