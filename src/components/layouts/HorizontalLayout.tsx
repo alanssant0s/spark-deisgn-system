@@ -37,8 +37,13 @@ const mainNavItems = [
 ];
 
 const componentPages = [
-  { name: "Visão Geral", path: "/components", icon: Package },
-  { name: "Em breve", path: "#", icon: Package },
+  { name: "Botões", path: "/components/buttons", icon: Package },
+  { name: "Cards", path: "/components/cards", icon: Package },
+  { name: "Formulários", path: "/components/forms", icon: Package },
+  { name: "Tabelas", path: "/components/tables", icon: Package },
+  { name: "Alertas", path: "/components/alerts", icon: Package },
+  { name: "Diálogos", path: "/components/dialogs", icon: Package },
+  { name: "Gráficos", path: "/components/charts", icon: Package },
 ];
 
 const examplePages = [

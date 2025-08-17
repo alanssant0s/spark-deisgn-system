@@ -12,6 +12,13 @@ import Metrics from "./pages/Metrics";
 import NotFound from "./pages/NotFound";
 import Confirmation from "./pages/Confirmation";
 import UserManagement from "./pages/UserManagement";
+import ButtonsPage from "./pages/components/ButtonsPage";
+import CardsPage from "./pages/components/CardsPage";
+import AlertsPage from "./pages/components/AlertsPage";
+import FormsPage from "./pages/components/FormsPage";
+import DialogsPage from "./pages/components/DialogsPage";
+import TablesPage from "./pages/components/TablesPage";
+import ChartsPage from "./pages/components/ChartsPage";
 
 
 const queryClient = new QueryClient();
@@ -27,7 +34,13 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/components" element={<Components />} />
-              
+              <Route path="/components/buttons" element={<ButtonsPage />} />
+              <Route path="/components/cards" element={<CardsPage />} />
+              <Route path="/components/alerts" element={<AlertsPage />} />
+              <Route path="/components/forms" element={<FormsPage />} />
+              <Route path="/components/dialogs" element={<DialogsPage />} />
+              <Route path="/components/tables" element={<TablesPage />} />
+              <Route path="/components/charts" element={<ChartsPage />} />
               <Route path="/design-system" element={<DesignSystem />} />
               <Route path="/metrics" element={<Metrics />} />
               <Route path="/confirmation" element={<Confirmation />} />
