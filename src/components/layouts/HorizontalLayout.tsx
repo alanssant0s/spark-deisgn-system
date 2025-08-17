@@ -23,6 +23,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useLayout } from "@/contexts/LayoutContext";
 import { LayoutSettings } from "@/components/LayoutSettings";
+import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import userAvatar from "@/assets/user-avatar.jpg";
 
 interface HorizontalLayoutProps {
@@ -34,6 +35,7 @@ const mainNavItems = [
   { name: "Métricas", path: "/metrics", icon: BarChart3 },
   { name: "Usuários", path: "/users", icon: Users },
   { name: "Confirmação", path: "/confirmation", icon: FileText },
+  { name: "Notificações", path: "/notifications", icon: Bell },
   { name: "Sistema", path: "/design-system", icon: Settings },
 ];
 
@@ -166,10 +168,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
               <LayoutSettings />
 
               {/* Notifications */}
-              <Button variant="ghost" size="sm" className="relative hidden sm:flex">
-                <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-3 w-3 bg-destructive rounded-full"></span>
-              </Button>
+              <NotificationCenter />
 
               {/* User Menu */}
               <DropdownMenu>
