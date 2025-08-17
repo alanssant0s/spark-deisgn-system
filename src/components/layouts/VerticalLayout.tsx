@@ -35,19 +35,12 @@ const mainNavItems = [
   { name: "Métricas", path: "/metrics", icon: BarChart3 },
   { name: "Usuários", path: "/users", icon: Users },
   { name: "Confirmação", path: "/confirmation", icon: FileText },
-  { name: "Perfil", path: "/profile", icon: User },
-  { name: "Componentes", path: "/components", icon: Package },
   { name: "Sistema", path: "/design-system", icon: Settings },
 ];
 
 const componentPages = [
-  { name: "Botões", path: "/components/buttons", icon: Package },
-  { name: "Cards", path: "/components/cards", icon: Package },
-  { name: "Formulários", path: "/components/forms", icon: Package },
-  { name: "Tabelas", path: "/components/tables", icon: Package },
-  { name: "Alertas", path: "/components/alerts", icon: Package },
-  { name: "Diálogos", path: "/components/dialogs", icon: Package },
-  { name: "Gráficos", path: "/components/charts", icon: Package },
+  { name: "Visão Geral", path: "/components", icon: Package },
+  { name: "Em breve", path: "#", icon: Package },
 ];
 
 const examplePages = [
