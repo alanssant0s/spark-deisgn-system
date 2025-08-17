@@ -8,7 +8,10 @@ import {
   BarChart3, 
   Settings,
   Menu,
-  X
+  X,
+  Users,
+  User,
+  CheckCircle
 } from "lucide-react";
 import { useState } from "react";
 
@@ -21,6 +24,9 @@ const navigation = [
   { name: "Componentes", href: "/components", icon: Component },
   { name: "Design System", href: "/design-system", icon: Palette },
   { name: "Métricas", href: "/metrics", icon: BarChart3 },
+  { name: "Gestão de Usuários", href: "/users", icon: Users },
+  { name: "Perfil", href: "/profile", icon: User },
+  { name: "Confirmação", href: "/confirmation", icon: CheckCircle },
   { name: "Configurações", href: "/settings", icon: Settings },
 ];
 

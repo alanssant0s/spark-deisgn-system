@@ -8,6 +8,9 @@ import Components from "./pages/Components";
 import DesignSystem from "./pages/DesignSystem";
 import Metrics from "./pages/Metrics";
 import NotFound from "./pages/NotFound";
+import Confirmation from "./pages/Confirmation";
+import UserProfile from "./pages/UserProfile";
+import UserManagement from "./pages/UserManagement";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +25,9 @@ const App = () => (
           <Route path="/components" element={<Components />} />
           <Route path="/design-system" element={<DesignSystem />} />
           <Route path="/metrics" element={<Metrics />} />
+          <Route path="/confirmation" element={<Confirmation />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/users" element={<UserManagement />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
