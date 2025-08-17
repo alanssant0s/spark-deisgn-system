@@ -232,8 +232,8 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-border bg-card">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="lg:hidden border-t border-border bg-card shadow-lg">
+            <div className="px-2 pt-2 pb-3 space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
               {mainNavItems.map((item) => (
                 <Link
                   key={item.name}
@@ -251,9 +251,12 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
               ))}
               
               {/* Mobile Components */}
-              <div className="px-3 py-2">
-                <p className="text-sm font-medium text-muted-foreground mb-2">Componentes</p>
-                <div className="space-y-1 ml-4">
+              <div className="px-3 py-2 border-t border-border/50">
+                <p className="text-sm font-semibold text-foreground mb-2 flex items-center">
+                  <Package className="w-4 h-4 mr-2" />
+                  Componentes
+                </p>
+                <div className="space-y-1 ml-2">
                   {componentPages.map((item) => (
                     <Link
                       key={item.name}
@@ -273,9 +276,12 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
               </div>
 
               {/* Mobile Examples */}
-              <div className="px-3 py-2">
-                <p className="text-sm font-medium text-muted-foreground mb-2">Exemplos</p>
-                <div className="space-y-1 ml-4">
+              <div className="px-3 py-2 border-t border-border/50">
+                <p className="text-sm font-semibold text-foreground mb-2 flex items-center">
+                  <TrendingUp className="w-4 h-4 mr-2" />
+                  Exemplos
+                </p>
+                <div className="space-y-1 ml-2">
                   {examplePages.map((item) => (
                     <Link
                       key={item.name}
@@ -295,14 +301,19 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
               </div>
 
               {/* Mobile Layout Toggle */}
-              <Button 
-                variant="ghost" 
-                onClick={toggleLayout}
-                className="flex items-center w-full justify-start px-3 py-2 text-base font-medium"
-              >
-                <Monitor className="w-5 h-5 mr-3" />
-                Layout Vertical
-              </Button>
+              <div className="px-3 py-2 border-t border-border/50">
+                <Button 
+                  variant="ghost" 
+                  onClick={() => {
+                    toggleLayout();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="flex items-center w-full justify-start px-3 py-2 text-base font-medium hover:bg-accent"
+                >
+                  <Monitor className="w-5 h-5 mr-3" />
+                  Layout Vertical
+                </Button>
+              </div>
             </div>
           </div>
         )}

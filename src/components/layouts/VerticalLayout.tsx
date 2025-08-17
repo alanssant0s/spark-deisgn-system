@@ -17,7 +17,8 @@ import {
   LogOut,
   Bell,
   Monitor,
-  Smartphone
+  Smartphone,
+  X
 } from "lucide-react";
 import { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -54,6 +55,7 @@ const examplePages = [
 
 export function VerticalLayout({ children }: VerticalLayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { toggleLayout } = useLayout();
   
@@ -70,11 +72,21 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
+      {/* Mobile Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
       <aside
         className={`${
           isSidebarOpen ? "w-64" : "w-16"
-        } bg-card border-r border-border transition-all duration-300 flex flex-col shadow-sm`}
+        } ${
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        } fixed lg:relative z-50 lg:z-auto bg-card border-r border-border transition-all duration-300 flex flex-col shadow-sm h-full`}
       >
         {/* Logo/Header */}
         <div className="p-4 border-b border-border">
@@ -86,6 +98,14 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                 <span className="text-primary-foreground font-bold text-sm">S</span>
               </div>
             )}
+            
+            {/* Mobile close button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="lg:hidden p-1 rounded-md hover:bg-accent"
+            >
+              <X className="h-5 w-5" />
+            </button>
           </div>
         </div>
 
@@ -96,6 +116,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
               <li key={item.name}>
                 <Link
                   to={item.path}
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className={`flex items-center px-3 py-2 rounded-lg transition-colors group ${
                     isActive(item.path)
                       ? "bg-primary text-primary-foreground"
@@ -130,20 +151,21 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                 </CollapsibleTrigger>
                 {isSidebarOpen && (
                   <CollapsibleContent className="ml-4 mt-1 space-y-1">
-                    {componentPages.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.path}
-                        className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
-                          isActive(item.path)
-                            ? "bg-primary text-primary-foreground"
-                            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                        }`}
-                      >
-                        <item.icon className="w-4 h-4 flex-shrink-0" />
-                        <span className="ml-3">{item.name}</span>
-                      </Link>
-                    ))}
+                     {componentPages.map((item) => (
+                       <Link
+                         key={item.name}
+                         to={item.path}
+                         onClick={() => setIsMobileMenuOpen(false)}
+                         className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
+                           isActive(item.path)
+                             ? "bg-primary text-primary-foreground"
+                             : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                         }`}
+                       >
+                         <item.icon className="w-4 h-4 flex-shrink-0" />
+                         <span className="ml-3">{item.name}</span>
+                       </Link>
+                     ))}
                   </CollapsibleContent>
                 )}
               </Collapsible>
@@ -171,20 +193,21 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                 </CollapsibleTrigger>
                 {isSidebarOpen && (
                   <CollapsibleContent className="ml-4 mt-1 space-y-1">
-                    {examplePages.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.path}
-                        className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
-                          isActive(item.path)
-                            ? "bg-primary text-primary-foreground"
-                            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                        }`}
-                      >
-                        <item.icon className="w-4 h-4 flex-shrink-0" />
-                        <span className="ml-3">{item.name}</span>
-                      </Link>
-                    ))}
+                     {examplePages.map((item) => (
+                       <Link
+                         key={item.name}
+                         to={item.path}
+                         onClick={() => setIsMobileMenuOpen(false)}
+                         className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
+                           isActive(item.path)
+                             ? "bg-primary text-primary-foreground"
+                             : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                         }`}
+                       >
+                         <item.icon className="w-4 h-4 flex-shrink-0" />
+                         <span className="ml-3">{item.name}</span>
+                       </Link>
+                     ))}
                   </CollapsibleContent>
                 )}
               </Collapsible>
@@ -194,13 +217,22 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
         {/* Header */}
         <header className="bg-card border-b border-border px-6 py-3 flex items-center justify-between shadow-sm">
           <div className="flex items-center space-x-4">
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden p-2 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+            
+            {/* Desktop sidebar toggle */}
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-2 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="hidden lg:block p-2 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors"
             >
               <Menu className="h-5 w-5" />
             </button>
