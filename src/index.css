@@ -185,13 +185,14 @@ All colors MUST be HSL. Semantic tokens for consistent theming.
   color: hsl(var(--foreground)) !important;
 }
 
-/* Fix weekday header spacing */
-.rdp-head_row {
+/* Calendar weekday header fix */
+.rdp-calendar .rdp-head_row {
   display: flex !important;
   width: 100% !important;
+  justify-content: space-between !important;
 }
 
-.rdp-head_cell {
+.rdp-calendar .rdp-head_cell {
   flex: 1 !important;
   display: flex !important;
   align-items: center !important;
@@ -199,6 +200,29 @@ All colors MUST be HSL. Semantic tokens for consistent theming.
   width: 2.25rem !important;
   height: 2.25rem !important;
   min-width: 2.25rem !important;
+  max-width: 2.25rem !important;
+}
+
+/* Calendar grid layout fix */
+.rdp-calendar .rdp-table {
+  width: 100% !important;
+  table-layout: fixed !important;
+}
+
+.rdp-calendar .rdp-row {
+  display: flex !important;
+  width: 100% !important;
+  justify-content: space-between !important;
+}
+
+.rdp-calendar .rdp-cell {
+  flex: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.25rem !important;
+  min-width: 2.25rem !important;
+  max-width: 2.25rem !important;
 }
 
 @layer base {
