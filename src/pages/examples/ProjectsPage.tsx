@@ -1,4 +1,3 @@
-import { SaasLayout } from "@/components/saas/SaasLayout";
 import { StatusBadge } from "@/components/saas/StatusBadge";
 import { GradientButton } from "@/components/saas/GradientButton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -112,8 +111,7 @@ const getStatusText = (status: string) => {
 
 const ProjectsPage = () => {
   return (
-    <SaasLayout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
@@ -386,7 +384,7 @@ const ProjectsPage = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </SaasLayout>
+    </div>
   );
 };
 

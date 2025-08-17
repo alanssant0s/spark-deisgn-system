@@ -1,4 +1,3 @@
-import { SaasLayout } from "@/components/saas/SaasLayout";
 import { MetricCard } from "@/components/saas/MetricCard";
 import { StatCard } from "@/components/saas/StatCard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -74,8 +73,7 @@ const performanceData = [
 
 const AnalyticsPage = () => {
   return (
-    <SaasLayout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
@@ -476,7 +474,7 @@ const AnalyticsPage = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </SaasLayout>
+    </div>
   );
 };
 

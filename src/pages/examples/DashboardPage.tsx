@@ -1,4 +1,3 @@
-import { SaasLayout } from "@/components/saas/SaasLayout";
 import { MetricCard } from "@/components/saas/MetricCard";
 import { StatCard } from "@/components/saas/StatCard";
 import { StatusBadge } from "@/components/saas/StatusBadge";
@@ -51,8 +50,7 @@ const recentOrders = [
 
 const DashboardPage = () => {
   return (
-    <SaasLayout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
@@ -269,7 +267,7 @@ const DashboardPage = () => {
           </Card>
         </div>
       </div>
-    </SaasLayout>
+    </div>
   );
 };
 
