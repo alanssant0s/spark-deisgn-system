@@ -35,11 +35,11 @@ interface VerticalLayoutProps {
 
 const mainNavItems = [
   { name: "Dashboard", path: "/", icon: Home },
-  { name: "Métricas", path: "/metrics", icon: BarChart3 },
-  { name: "Usuários", path: "/users", icon: Users },
-  { name: "Confirmação", path: "/confirmation", icon: FileText },
+  { name: "Analytics", path: "/saas/analytics", icon: BarChart3 },
+  { name: "Clientes", path: "/saas/customers", icon: Users },
+  { name: "Pedidos", path: "/saas/orders", icon: FileText },
+  { name: "Produtos", path: "/saas/products", icon: Package },
   { name: "Notificações", path: "/notifications", icon: Bell },
-  { name: "Sistema", path: "/design-system", icon: Settings },
 ];
 
 const componentPages = [
@@ -54,7 +54,10 @@ const componentPages = [
 ];
 
 const examplePages = [
-  { name: "Em breve", path: "#", icon: Home },
+  { name: "Métricas", path: "/metrics", icon: BarChart3 },
+  { name: "Usuários", path: "/users", icon: Users },
+  { name: "Confirmação", path: "/confirmation", icon: FileText },
+  { name: "Sistema", path: "/design-system", icon: Settings },
 ];
 
 export function VerticalLayout({ children }: VerticalLayoutProps) {

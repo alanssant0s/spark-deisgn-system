@@ -107,6 +107,26 @@ const Index = () => {
             />
           </div>
         </section>
+
+        {/* SaaS Examples */}
+        <section className="mt-16 text-center space-y-6">
+          <h2 className="text-2xl font-bold text-foreground">Exemplos SaaS</h2>
+          <p className="text-muted-foreground">Explore páginas de exemplo completas</p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a href="/saas/analytics" className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+              Analytics
+            </a>
+            <a href="/saas/customers" className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+              Clientes
+            </a>
+            <a href="/saas/orders" className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+              Pedidos
+            </a>
+            <a href="/saas/products" className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+              Produtos
+            </a>
+          </div>
+        </section>
       </div>
   );
 };

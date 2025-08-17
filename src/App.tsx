@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import { LayoutProvider as LayoutContextProvider } from "@/contexts/LayoutContext";
 import { NotificationProvider } from "@/contexts/NotificationContext";
 import { LayoutProvider } from "@/components/layouts/LayoutProvider";
@@ -25,6 +26,12 @@ import DialogsPage from "./pages/components/DialogsPage";
 import TablesPage from "./pages/components/TablesPage";
 import ChartsPage from "./pages/components/ChartsPage";
 
+// Lazy load SaaS pages
+const Analytics = lazy(() => import("./pages/saas/Analytics"));
+const Customers = lazy(() => import("./pages/saas/Customers"));
+const Orders = lazy(() => import("./pages/saas/Orders"));
+const Products = lazy(() => import("./pages/saas/Products"));
+
 
 const queryClient = new QueryClient();
 
@@ -39,22 +46,33 @@ const App = () => (
             <LayoutProvider>
             <Routes>
               <Route path="/" element={<Index />} />
+              
+              {/* SaaS Pages */}
+              <Route path="/saas/analytics" element={<Suspense fallback={<div>Carregando...</div>}><Analytics /></Suspense>} />
+              <Route path="/saas/customers" element={<Suspense fallback={<div>Carregando...</div>}><Customers /></Suspense>} />
+              <Route path="/saas/orders" element={<Suspense fallback={<div>Carregando...</div>}><Orders /></Suspense>} />
+              <Route path="/saas/products" element={<Suspense fallback={<div>Carregando...</div>}><Products /></Suspense>} />
+              
+              {/* Component Pages */}
               <Route path="/components" element={<Components />} />
               <Route path="/components/buttons" element={<ButtonsPage />} />
-                <Route path="/components/cards" element={<CardsPage />} />
-                <Route path="/components/alerts" element={<AlertsPage />} />
-                <Route path="/components/forms" element={<FormsPage />} />
-                <Route path="/components/datepicker" element={<DatePickerPage />} />
-                <Route path="/components/dialogs" element={<DialogsPage />} />
+              <Route path="/components/cards" element={<CardsPage />} />
+              <Route path="/components/alerts" element={<AlertsPage />} />
+              <Route path="/components/forms" element={<FormsPage />} />
+              <Route path="/components/datepicker" element={<DatePickerPage />} />
+              <Route path="/components/dialogs" element={<DialogsPage />} />
               <Route path="/components/tables" element={<TablesPage />} />
               <Route path="/components/charts" element={<ChartsPage />} />
+              
+              {/* Example Pages */}
               <Route path="/design-system" element={<DesignSystem />} />
-                <Route path="/metrics" element={<Metrics />} />
-                <Route path="/confirmation" element={<Confirmation />} />
-                <Route path="/notifications" element={<NotificationsPage />} />
-                <Route path="/users" element={<UserManagement />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/settings" element={<Settings />} />
+              <Route path="/metrics" element={<Metrics />} />
+              <Route path="/confirmation" element={<Confirmation />} />
+              <Route path="/notifications" element={<NotificationsPage />} />
+              <Route path="/users" element={<UserManagement />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<Settings />} />
+              
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
