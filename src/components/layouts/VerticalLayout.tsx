@@ -25,6 +25,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useLayout } from "@/contexts/LayoutContext";
+import { LayoutSettings } from "@/components/LayoutSettings";
 import userAvatar from "@/assets/user-avatar.jpg";
 
 interface VerticalLayoutProps {
@@ -249,15 +250,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
 
           {/* Header Actions */}
           <div className="flex items-center space-x-4">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={toggleLayout}
-              className="flex items-center space-x-2"
-            >
-              <Monitor className="h-4 w-4" />
-              <span className="hidden sm:inline">Layout Horizontal</span>
-            </Button>
+            <LayoutSettings />
 
             <Button variant="ghost" size="sm" className="relative">
               <Bell className="h-5 w-5" />

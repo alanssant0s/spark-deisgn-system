@@ -6,19 +6,41 @@ interface LayoutContextType {
   layoutType: LayoutType;
   setLayoutType: (type: LayoutType) => void;
   toggleLayout: () => void;
+  desktopLayoutType: LayoutType;
+  mobileLayoutType: LayoutType;
+  setDesktopLayoutType: (type: LayoutType) => void;
+  setMobileLayoutType: (type: LayoutType) => void;
+  getCurrentLayoutType: () => LayoutType;
 }
 
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
 
 export function LayoutProvider({ children }: { children: ReactNode }) {
   const [layoutType, setLayoutType] = useState<LayoutType>('vertical');
+  const [desktopLayoutType, setDesktopLayoutType] = useState<LayoutType>('vertical');
+  const [mobileLayoutType, setMobileLayoutType] = useState<LayoutType>('horizontal');
 
   const toggleLayout = () => {
     setLayoutType(prev => prev === 'vertical' ? 'horizontal' : 'vertical');
   };
 
+  const getCurrentLayoutType = () => {
+    // Check if it's mobile screen size
+    const isMobile = window.innerWidth < 1024; // lg breakpoint
+    return isMobile ? mobileLayoutType : desktopLayoutType;
+  };
+
   return (
-    <LayoutContext.Provider value={{ layoutType, setLayoutType, toggleLayout }}>
+    <LayoutContext.Provider value={{ 
+      layoutType, 
+      setLayoutType, 
+      toggleLayout,
+      desktopLayoutType,
+      mobileLayoutType,
+      setDesktopLayoutType,
+      setMobileLayoutType,
+      getCurrentLayoutType
+    }}>
       {children}
     </LayoutContext.Provider>
   );

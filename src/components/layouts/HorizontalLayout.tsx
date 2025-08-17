@@ -22,6 +22,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useLayout } from "@/contexts/LayoutContext";
+import { LayoutSettings } from "@/components/LayoutSettings";
 import userAvatar from "@/assets/user-avatar.jpg";
 
 interface HorizontalLayoutProps {
@@ -161,16 +162,8 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
 
             {/* Right side actions */}
             <div className="flex items-center space-x-4">
-              {/* Layout Toggle */}
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={toggleLayout}
-                className="flex items-center space-x-2"
-              >
-                <Monitor className="h-4 w-4" />
-                <span className="hidden sm:inline">Layout Vertical</span>
-              </Button>
+              {/* Layout Settings */}
+              <LayoutSettings />
 
               {/* Notifications */}
               <Button variant="ghost" size="sm" className="relative hidden sm:flex">
