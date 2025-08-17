@@ -27,6 +27,10 @@ const saasPages = [
   { name: "Clientes", path: "/saas/customers", icon: Users },
   { name: "Pedidos", path: "/saas/orders", icon: FileText },
   { name: "Produtos", path: "/saas/products", icon: Package },
+  { name: "Métricas", path: "/metrics", icon: TrendingUp },
+  { name: "Usuários", path: "/users", icon: Users },
+  { name: "Confirmação", path: "/confirmation", icon: FileText },
+  { name: "Sistema", path: "/design-system", icon: Settings },
 ];
 
 const componentPages = [
@@ -38,13 +42,6 @@ const componentPages = [
   { name: "Alertas", path: "/components/alerts", icon: Package },
   { name: "Diálogos", path: "/components/dialogs", icon: Package },
   { name: "Gráficos", path: "/components/charts", icon: Package },
-];
-
-const examplePages = [
-  { name: "Métricas", path: "/metrics", icon: BarChart3 },
-  { name: "Usuários", path: "/users", icon: Users },
-  { name: "Confirmação", path: "/confirmation", icon: FileText },
-  { name: "Sistema", path: "/design-system", icon: Settings },
 ];
 
 export function HorizontalLayout({ children }: HorizontalLayoutProps) {
@@ -60,7 +57,7 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
   };
 
   const getCurrentPageName = () => {
-    const allPages = [...mainNavItems, ...saasPages, ...componentPages, ...examplePages];
+    const allPages = [...mainNavItems, ...saasPages, ...componentPages];
     const currentPage = allPages.find((page) => page.path === location.pathname);
     return currentPage?.name || "Dashboard";
   };
@@ -133,28 +130,6 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48">
                   {componentPages.map((page) => (
-                    <DropdownMenuItem key={page.path} asChild>
-                      <Link to={page.path} className="flex items-center gap-2">
-                        <page.icon className="h-4 w-4" />
-                        {page.name}
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* Exemplos Dropdown */}
-              <DropdownMenu>
-                <DropdownMenuTrigger className={cn(
-                  "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary",
-                  examplePages.some(page => isActive(page.path)) ? "text-primary" : "text-muted-foreground"
-                )}>
-                  <TrendingUp className="h-4 w-4" />
-                  <span>Exemplos</span>
-                  <ChevronDown className="h-3 w-3" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48">
-                  {examplePages.map((page) => (
                     <DropdownMenuItem key={page.path} asChild>
                       <Link to={page.path} className="flex items-center gap-2">
                         <page.icon className="h-4 w-4" />
@@ -280,29 +255,6 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                     Componentes
                   </div>
                   {componentPages.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={cn(
-                        "flex items-center gap-3 px-6 py-2 rounded-lg transition-colors text-sm",
-                        isActive(item.path)
-                          ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                      )}
-                    >
-                      <item.icon className="h-4 w-4" />
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-
-                {/* Exemplos */}
-                <div className="space-y-1">
-                  <div className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                    Exemplos
-                  </div>
-                  {examplePages.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}

@@ -28,6 +28,10 @@ const saasPages = [
   { name: "Clientes", path: "/saas/customers", icon: Users },
   { name: "Pedidos", path: "/saas/orders", icon: FileText },
   { name: "Produtos", path: "/saas/products", icon: Package },
+  { name: "Métricas", path: "/metrics", icon: TrendingUp },
+  { name: "Usuários", path: "/users", icon: Users },
+  { name: "Confirmação", path: "/confirmation", icon: FileText },
+  { name: "Sistema", path: "/design-system", icon: Settings },
 ];
 
 const componentPages = [
@@ -41,13 +45,6 @@ const componentPages = [
   { name: "Gráficos", path: "/components/charts", icon: Package },
 ];
 
-const examplePages = [
-  { name: "Métricas", path: "/metrics", icon: BarChart3 },
-  { name: "Usuários", path: "/users", icon: Users },
-  { name: "Confirmação", path: "/confirmation", icon: FileText },
-  { name: "Sistema", path: "/design-system", icon: Settings },
-];
-
 export function VerticalLayout({ children }: VerticalLayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -56,7 +53,6 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
   
   // Abrir seções por padrão se a rota atual estiver nelas
   const [isComponentsOpen, setIsComponentsOpen] = useState<boolean>(true);
-  const [isExamplesOpen, setIsExamplesOpen] = useState<boolean>(true);
   const [isSaasOpen, setIsSaasOpen] = useState<boolean>(
     saasPages.some(page => location.pathname === page.path)
   );
@@ -211,48 +207,6 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                 )}
               </Collapsible>
             </li>
-
-            {/* Examples Section */}
-            <li>
-              <Collapsible open={isExamplesOpen} onOpenChange={setIsExamplesOpen}>
-                <CollapsibleTrigger asChild>
-                  <button
-                    className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors group ${
-                      isActive("/examples")
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                    }`}
-                  >
-                    <TrendingUp className="w-5 h-5 flex-shrink-0" />
-                    {isSidebarOpen && (
-                      <>
-                        <span className="ml-3">Exemplos</span>
-                        <ChevronDown className={`w-4 h-4 ml-auto transition-transform ${isExamplesOpen ? "rotate-180" : ""}`} />
-                      </>
-                    )}
-                  </button>
-                </CollapsibleTrigger>
-                {isSidebarOpen && (
-                  <CollapsibleContent className="ml-4 mt-1 space-y-1">
-                     {examplePages.map((item) => (
-                       <Link
-                         key={item.name}
-                         to={item.path}
-                         onClick={() => setIsMobileMenuOpen(false)}
-                         className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${
-                           isActive(item.path)
-                             ? "bg-primary text-primary-foreground"
-                             : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                         }`}
-                       >
-                         <item.icon className="w-4 h-4 flex-shrink-0" />
-                         <span className="ml-3">{item.name}</span>
-                       </Link>
-                     ))}
-                  </CollapsibleContent>
-                )}
-              </Collapsible>
-            </li>
           </ul>
         </nav>
       </aside>
@@ -280,7 +234,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
             
             <h2 className="text-lg font-semibold text-foreground">
               {(() => {
-                const currentPage = [...mainNavItems, ...saasPages, ...componentPages, ...examplePages].find(
+                const currentPage = [...mainNavItems, ...saasPages, ...componentPages].find(
                   (item) => item.path === location.pathname
                 );
                 return currentPage?.name || "Dashboard";
