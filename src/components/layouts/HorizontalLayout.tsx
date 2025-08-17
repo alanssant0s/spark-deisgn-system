@@ -150,6 +150,11 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                       </Link>
                     </DropdownMenuItem>
                   ))}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={toggleLayout} className="lg:hidden">
+                    <Monitor className="mr-2 h-4 w-4" />
+                    <span>Mudar para Layout Vertical</span>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </nav>
@@ -161,10 +166,10 @@ export function HorizontalLayout({ children }: HorizontalLayoutProps) {
                 variant="ghost" 
                 size="sm" 
                 onClick={toggleLayout}
-                className="hidden lg:flex items-center space-x-2"
+                className="flex items-center space-x-2"
               >
                 <Monitor className="h-4 w-4" />
-                <span>Layout Vertical</span>
+                <span className="hidden sm:inline">Layout Vertical</span>
               </Button>
 
               {/* Notifications */}
