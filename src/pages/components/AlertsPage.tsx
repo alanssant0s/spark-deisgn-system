@@ -1,4 +1,3 @@
-import { SaasLayout } from "@/components/saas/SaasLayout";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,8 +18,7 @@ import {
 
 const AlertsPage = () => {
   return (
-    <SaasLayout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         {/* Header */}
         <div className="space-y-2">
           <h1 className="text-3xl font-bold text-foreground">Alerts</h1>
@@ -242,7 +240,7 @@ const AlertsPage = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </SaasLayout>
+    </div>
   );
 };
 

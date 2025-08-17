@@ -1,4 +1,4 @@
-import { SaasLayout } from "@/components/saas/SaasLayout";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -40,7 +40,7 @@ const FormsPage = () => {
   };
 
   return (
-    <SaasLayout>
+    <div className="space-y-8">
       <div className="space-y-8">
         {/* Header */}
         <div className="space-y-2">
@@ -511,7 +511,7 @@ const MyForm = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </SaasLayout>
+    </div>
   );
 };
 

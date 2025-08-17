@@ -1,4 +1,3 @@
-import { SaasLayout } from "@/components/saas/SaasLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -62,8 +61,7 @@ const UserProfile = () => {
   };
 
   return (
-    <SaasLayout>
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8">
         {/* Profile Header */}
         <Card>
           <CardContent className="pt-6">
@@ -392,7 +390,7 @@ const UserProfile = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </SaasLayout>
+    </div>
   );
 };
 

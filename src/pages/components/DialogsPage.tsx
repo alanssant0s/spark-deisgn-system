@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { SaasLayout } from "@/components/saas/SaasLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -34,8 +33,7 @@ const DialogsPage = () => {
   };
 
   return (
-    <SaasLayout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         <div>
           <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
             Dialogs & Modals
@@ -582,7 +580,7 @@ import { Drawer, DrawerContent, DrawerHeader } from "@/components/ui/drawer";`}
           </TabsContent>
         </Tabs>
       </div>
-    </SaasLayout>
+    </div>
   );
 };
 

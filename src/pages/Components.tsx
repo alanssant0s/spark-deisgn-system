@@ -1,4 +1,3 @@
-import { SaasLayout } from "@/components/saas/SaasLayout";
 import { MetricCard } from "@/components/saas/MetricCard";
 import { StatCard } from "@/components/saas/StatCard";
 import { GradientButton } from "@/components/saas/GradientButton";
@@ -70,8 +69,7 @@ const tableData = [
 
 const Components = () => {
   return (
-    <SaasLayout>
-      <div className="space-y-8">
+    <div className="space-y-8">
         {/* Header */}
         <div className="space-y-2">
           <h1 className="text-3xl font-bold text-foreground">Componentes SaaS</h1>
@@ -600,7 +598,6 @@ const Components = () => {
           </Card>
         </section>
       </div>
-    </SaasLayout>
   );
 };
 
