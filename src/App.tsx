@@ -18,6 +18,7 @@ import ButtonsPage from "./pages/components/ButtonsPage";
 import CardsPage from "./pages/components/CardsPage";
 import AlertsPage from "./pages/components/AlertsPage";
 import FormsPage from "./pages/components/FormsPage";
+import DatePickerPage from "./pages/components/DatePickerPage";
 import DialogsPage from "./pages/components/DialogsPage";
 import TablesPage from "./pages/components/TablesPage";
 import ChartsPage from "./pages/components/ChartsPage";
@@ -38,10 +39,11 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/components" element={<Components />} />
               <Route path="/components/buttons" element={<ButtonsPage />} />
-              <Route path="/components/cards" element={<CardsPage />} />
-              <Route path="/components/alerts" element={<AlertsPage />} />
-              <Route path="/components/forms" element={<FormsPage />} />
-              <Route path="/components/dialogs" element={<DialogsPage />} />
+                <Route path="/components/cards" element={<CardsPage />} />
+                <Route path="/components/alerts" element={<AlertsPage />} />
+                <Route path="/components/forms" element={<FormsPage />} />
+                <Route path="/components/datepicker" element={<DatePickerPage />} />
+                <Route path="/components/dialogs" element={<DialogsPage />} />
               <Route path="/components/tables" element={<TablesPage />} />
               <Route path="/components/charts" element={<ChartsPage />} />
               <Route path="/design-system" element={<DesignSystem />} />

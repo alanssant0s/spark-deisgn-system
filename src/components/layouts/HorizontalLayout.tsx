@@ -43,6 +43,7 @@ const componentPages = [
   { name: "Botões", path: "/components/buttons", icon: Package },
   { name: "Cards", path: "/components/cards", icon: Package },
   { name: "Formulários", path: "/components/forms", icon: Package },
+  { name: "Date Picker", path: "/components/datepicker", icon: Package },
   { name: "Tabelas", path: "/components/tables", icon: Package },
   { name: "Alertas", path: "/components/alerts", icon: Package },
   { name: "Diálogos", path: "/components/dialogs", icon: Package },
