@@ -1,24 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Progress } from "@/components/ui/progress";
 import AuthLayout from "@/components/auth/AuthLayout";
-import {
-    Mail,
-    ArrowLeft,
-    Send,
-    AlertCircle,
-    CheckCircle,
-    Lock,
-    Eye,
-    EyeOff,
-    Check,
-    X,
-    RotateCcw
-} from "lucide-react";
+import { AuthField } from "@/components/auth/AuthField";
+import { PasswordStrength } from "@/components/auth/PasswordStrength";
+import { LoadingButton } from "@/components/auth/LoadingButton";
+import { Mail, ArrowLeft, Send, AlertCircle, CheckCircle, Lock, RotateCcw } from "lucide-react";
 
 const ResetPassword = () => {
     const navigate = useNavigate();
@@ -55,30 +42,7 @@ const ResetPassword = () => {
         }
     };
 
-    const getPasswordStrength = (password: string) => {
-        let strength = 0;
-        const checks = {
-            length: password.length >= 8,
-            lowercase: /[a-z]/.test(password),
-            uppercase: /[A-Z]/.test(password),
-            number: /\d/.test(password),
-            special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
-        };
 
-        strength = Object.values(checks).filter(Boolean).length;
-
-        return {
-            score: strength,
-            percentage: (strength / 5) * 100,
-            checks,
-            label: strength === 0 ? "" :
-                strength <= 2 ? "Fraca" :
-                    strength <= 3 ? "Média" :
-                        strength <= 4 ? "Forte" : "Muito Forte"
-        };
-    };
-
-    const passwordStrength = getPasswordStrength(formData.password);
 
     const validateEmailForm = () => {
         const newErrors: { [key: string]: string } = {};
@@ -173,7 +137,7 @@ const ResetPassword = () => {
                 title="Redefinir senha"
                 subtitle="Digite sua nova senha"
             >
-                <form onSubmit={handlePasswordSubmit} className="space-y-6">
+                <form onSubmit={handlePasswordSubmit} className="space-y-5">
                     {/* Error Alert */}
                     {errors.general && (
                         <Alert variant="destructive">
@@ -183,120 +147,54 @@ const ResetPassword = () => {
                     )}
 
                     {/* Password Field */}
-                    <div className="space-y-2">
-                        <Label htmlFor="password">Nova senha</Label>
-                        <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input
-                                id="password"
-                                type={showPassword ? "text" : "password"}
-                                placeholder="Digite sua nova senha"
-                                value={formData.password}
-                                onChange={(e) => handleInputChange("password", e.target.value)}
-                                className={`pl-10 pr-10 ${errors.password ? "border-red-500" : ""}`}
-                                disabled={isLoading}
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                                disabled={isLoading}
-                            >
-                                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                            </button>
-                        </div>
+                    <div className="space-y-1">
+                        <AuthField
+                            label="Nova senha"
+                            type="password"
+                            placeholder="Digite sua nova senha"
+                            value={formData.password}
+                            onChange={(value) => handleInputChange("password", value)}
+                            icon={<Lock className="h-4 w-4" />}
+                            error={errors.password}
+                            disabled={isLoading}
+                            required
+                            showPasswordToggle
+                            onTogglePassword={() => setShowPassword(!showPassword)}
+                            showPassword={showPassword}
+                        />
 
                         {/* Password Strength */}
-                        {formData.password && (
-                            <div className="space-y-2">
-                                <div className="flex items-center justify-between text-xs">
-                                    <span className="text-muted-foreground">Força da senha</span>
-                                    <span className={`font-medium ${passwordStrength.score <= 2 ? "text-red-500" :
-                                            passwordStrength.score <= 3 ? "text-yellow-500" :
-                                                passwordStrength.score <= 4 ? "text-blue-500" : "text-green-500"
-                                        }`}>
-                                        {passwordStrength.label}
-                                    </span>
-                                </div>
-                                <Progress
-                                    value={passwordStrength.percentage}
-                                    className={`h-2 ${passwordStrength.score <= 2 ? "[&>div]:bg-red-500" :
-                                            passwordStrength.score <= 3 ? "[&>div]:bg-yellow-500" :
-                                                passwordStrength.score <= 4 ? "[&>div]:bg-blue-500" : "[&>div]:bg-green-500"
-                                        }`}
-                                />
-                                <div className="grid grid-cols-2 gap-1 text-xs">
-                                    <div className={`flex items-center gap-1 ${passwordStrength.checks.length ? "text-green-600" : "text-gray-400"}`}>
-                                        {passwordStrength.checks.length ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
-                                        8+ caracteres
-                                    </div>
-                                    <div className={`flex items-center gap-1 ${passwordStrength.checks.uppercase ? "text-green-600" : "text-gray-400"}`}>
-                                        {passwordStrength.checks.uppercase ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
-                                        Maiúscula
-                                    </div>
-                                    <div className={`flex items-center gap-1 ${passwordStrength.checks.lowercase ? "text-green-600" : "text-gray-400"}`}>
-                                        {passwordStrength.checks.lowercase ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
-                                        Minúscula
-                                    </div>
-                                    <div className={`flex items-center gap-1 ${passwordStrength.checks.number ? "text-green-600" : "text-gray-400"}`}>
-                                        {passwordStrength.checks.number ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
-                                        Número
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {errors.password && (
-                            <p className="text-sm text-red-500">{errors.password}</p>
-                        )}
+                        <PasswordStrength password={formData.password} />
                     </div>
 
                     {/* Confirm Password Field */}
-                    <div className="space-y-2">
-                        <Label htmlFor="confirmPassword">Confirmar nova senha</Label>
-                        <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input
-                                id="confirmPassword"
-                                type={showConfirmPassword ? "text" : "password"}
-                                placeholder="Confirme sua nova senha"
-                                value={formData.confirmPassword}
-                                onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
-                                className={`pl-10 pr-10 ${errors.confirmPassword ? "border-red-500" : ""}`}
-                                disabled={isLoading}
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                                disabled={isLoading}
-                            >
-                                {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                            </button>
-                        </div>
-                        {errors.confirmPassword && (
-                            <p className="text-sm text-red-500">{errors.confirmPassword}</p>
-                        )}
-                    </div>
+                    <AuthField
+                        label="Confirmar nova senha"
+                        type="password"
+                        placeholder="Confirme sua nova senha"
+                        value={formData.confirmPassword}
+                        onChange={(value) => handleInputChange("confirmPassword", value)}
+                        icon={<Lock className="h-4 w-4" />}
+                        error={errors.confirmPassword}
+                        disabled={isLoading}
+                        required
+                        showPasswordToggle
+                        onTogglePassword={() => setShowConfirmPassword(!showConfirmPassword)}
+                        showPassword={showConfirmPassword}
+                    />
 
                     {/* Reset Button */}
-                    <Button
+                    <LoadingButton
                         type="submit"
                         className="w-full"
-                        disabled={isLoading}
+                        loading={isLoading}
+                        loadingText="Redefinindo..."
                     >
-                        {isLoading ? (
-                            <div className="flex items-center gap-2">
-                                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                Redefinindo...
-                            </div>
-                        ) : (
-                            <div className="flex items-center gap-2">
-                                <Lock className="h-4 w-4" />
-                                Redefinir senha
-                            </div>
-                        )}
-                    </Button>
+                        <div className="flex items-center gap-2">
+                            <Lock className="h-4 w-4" />
+                            Redefinir senha
+                        </div>
+                    </LoadingButton>
 
                     {/* Back to Login */}
                     <div className="text-center">
@@ -356,24 +254,16 @@ const ResetPassword = () => {
                         <p className="text-sm text-muted-foreground">
                             Não recebeu o email?
                         </p>
-                        <Button
+                        <LoadingButton
                             variant="outline"
                             onClick={handleResendEmail}
-                            disabled={isLoading}
+                            loading={isLoading}
+                            loadingText="Reenviando..."
                             className="flex items-center gap-2"
                         >
-                            {isLoading ? (
-                                <>
-                                    <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                                    Reenviando...
-                                </>
-                            ) : (
-                                <>
-                                    <RotateCcw className="h-4 w-4" />
-                                    Reenviar email
-                                </>
-                            )}
-                        </Button>
+                            <RotateCcw className="h-4 w-4" />
+                            Reenviar email
+                        </LoadingButton>
                     </div>
 
                     {/* Back to Login */}
@@ -396,7 +286,7 @@ const ResetPassword = () => {
             title="Esqueceu a senha?"
             subtitle="Digite seu email para redefinir sua senha"
         >
-            <form onSubmit={handleEmailSubmit} className="space-y-6">
+            <form onSubmit={handleEmailSubmit} className="space-y-5">
                 {/* Error Alert */}
                 {errors.general && (
                     <Alert variant="destructive">
@@ -414,43 +304,30 @@ const ResetPassword = () => {
                 </Alert>
 
                 {/* Email Field */}
-                <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                            id="email"
-                            type="email"
-                            placeholder="seu@email.com"
-                            value={formData.email}
-                            onChange={(e) => handleInputChange("email", e.target.value)}
-                            className={`pl-10 ${errors.email ? "border-red-500" : ""}`}
-                            disabled={isLoading}
-                        />
-                    </div>
-                    {errors.email && (
-                        <p className="text-sm text-red-500">{errors.email}</p>
-                    )}
-                </div>
+                <AuthField
+                    label="Email"
+                    type="email"
+                    placeholder="seu@email.com"
+                    value={formData.email}
+                    onChange={(value) => handleInputChange("email", value)}
+                    icon={<Mail className="h-4 w-4" />}
+                    error={errors.email}
+                    disabled={isLoading}
+                    required
+                />
 
                 {/* Send Button */}
-                <Button
+                <LoadingButton
                     type="submit"
                     className="w-full"
-                    disabled={isLoading}
+                    loading={isLoading}
+                    loadingText="Enviando..."
                 >
-                    {isLoading ? (
-                        <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                            Enviando...
-                        </div>
-                    ) : (
-                        <div className="flex items-center gap-2">
-                            <Send className="h-4 w-4" />
-                            Enviar link de redefinição
-                        </div>
-                    )}
-                </Button>
+                    <div className="flex items-center gap-2">
+                        <Send className="h-4 w-4" />
+                        Enviar link de redefinição
+                    </div>
+                </LoadingButton>
 
                 {/* Back to Login */}
                 <div className="text-center">

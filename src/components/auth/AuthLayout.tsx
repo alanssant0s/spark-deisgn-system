@@ -32,7 +32,7 @@ const AuthLayout = ({ children, title, subtitle }: AuthLayoutProps) => {
                 </div>
 
                 {/* Auth Card */}
-                <Card className="p-6 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+                <Card className="p-8 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
                     {children}
                 </Card>
 

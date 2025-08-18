@@ -1,0 +1,55 @@
+# Development files
+src/
+public/
+index.html
+vite.config.ts
+vite.lib.config.ts
+tsconfig.json
+tsconfig.app.json
+tsconfig.node.json
+tsconfig.lib.json
+tailwind.config.ts
+postcss.config.js
+eslint.config.js
+components.json
+
+# Build files (keep only specific dist files)
+node_modules/
+.vite/
+dist/assets/
+dist/favicon.png
+dist/logo.png
+dist/lovable-uploads/
+dist/placeholder.svg
+dist/robots.txt
+dist/index.html
+dist/**/*.map
+
+# Git and CI
+.git/
+.github/
+.gitignore
+
+# Development tools
+.vscode/
+.idea/
+*.log
+*.lock
+bun.lockb
+
+# Documentation (keep only README.md)
+LIBRARY.md
+PUBLISH.md
+
+# Test files
+**/*.test.*
+**/*.spec.*
+
+# Stories and examples
+**/*.stories.*
+src/pages/
+src/App.tsx
+src/main.tsx
+
+# Package files
+*.tgz

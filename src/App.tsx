@@ -22,13 +22,24 @@ import CardsPage from "./pages/components/CardsPage";
 import AlertsPage from "./pages/components/AlertsPage";
 import FormsPage from "./pages/components/FormsPage";
 import DatePickerPage from "./pages/components/DatePickerPage";
-import DialogsPage from "./pages/components/DialogsPage";
+
+import ModalsPage from "./pages/components/ModalsPage";
 import TablesPage from "./pages/components/TablesPage";
 import DataTablePage from "./pages/components/DataTablePage";
 import ChartsPage from "./pages/components/ChartsPage";
 import LogoProcessorPage from "./pages/LogoProcessor";
 import ErrorPages from "./pages/ErrorPages";
 import AuthPages from "./pages/AuthPages";
+import LibraryPlayground from "./pages/LibraryPlayground";
+import BreadcrumbDemoPage from "./pages/components/BreadcrumbPage";
+import EcommercePage from "./pages/breadcrumb-demo/EcommercePage";
+import CategoriesPage from "./pages/breadcrumb-demo/CategoriesPage";
+import ElectronicsPage from "./pages/breadcrumb-demo/ElectronicsPage";
+import SmartphonesPage from "./pages/breadcrumb-demo/SmartphonesPage";
+import DeepLevel1 from "./pages/breadcrumb-demo/DeepLevel1";
+import DeepLevel2 from "./pages/breadcrumb-demo/DeepLevel2";
+import DeepLevel3 from "./pages/breadcrumb-demo/DeepLevel3";
+import DeepLevel4 from "./pages/breadcrumb-demo/DeepLevel4";
 
 // Error Pages
 import NotFoundError from "./pages/errors/NotFound";
@@ -87,10 +98,12 @@ const App = () => (
                         <Route path="/components/alerts" element={<AlertsPage />} />
                         <Route path="/components/forms" element={<FormsPage />} />
                         <Route path="/components/datepicker" element={<DatePickerPage />} />
-                        <Route path="/components/dialogs" element={<DialogsPage />} />
+
+                        <Route path="/components/modals" element={<ModalsPage />} />
                         <Route path="/components/tables" element={<TablesPage />} />
                         <Route path="/components/datatable" element={<DataTablePage />} />
                         <Route path="/components/charts" element={<ChartsPage />} />
+                        <Route path="/components/breadcrumb" element={<BreadcrumbDemoPage />} />
 
                         {/* Example Pages */}
                         <Route path="/design-system" element={<DesignSystem />} />
@@ -103,6 +116,19 @@ const App = () => (
                         <Route path="/logo-processor" element={<LogoProcessorPage />} />
                         <Route path="/error-pages" element={<ErrorPages />} />
                         <Route path="/auth-pages" element={<AuthPages />} />
+                        <Route path="/playground" element={<LibraryPlayground />} />
+
+                        {/* Breadcrumb Demo Pages */}
+                        <Route path="/breadcrumb-demo/ecommerce" element={<EcommercePage />} />
+                        <Route path="/breadcrumb-demo/ecommerce/categories" element={<CategoriesPage />} />
+                        <Route path="/breadcrumb-demo/ecommerce/categories/electronics" element={<ElectronicsPage />} />
+                        <Route path="/breadcrumb-demo/ecommerce/categories/electronics/smartphones" element={<SmartphonesPage />} />
+
+                        {/* Deep Navigation Test Routes */}
+                        <Route path="/breadcrumb-demo/deep/level1" element={<DeepLevel1 />} />
+                        <Route path="/breadcrumb-demo/deep/level1/level2" element={<DeepLevel2 />} />
+                        <Route path="/breadcrumb-demo/deep/level1/level2/level3" element={<DeepLevel3 />} />
+                        <Route path="/breadcrumb-demo/deep/level1/level2/level3/level4" element={<DeepLevel4 />} />
 
                         {/* Error Pages */}
                         <Route path="/errors/404" element={<NotFoundError />} />

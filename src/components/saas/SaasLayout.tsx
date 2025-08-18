@@ -3,29 +3,12 @@ import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
-  LayoutDashboard,
-  Palette,
-  Component,
-  BarChart3,
-  Settings,
   Menu,
   X,
-  Users,
   User,
-  CheckCircle,
   ChevronDown,
   ChevronRight,
-  AlertTriangle,
-  Calendar,
-  CreditCard,
-  Table,
-  ToggleLeft,
-  FileText,
-  MessageSquare,
-  FolderKanban,
-  TrendingUp,
-  UserCheck,
-  PieChart,
+  Settings,
   LogOut,
   Bell
 } from "lucide-react";
@@ -34,44 +17,33 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import userAvatar from "@/assets/user-avatar.jpg";
+import { mainNavItems, navigationSections, getCurrentPageName, isActive, isSectionActive } from "@/lib/navigation";
 
 interface SaasLayoutProps {
   children: ReactNode;
 }
 
-const navigation = [
-  { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  {
-    name: "Exemplos",
-    icon: FolderKanban,
-    children: [
-      { name: "Dashboard", href: "/examples/dashboard" },
-      { name: "Projetos", href: "/examples/projects" },
-      { name: "Analytics", href: "/examples/analytics" },
-      { name: "Equipe", href: "/examples/team" },
-    ]
-  },
-  {
-    name: "Componentes UI",
-    icon: Component,
-    children: [
-      { name: "Visão Geral", href: "/components" },
-      { name: "Alerts", href: "/components/alerts" },
-      { name: "Buttons", href: "/components/buttons" },
-      { name: "Cards", href: "/components/cards" },
-      { name: "Dialogs", href: "/components/dialogs" },
-      { name: "Forms", href: "/components/forms" },
-      { name: "Tables", href: "/components/tables" },
-      { name: "Charts", href: "/components/charts" },
-    ]
-  },
-  { name: "Design System", href: "/design-system", icon: Palette },
-  { name: "Métricas", href: "/metrics", icon: BarChart3 },
-  { name: "Gestão de Usuários", href: "/users", icon: Users },
-  { name: "Perfil", href: "/profile", icon: User },
-  { name: "Confirmação", href: "/confirmation", icon: CheckCircle },
-  { name: "Configurações", href: "/settings", icon: Settings },
-];
+// Criar navegação compatível com o formato do SaasLayout
+const createSaasNavigation = () => {
+  const navigation = [
+    ...mainNavItems.map(item => ({
+      name: item.name,
+      href: item.path,
+      icon: item.icon
+    })),
+    ...navigationSections.map(section => ({
+      name: section.name,
+      icon: section.icon,
+      children: section.items.map(item => ({
+        name: item.name,
+        href: item.path
+      }))
+    }))
+  ];
+  return navigation;
+};
+
+const navigation = createSaasNavigation();
 
 export const SaasLayout = ({ children }: SaasLayoutProps) => {
   const location = useLocation();
@@ -128,10 +100,10 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
           {navigation.map((item) => {
             if (item.children) {
               const hasActiveChild = item.children.some(child => location.pathname === child.href);
-              const isComponentsPage = item.name === "Componentes UI" && location.pathname.startsWith('/components');
-              const isExamplesPage = item.name === "Exemplos" && location.pathname.startsWith('/examples');
-              const isOpen = item.name === "Componentes UI" ? componentsOpen : examplesOpen;
-              const setOpen = item.name === "Componentes UI" ? setComponentsOpen : setExamplesOpen;
+              const isComponentsPage = item.name === "Componentes" && location.pathname.startsWith('/components');
+              const isPagesSection = item.name === "Pages" && isSectionActive(navigationSections[0].items, location.pathname);
+              const isOpen = item.name === "Componentes" ? componentsOpen : examplesOpen;
+              const setOpen = item.name === "Componentes" ? setComponentsOpen : setExamplesOpen;
 
               return (
                 <Collapsible
@@ -145,7 +117,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
                       className={cn(
                         "w-full justify-start px-3 py-2.5 text-sm font-medium transition-all duration-200",
                         "hover:bg-muted group",
-                        (isComponentsPage || isExamplesPage)
+                        (isComponentsPage || isPagesSection)
                           ? "bg-primary text-primary-foreground shadow-sm"
                           : "text-muted-foreground hover:text-foreground"
                       )}
@@ -167,7 +139,6 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
                   </CollapsibleTrigger>
                   <CollapsibleContent className="space-y-1 mt-1">
                     {item.children.map((child) => {
-                      const isActive = location.pathname === child.href;
                       return (
                         <Link
                           key={child.name}
@@ -175,7 +146,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
                           className={cn(
                             "flex items-center gap-3 px-6 py-2 rounded-lg text-sm transition-all duration-200",
                             "hover:bg-muted",
-                            isActive
+                            isActive(child.href, location.pathname)
                               ? "bg-accent text-accent-foreground border-l-4 border-primary"
                               : "text-muted-foreground hover:text-foreground"
                           )}
@@ -190,7 +161,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
               );
             }
 
-            const isActive = location.pathname === item.href;
+            const itemIsActive = isActive(item.href, location.pathname);
             return (
               <Link
                 key={item.name}
@@ -198,7 +169,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
                   "hover:bg-muted group",
-                  isActive
+                  itemIsActive
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
                 )}
@@ -206,7 +177,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
               >
                 <item.icon className={cn(
                   "h-5 w-5 transition-transform duration-200 group-hover:scale-110",
-                  isActive ? "text-primary-foreground" : "",
+                  itemIsActive ? "text-primary-foreground" : "",
                   sidebarCollapsed ? "mr-0" : ""
                 )} />
                 {!sidebarCollapsed && item.name}
@@ -232,31 +203,7 @@ export const SaasLayout = ({ children }: SaasLayoutProps) => {
 
           <div className="flex items-center justify-between flex-1">
             <h2 className="text-lg font-semibold text-foreground">
-              {(() => {
-                // Find current page name including nested routes
-                for (const item of navigation) {
-                  if (item.href === location.pathname) {
-                    return item.name;
-                  }
-                  if (item.children) {
-                    const child = item.children.find(c => c.href === location.pathname);
-                    if (child) {
-                      return child.name;
-                    }
-                  }
-                }
-                // Special cases for example pages
-                if (location.pathname.startsWith('/examples/')) {
-                  const pageMap: { [key: string]: string } = {
-                    '/examples/dashboard': 'Dashboard Exemplo',
-                    '/examples/projects': 'Projetos Exemplo',
-                    '/examples/analytics': 'Analytics Exemplo',
-                    '/examples/team': 'Equipe Exemplo'
-                  };
-                  return pageMap[location.pathname] || 'Exemplo';
-                }
-                return "Dashboard";
-              })()}
+              {getCurrentPageName(location.pathname)}
             </h2>
 
             {/* User Menu */}

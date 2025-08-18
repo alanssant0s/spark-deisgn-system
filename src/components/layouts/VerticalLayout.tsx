@@ -9,46 +9,16 @@ import { NotificationCenter } from "@/components/notifications/NotificationCente
 import { LayoutSettings } from "@/components/LayoutSettings";
 import { useLayout } from "@/contexts/LayoutContext";
 import {
-  Menu, X, Home, BarChart3, Users, FileText, Package, Bell, Settings,
-  ChevronDown, User, LogOut, Zap, PieChart, TrendingUp, MousePointer2,
-  CreditCard, FileInput, Calendar, Table, Database, AlertTriangle,
-  MessageSquare, CheckCircle, Palette, ShoppingBag, ShoppingCart, Bug, Shield
+  Menu, ChevronDown, User, LogOut, Settings
 } from "lucide-react";
 import userAvatar from "@/assets/user-avatar.jpg";
+import { mainNavItems, navigationSections, getCurrentPageName, isActive, isSectionActive } from "@/lib/navigation";
 
 interface VerticalLayoutProps {
   children: ReactNode;
 }
 
-const mainNavItems = [
-  { name: "Dashboard", path: "/", icon: Home },
-];
 
-const saasPages = [
-  { name: "Analytics", path: "/saas/analytics", icon: BarChart3 },
-  { name: "Clientes", path: "/saas/customers", icon: Users },
-  { name: "Pedidos", path: "/saas/orders", icon: ShoppingCart },
-  { name: "Produtos", path: "/saas/products", icon: ShoppingBag },
-  { name: "Métricas", path: "/metrics", icon: TrendingUp },
-  { name: "Usuários", path: "/users", icon: Users },
-  { name: "Confirmação", path: "/confirmation", icon: CheckCircle },
-  { name: "Sistema", path: "/design-system", icon: Palette },
-  { name: "Páginas de Erro", path: "/error-pages", icon: Bug },
-  { name: "Autenticação", path: "/auth-pages", icon: Shield },
-];
-
-const componentPages = [
-  { name: "Botões", path: "/components/buttons", icon: MousePointer2 },
-  { name: "Cards", path: "/components/cards", icon: CreditCard },
-  { name: "Formulários", path: "/components/forms", icon: FileInput },
-  { name: "Date Picker", path: "/components/datepicker", icon: Calendar },
-  { name: "Tabelas", path: "/components/tables", icon: Table },
-  { name: "DataTable", path: "/components/datatable", icon: Database },
-  { name: "Alertas", path: "/components/alerts", icon: AlertTriangle },
-  { name: "Diálogos", path: "/components/dialogs", icon: MessageSquare },
-  { name: "Gráficos", path: "/components/charts", icon: PieChart },
-  { name: "Processador Logo", path: "/logo-processor", icon: Zap },
-];
 
 export function VerticalLayout({ children }: VerticalLayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -59,15 +29,8 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
   // Abrir seções por padrão se a rota atual estiver nelas
   const [isComponentsOpen, setIsComponentsOpen] = useState<boolean>(true);
   const [isSaasOpen, setIsSaasOpen] = useState<boolean>(
-    saasPages.some(page => location.pathname === page.path)
+    isSectionActive(navigationSections[0].items, location.pathname)
   );
-
-  const isActive = (path: string) => {
-    if (path === "/") {
-      return location.pathname === "/";
-    }
-    return location.pathname.startsWith(path);
-  };
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
@@ -123,7 +86,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
                 <Link
                   to={item.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center px-3 py-2 rounded-lg transition-colors group ${isActive(item.path)
+                  className={`flex items-center px-3 py-2 rounded-lg transition-colors group ${isActive(item.path, location.pathname)
                     ? "bg-primary text-primary-foreground"
                     : sidebarTheme === 'dark'
                       ? "text-slate-300 hover:bg-slate-700 hover:text-slate-50"
@@ -136,93 +99,56 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
               </li>
             ))}
 
-            {/* SaaS Section */}
-            <li>
-              <Collapsible open={isSaasOpen} onOpenChange={setIsSaasOpen}>
-                <CollapsibleTrigger asChild>
-                  <button
-                    className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors group ${saasPages.some(page => isActive(page.path))
-                      ? "bg-primary text-primary-foreground"
-                      : sidebarTheme === 'dark'
-                        ? "text-slate-300 hover:bg-slate-700 hover:text-slate-50"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                      }`}
-                  >
-                    <Zap className="w-5 h-5 flex-shrink-0" />
-                    {isSidebarOpen && (
-                      <>
-                        <span className="ml-3">Pages</span>
-                        <ChevronDown className={`w-4 h-4 ml-auto transition-transform ${isSaasOpen ? "rotate-180" : ""}`} />
-                      </>
-                    )}
-                  </button>
-                </CollapsibleTrigger>
-                {isSidebarOpen && (
-                  <CollapsibleContent className="ml-4 mt-1 space-y-1">
-                    {saasPages.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.path}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${isActive(item.path)
-                          ? "bg-primary text-primary-foreground"
-                          : sidebarTheme === 'dark'
-                            ? "text-slate-400 hover:bg-slate-700 hover:text-slate-100"
-                            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                          }`}
-                      >
-                        <item.icon className="w-4 h-4 flex-shrink-0" />
-                        <span className="ml-3">{item.name}</span>
-                      </Link>
-                    ))}
-                  </CollapsibleContent>
-                )}
-              </Collapsible>
-            </li>
+            {/* Navigation Sections */}
+            {navigationSections.map((section, sectionIndex) => {
+              const isSectionOpen = sectionIndex === 0 ? isSaasOpen : isComponentsOpen;
+              const setSectionOpen = sectionIndex === 0 ? setIsSaasOpen : setIsComponentsOpen;
 
-            {/* Components Section */}
-            <li>
-              <Collapsible open={isComponentsOpen} onOpenChange={setIsComponentsOpen}>
-                <CollapsibleTrigger asChild>
-                  <button
-                    className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors group ${isActive("/components")
-                      ? "bg-primary text-primary-foreground"
-                      : sidebarTheme === 'dark'
-                        ? "text-slate-300 hover:bg-slate-700 hover:text-slate-50"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                      }`}
-                  >
-                    <Package className="w-5 h-5 flex-shrink-0" />
-                    {isSidebarOpen && (
-                      <>
-                        <span className="ml-3">Componentes</span>
-                        <ChevronDown className={`w-4 h-4 ml-auto transition-transform ${isComponentsOpen ? "rotate-180" : ""}`} />
-                      </>
-                    )}
-                  </button>
-                </CollapsibleTrigger>
-                {isSidebarOpen && (
-                  <CollapsibleContent className="ml-4 mt-1 space-y-1">
-                    {componentPages.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.path}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${isActive(item.path)
+              return (
+                <li key={section.name}>
+                  <Collapsible open={isSectionOpen} onOpenChange={setSectionOpen}>
+                    <CollapsibleTrigger asChild>
+                      <button
+                        className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors group ${isSectionActive(section.items, location.pathname)
                           ? "bg-primary text-primary-foreground"
                           : sidebarTheme === 'dark'
-                            ? "text-slate-400 hover:bg-slate-700 hover:text-slate-100"
+                            ? "text-slate-300 hover:bg-slate-700 hover:text-slate-50"
                             : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                           }`}
                       >
-                        <item.icon className="w-4 h-4 flex-shrink-0" />
-                        <span className="ml-3">{item.name}</span>
-                      </Link>
-                    ))}
-                  </CollapsibleContent>
-                )}
-              </Collapsible>
-            </li>
+                        <section.icon className="w-5 h-5 flex-shrink-0" />
+                        {isSidebarOpen && (
+                          <>
+                            <span className="ml-3">{section.name}</span>
+                            <ChevronDown className={`w-4 h-4 ml-auto transition-transform ${isSectionOpen ? "rotate-180" : ""}`} />
+                          </>
+                        )}
+                      </button>
+                    </CollapsibleTrigger>
+                    {isSidebarOpen && (
+                      <CollapsibleContent className="ml-4 mt-1 space-y-1">
+                        {section.items.map((item) => (
+                          <Link
+                            key={item.name}
+                            to={item.path}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className={`flex items-center px-3 py-2 rounded-lg transition-colors text-sm ${isActive(item.path, location.pathname)
+                              ? "bg-primary text-primary-foreground"
+                              : sidebarTheme === 'dark'
+                                ? "text-slate-400 hover:bg-slate-700 hover:text-slate-100"
+                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                              }`}
+                          >
+                            <item.icon className="w-4 h-4 flex-shrink-0" />
+                            <span className="ml-3">{item.name}</span>
+                          </Link>
+                        ))}
+                      </CollapsibleContent>
+                    )}
+                  </Collapsible>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </aside>
@@ -249,12 +175,7 @@ export function VerticalLayout({ children }: VerticalLayoutProps) {
             </button>
 
             <h2 className="text-lg font-semibold text-foreground">
-              {(() => {
-                const currentPage = [...mainNavItems, ...saasPages, ...componentPages].find(
-                  (item) => item.path === location.pathname
-                );
-                return currentPage?.name || "Dashboard";
-              })()}
+              {getCurrentPageName(location.pathname)}
             </h2>
           </div>
 

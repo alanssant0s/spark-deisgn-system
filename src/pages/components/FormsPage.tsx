@@ -1,17 +1,58 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { FormSection } from "@/components/forms/FormSection";
+import { FormField } from "@/components/forms/FormField";
+import { CheckboxGroup } from "@/components/forms/CheckboxGroup";
+import { SwitchGroup } from "@/components/forms/SwitchGroup";
+import { RadioGroupField } from "@/components/forms/RadioGroupField";
+import { RegistrationForm } from "@/components/forms/RegistrationForm";
+import { AdvancedRegistrationForm } from "@/components/forms/AdvancedRegistrationForm";
+import { PaymentForm } from "@/components/forms/PaymentForm";
+import { Home, Package, FileText } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const FormsPage = () => {
   return (
     <div className="space-y-8">
+      {/* Breadcrumb */}
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/" className="flex items-center gap-2">
+                <Home className="h-4 w-4" />
+                Home
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/components" className="flex items-center gap-2">
+                <Package className="h-4 w-4" />
+                Componentes
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Formulários
+            </BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       {/* Header */}
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-foreground">Formulários</h1>
@@ -24,65 +65,52 @@ const FormsPage = () => {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold text-foreground">Elementos Básicos</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Campos de Texto</CardTitle>
-              <CardDescription>Inputs para diferentes tipos de dados</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="text">Nome completo</Label>
-                <Input id="text" placeholder="Digite seu nome" />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="usuario@email.com" />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="password">Senha</Label>
-                <Input id="password" type="password" placeholder="••••••••" />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="number">Idade</Label>
-                <Input id="number" type="number" placeholder="25" />
-              </div>
-            </CardContent>
-          </Card>
+          <FormSection
+            title="Campos de Texto"
+            description="Inputs para diferentes tipos de dados"
+          >
+            <FormField label="Nome completo">
+              <Input placeholder="Digite seu nome" />
+            </FormField>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Textarea e Select</CardTitle>
-              <CardDescription>Componentes para textos longos e seleção</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="description">Descrição</Label>
-                <Textarea 
-                  id="description" 
-                  placeholder="Conte-nos mais sobre você..."
-                  rows={3}
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="country">País</Label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione um país" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="br">Brasil</SelectItem>
-                    <SelectItem value="us">Estados Unidos</SelectItem>
-                    <SelectItem value="ca">Canadá</SelectItem>
-                    <SelectItem value="mx">México</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </CardContent>
-          </Card>
+            <FormField label="Email">
+              <Input type="email" placeholder="usuario@email.com" />
+            </FormField>
+
+            <FormField label="Senha">
+              <Input type="password" placeholder="••••••••" />
+            </FormField>
+
+            <FormField label="Idade">
+              <Input type="number" placeholder="25" />
+            </FormField>
+          </FormSection>
+
+          <FormSection
+            title="Textarea e Select"
+            description="Componentes para textos longos e seleção"
+          >
+            <FormField label="Descrição">
+              <Textarea
+                placeholder="Conte-nos mais sobre você..."
+                rows={3}
+              />
+            </FormField>
+
+            <FormField label="País">
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione um país" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="br">Brasil</SelectItem>
+                  <SelectItem value="us">Estados Unidos</SelectItem>
+                  <SelectItem value="ca">Canadá</SelectItem>
+                  <SelectItem value="mx">México</SelectItem>
+                </SelectContent>
+              </Select>
+            </FormField>
+          </FormSection>
         </div>
       </section>
 
@@ -90,180 +118,76 @@ const FormsPage = () => {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold text-foreground">Componentes de Escolha</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Checkboxes e Switches</CardTitle>
-              <CardDescription>Opções de seleção múltipla e alternadores</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-4">
-                <Label className="text-base font-medium">Interesses</Label>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="tech" />
-                    <Label htmlFor="tech">Tecnologia</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="design" />
-                    <Label htmlFor="design">Design</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="business" />
-                    <Label htmlFor="business">Negócios</Label>
-                  </div>
-                </div>
-              </div>
+          <FormSection
+            title="Checkboxes e Switches"
+            description="Opções de seleção múltipla e alternadores"
+          >
+            <CheckboxGroup
+              title="Interesses"
+              options={[
+                { id: "tech", label: "Tecnologia" },
+                { id: "design", label: "Design" },
+                { id: "business", label: "Negócios" }
+              ]}
+            />
 
-              <div className="space-y-4">
-                <Label className="text-base font-medium">Configurações</Label>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="notifications">Notificações</Label>
-                    <Switch id="notifications" />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="marketing">Marketing</Label>
-                    <Switch id="marketing" />
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+            <SwitchGroup
+              title="Configurações"
+              options={[
+                { id: "notifications", label: "Notificações" },
+                { id: "marketing", label: "Marketing" }
+              ]}
+            />
+          </FormSection>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Radio Groups</CardTitle>
-              <CardDescription>Seleção única entre múltiplas opções</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-4">
-                <Label className="text-base font-medium">Plano de assinatura</Label>
-                <RadioGroup defaultValue="pro">
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="free" id="free" />
-                    <Label htmlFor="free" className="flex items-center gap-2">
-                      Free <Badge variant="secondary">Grátis</Badge>
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="pro" id="pro" />
-                    <Label htmlFor="pro" className="flex items-center gap-2">
-                      Pro <Badge>R$ 29/mês</Badge>
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="enterprise" id="enterprise" />
-                    <Label htmlFor="enterprise" className="flex items-center gap-2">
-                      Enterprise <Badge variant="outline">Customizado</Badge>
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </div>
+          <FormSection
+            title="Radio Groups"
+            description="Seleção única entre múltiplas opções"
+          >
+            <RadioGroupField
+              title="Plano de assinatura"
+              defaultValue="pro"
+              options={[
+                { value: "free", id: "free", label: "Free", badge: { text: "Grátis", variant: "secondary" } },
+                { value: "pro", id: "pro", label: "Pro", badge: { text: "R$ 29/mês" } },
+                { value: "enterprise", id: "enterprise", label: "Enterprise", badge: { text: "Customizado", variant: "outline" } }
+              ]}
+            />
 
-              <div className="space-y-4">
-                <Label className="text-base font-medium">Método de pagamento</Label>
-                <RadioGroup defaultValue="card">
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="card" id="card" />
-                    <Label htmlFor="card">Cartão de crédito</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="pix" id="pix" />
-                    <Label htmlFor="pix">PIX</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="boleto" id="boleto" />
-                    <Label htmlFor="boleto">Boleto bancário</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-            </CardContent>
-          </Card>
+            <RadioGroupField
+              title="Método de pagamento"
+              defaultValue="card"
+              options={[
+                { value: "card", id: "card", label: "Cartão de crédito" },
+                { value: "pix", id: "pix", label: "PIX" },
+                { value: "boleto", id: "boleto", label: "Boleto bancário" }
+              ]}
+            />
+          </FormSection>
         </div>
       </section>
 
-      {/* Complete Form Example */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-foreground">Exemplo Completo</h2>
-        <Card>
-          <CardHeader>
-            <CardTitle>Formulário de Cadastro</CardTitle>
-            <CardDescription>Exemplo de formulário completo com validação</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="firstName">Nome *</Label>
-                <Input id="firstName" placeholder="João" required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName">Sobrenome *</Label>
-                <Input id="lastName" placeholder="Silva" required />
-              </div>
-            </div>
+      {/* Advanced Forms Examples */}
+      <section className="space-y-6">
+        <h2 className="text-2xl font-semibold text-foreground">Formulários Avançados</h2>
 
-            <div className="space-y-2">
-              <Label htmlFor="emailForm">Email *</Label>
-              <Input id="emailForm" type="email" placeholder="joao@email.com" required />
-            </div>
+        {/* Registration Form */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium text-foreground">Formulário Básico de Cadastro</h3>
+          <RegistrationForm />
+        </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="phone">Telefone</Label>
-              <Input id="phone" placeholder="(11) 99999-9999" />
-            </div>
+        {/* Advanced Registration Form */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium text-foreground">Formulário Avançado com Validação e Máscaras</h3>
+          <AdvancedRegistrationForm />
+        </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="company">Empresa</Label>
-              <Input id="company" placeholder="Nome da empresa" />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="role">Cargo</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione seu cargo" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="developer">Desenvolvedor</SelectItem>
-                  <SelectItem value="designer">Designer</SelectItem>
-                  <SelectItem value="manager">Gerente</SelectItem>
-                  <SelectItem value="ceo">CEO</SelectItem>
-                  <SelectItem value="other">Outro</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="bio">Sobre você</Label>
-              <Textarea 
-                id="bio" 
-                placeholder="Conte um pouco sobre sua experiência..."
-                rows={4}
-              />
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <Checkbox id="terms" />
-                <Label htmlFor="terms" className="text-sm">
-                  Eu concordo com os <a href="#" className="text-primary underline">termos de uso</a> e <a href="#" className="text-primary underline">política de privacidade</a>
-                </Label>
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <Checkbox id="newsletter" />
-                <Label htmlFor="newsletter" className="text-sm">
-                  Quero receber newsletters e atualizações por email
-                </Label>
-              </div>
-            </div>
-
-            <div className="flex space-x-2 pt-4">
-              <Button variant="outline">Cancelar</Button>
-              <Button>Criar Conta</Button>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Payment Form */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium text-foreground">Formulário de Pagamento</h3>
+          <PaymentForm />
+        </div>
       </section>
     </div>
   );

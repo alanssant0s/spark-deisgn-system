@@ -1,23 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Separator } from "@/components/ui/separator";
 import AuthLayout from "@/components/auth/AuthLayout";
-import {
-    Eye,
-    EyeOff,
-    Mail,
-    Lock,
-    LogIn,
-    AlertCircle,
-    Github,
-    Chrome,
-    Apple
-} from "lucide-react";
+import { AuthField } from "@/components/auth/AuthField";
+import { SocialLogin } from "@/components/auth/SocialLogin";
+import { LoadingButton } from "@/components/auth/LoadingButton";
+import { Mail, Lock, LogIn, AlertCircle } from "lucide-react";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -97,7 +87,7 @@ const Login = () => {
             title="Bem-vindo de volta!"
             subtitle="Faça login para acessar sua conta"
         >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Error Alert */}
                 {errors.general && (
                     <Alert variant="destructive">
@@ -107,55 +97,36 @@ const Login = () => {
                 )}
 
                 {/* Email Field */}
-                <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                            id="email"
-                            type="email"
-                            placeholder="seu@email.com"
-                            value={formData.email}
-                            onChange={(e) => handleInputChange("email", e.target.value)}
-                            className={`pl-10 ${errors.email ? "border-red-500" : ""}`}
-                            disabled={isLoading}
-                        />
-                    </div>
-                    {errors.email && (
-                        <p className="text-sm text-red-500">{errors.email}</p>
-                    )}
-                </div>
+                <AuthField
+                    label="Email"
+                    type="email"
+                    placeholder="seu@email.com"
+                    value={formData.email}
+                    onChange={(value) => handleInputChange("email", value)}
+                    icon={<Mail className="h-4 w-4" />}
+                    error={errors.email}
+                    disabled={isLoading}
+                    required
+                />
 
                 {/* Password Field */}
-                <div className="space-y-2">
-                    <Label htmlFor="password">Senha</Label>
-                    <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                            id="password"
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Sua senha"
-                            value={formData.password}
-                            onChange={(e) => handleInputChange("password", e.target.value)}
-                            className={`pl-10 pr-10 ${errors.password ? "border-red-500" : ""}`}
-                            disabled={isLoading}
-                        />
-                        <button
-                            type="button"
-                            onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                            disabled={isLoading}
-                        >
-                            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                        </button>
-                    </div>
-                    {errors.password && (
-                        <p className="text-sm text-red-500">{errors.password}</p>
-                    )}
-                </div>
+                <AuthField
+                    label="Senha"
+                    type="password"
+                    placeholder="Sua senha"
+                    value={formData.password}
+                    onChange={(value) => handleInputChange("password", value)}
+                    icon={<Lock className="h-4 w-4" />}
+                    error={errors.password}
+                    disabled={isLoading}
+                    required
+                    showPasswordToggle
+                    onTogglePassword={() => setShowPassword(!showPassword)}
+                    showPassword={showPassword}
+                />
 
                 {/* Remember Me & Forgot Password */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between pt-1">
                     <div className="flex items-center space-x-2">
                         <Checkbox
                             id="remember"
@@ -179,62 +150,23 @@ const Login = () => {
                 </div>
 
                 {/* Login Button */}
-                <Button
+                <LoadingButton
                     type="submit"
                     className="w-full"
-                    disabled={isLoading}
+                    loading={isLoading}
+                    loadingText="Entrando..."
                 >
-                    {isLoading ? (
-                        <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                            Entrando...
-                        </div>
-                    ) : (
-                        <div className="flex items-center gap-2">
-                            <LogIn className="h-4 w-4" />
-                            Entrar
-                        </div>
-                    )}
-                </Button>
-
-                {/* Divider */}
-                <div className="relative">
-                    <Separator />
-                    <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-xs text-muted-foreground">
-                        ou continue com
-                    </span>
-                </div>
+                    <div className="flex items-center gap-2">
+                        <LogIn className="h-4 w-4" />
+                        Entrar
+                    </div>
+                </LoadingButton>
 
                 {/* Social Login */}
-                <div className="grid grid-cols-3 gap-3">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => handleSocialLogin("Google")}
-                        disabled={isLoading}
-                        className="flex items-center justify-center"
-                    >
-                        <Chrome className="h-4 w-4" />
-                    </Button>
-                    <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => handleSocialLogin("GitHub")}
-                        disabled={isLoading}
-                        className="flex items-center justify-center"
-                    >
-                        <Github className="h-4 w-4" />
-                    </Button>
-                    <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => handleSocialLogin("Apple")}
-                        disabled={isLoading}
-                        className="flex items-center justify-center"
-                    >
-                        <Apple className="h-4 w-4" />
-                    </Button>
-                </div>
+                <SocialLogin
+                    onSocialLogin={handleSocialLogin}
+                    disabled={isLoading}
+                />
 
                 {/* Sign Up Link */}
                 <div className="text-center">

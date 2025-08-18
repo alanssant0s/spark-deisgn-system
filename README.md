@@ -1,221 +1,198 @@
 # ⚡ Spark Design System
 
-Um design system profissional e moderno construído com React, TypeScript, Tailwind CSS e Shadcn/ui. Spark oferece uma base sólida para desenvolvimento de aplicações SaaS com componentes reutilizáveis e tokens de design semânticos.
+A modern, accessible React component library built with TypeScript, Tailwind CSS, and Radix UI primitives.
 
-## ✨ Características
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB)
+![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)
 
-- 🎨 **Design Tokens Semânticos** - Sistema de cores e estilos consistente
-- 🌙 **Modo Escuro/Claro** - Suporte completo a temas
-- 📱 **Totalmente Responsivo** - Design adaptável para todos os dispositivos
-- ⚡ **Performance Otimizada** - Construído com Vite e React 18
-- 🔧 **TypeScript** - Tipagem completa para melhor DX
-- 🎯 **Componentes Prontos** - Biblioteca completa de UI components
-- 📊 **Gráficos e Métricas** - Componentes para dashboards
-- 🔔 **Sistema de Notificações** - Toast e centro de notificações
-- 📅 **Date Picker** - Seletor de datas com localização pt-BR
-- 📋 **Tabelas Avançadas** - TableCard com filtros e ações
+## ✨ Features
 
-## 🛠️ Stack Tecnológica
+- 🎨 **40+ Components** - Comprehensive set of UI components
+- 🔒 **Type Safe** - Built with TypeScript for better developer experience
+- 🎯 **Accessible** - WCAG compliant components built on Radix UI
+- 🌙 **Dark Mode** - Built-in theme switching support
+- 📱 **Responsive** - Mobile-first design approach
+- 🎨 **Customizable** - Easy theming with CSS variables
+- 📦 **Tree Shakable** - Import only what you need
+- ⚡ **Fast** - Optimized for performance
 
-- **Framework**: React 18 + TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **Components**: Shadcn/ui + Radix UI
-- **Forms**: React Hook Form + Zod
-- **Charts**: Recharts
-- **Icons**: Lucide React
-- **Routing**: React Router DOM
-- **Notifications**: Sonner + Custom Toast System
+## 🚀 Quick Start
 
-## 🚀 Começando
+### Installation
 
-### Pré-requisitos
-
-- Node.js 18+ 
-- npm ou yarn
-
-### Instalação
-
-1. Clone o repositório:
 ```bash
-git clone [seu-repositório]
-cd spark-design-system
+npm install alansantos-spark-ds
+# or
+yarn add alansantos-spark-ds
+# or
+pnpm add alansantos-spark-ds
 ```
 
-2. Instale as dependências:
-```bash
-npm install
-```
+### Setup
 
-3. Execute o projeto:
-```bash
-npm run dev
-```
-
-4. Abra [http://localhost:5173](http://localhost:5173) no seu navegador
-
-## 📁 Estrutura do Projeto
-
-```
-src/
-├── components/          # Componentes reutilizáveis
-│   ├── ui/             # Componentes base (Shadcn/ui)
-│   ├── layouts/        # Layouts da aplicação
-│   ├── notifications/  # Sistema de notificações
-│   └── saas/          # Componentes específicos SaaS
-├── contexts/           # Context providers
-├── hooks/             # Custom hooks
-├── lib/              # Utilitários e configurações
-├── pages/            # Páginas da aplicação
-│   └── components/   # Páginas de demonstração de componentes
-└── assets/           # Recursos estáticos
-```
-
-## 🎨 Design System
-
-### Tokens de Design
-
-O Spark utiliza tokens semânticos definidos em `src/index.css`:
-
-- **Cores**: Primary, Secondary, Accent, Background, Foreground
-- **Gradientes**: Gradientes predefinidos para efeitos visuais
-- **Sombras**: Sistema de sombras consistente
-- **Tipografia**: Hierarquia tipográfica clara
-- **Espaçamento**: Grid system baseado em Tailwind
-
-### Componentes Disponíveis
-
-#### Layout & Navegação
-- `VerticalLayout` - Layout com sidebar vertical
-- `HorizontalLayout` - Layout com navegação horizontal
-- `SaasLayout` - Layout específico para dashboards SaaS
-
-#### UI Components
-- `Button` - Botões com múltiplas variantes
-- `Card` - Cards para organização de conteúdo
-- `TableCard` - Cards especializados para tabelas
-- `Badge` - Indicadores de status
-- `Avatar` - Componente de avatar com fallback
-- `Input` - Campos de entrada customizáveis
-- `Select` - Seletores dropdown
-- `Dialog` - Modais e dialogs
-- `Toast` - Notificações temporárias
-
-#### Componentes Avançados
-- `NotificationCenter` - Centro de notificações
-- `DatePicker` - Seletor de datas localizado
-- `Charts` - Gráficos usando Recharts
-- `MetricCard` - Cards para métricas e KPIs
-- `StatusBadge` - Badges de status customizáveis
-
-## 📱 Layouts Disponíveis
-
-### Vertical Layout
-Layout com sidebar fixa à esquerda, ideal para dashboards administrativos.
-
-### Horizontal Layout
-Layout com navegação horizontal no topo, ideal para aplicações com menos itens de menu.
-
-### SaaS Layout
-Layout otimizado para aplicações SaaS com navegação hierárquica e seções organizadas.
-
-## 🔔 Sistema de Notificações
-
-O Spark inclui um sistema completo de notificações:
-
-- **Toast Notifications**: Notificações temporárias com tipos (success, error, warning, info)
-- **Notification Center**: Centro persistente de notificações com contadores
-- **Custom Actions**: Suporte a ações customizadas nas notificações
-
-## 📅 Date Picker
-
-Componente de seleção de datas com:
-
-- Localização pt-BR
-- Seleção única, múltipla e por intervalo
-- Integração com React Hook Form
-- Validação com Zod
-- Restrições de datas
-- Modo inline disponível
-
-## 📊 Gráficos e Métricas
-
-Componentes para visualização de dados:
-
-- **Line Charts**: Gráficos de linha
-- **Bar Charts**: Gráficos de barras
-- **Area Charts**: Gráficos de área
-- **Pie Charts**: Gráficos de pizza
-- **Metric Cards**: Cards para exibição de KPIs
-
-## 🎯 Páginas de Demonstração
-
-- `/` - Landing page do design system
-- `/design-system` - Tokens e cores
-- `/components` - Galeria de componentes
-- `/components/buttons` - Demonstração de botões
-- `/components/cards` - Demonstração de cards
-- `/components/forms` - Demonstração de formulários
-- `/components/charts` - Demonstração de gráficos
-- `/components/dialogs` - Demonstração de dialogs
-- `/components/tables` - Demonstração de tabelas
-- `/components/datepicker` - Demonstração do date picker
-- `/notifications` - Centro de notificações
-- `/users` - Gestão de usuários
-- `/metrics` - Dashboard de métricas
-
-## 🔧 Customização
-
-### Cores e Temas
-
-Edite o arquivo `src/index.css` para customizar as cores do tema:
-
+1. **Import styles** in your main CSS file:
 ```css
-:root {
-  --primary: [sua-cor-primária];
-  --secondary: [sua-cor-secundária];
-  /* ... outros tokens */
+@import 'alansantos-spark-ds/dist/style.css';
+```
+
+2. **Configure Tailwind** (optional, for custom styling):
+```js
+// tailwind.config.js
+module.exports = {
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/alansantos-spark-ds/dist/**/*.{js,ts,jsx,tsx}"
+  ],
+  // ... rest of config
 }
 ```
 
-### Componentes
+### Basic Usage
 
-Todos os componentes Shadcn/ui podem ser customizados editando os arquivos em `src/components/ui/`.
+```tsx
+import { Button, Card, CardContent, CardHeader, CardTitle } from 'alansantos-spark-ds';
 
-### Layouts
+function App() {
+  return (
+    <Card className="w-96">
+      <CardHeader>
+        <CardTitle>Welcome to Spark DS</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Button>Get Started</Button>
+      </CardContent>
+    </Card>
+  );
+}
+```
 
-Crie novos layouts estendendo os componentes existentes em `src/components/layouts/`.
+## 📚 Components
 
-## 📚 Scripts Disponíveis
+### Core Components
+- **Button** - Multiple variants and sizes
+- **Card** - Flexible content containers
+- **Input** - Form input fields with validation
+- **Label** - Accessible form labels
+- **Badge** - Status and category indicators
+- **Avatar** - User profile images with fallbacks
 
-- `npm run dev` - Inicia o servidor de desenvolvimento
-- `npm run build` - Constrói a aplicação para produção
-- `npm run build:dev` - Constrói em modo de desenvolvimento
-- `npm run preview` - Visualiza a build de produção
-- `npm run lint` - Executa o linter
+### Form Components
+- **Checkbox** - Selection controls
+- **RadioGroup** - Single selection from options
+- **Select** - Dropdown selection
+- **Switch** - Toggle controls
+- **Slider** - Range input controls
+- **Textarea** - Multi-line text input
 
-## 🤝 Contribuição
+### Layout Components
+- **Accordion** - Collapsible content sections
+- **Tabs** - Tabbed navigation
+- **Table** - Data tables with sorting
+- **Separator** - Visual content dividers
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+### Overlay Components
+- **Dialog** - Modal dialogs
+- **Sheet** - Slide-out panels
+- **Popover** - Contextual overlays
+- **Tooltip** - Helpful hints and information
 
-## 📄 Licença
+### Feedback Components
+- **Toast** - Temporary notifications
+- **Alert** - Important messages
+- **Progress** - Progress indicators
+- **Skeleton** - Loading placeholders
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+## 🎨 Theming
 
-## 🌟 Créditos
+Customize the design system using CSS variables:
 
-Construído com:
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Shadcn/ui](https://ui.shadcn.com/)
-- [Radix UI](https://www.radix-ui.com/)
-- [Vite](https://vitejs.dev/)
+```css
+:root {
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  /* ... more variables */
+}
+
+.dark {
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  /* ... dark mode variables */
+}
+```
+
+## 🌙 Dark Mode
+
+Dark mode is supported out of the box. Simply add the `dark` class to your root element:
+
+```tsx
+// Toggle dark mode
+document.documentElement.classList.toggle('dark');
+```
+
+## 📖 Documentation & Examples
+
+- **Live Playground**: Run `npm run dev` and visit `/playground`
+- **Component Showcase**: Visit `/showcase` for detailed examples
+- **API Reference**: TypeScript definitions included
+
+## 🛠️ Development
+
+```bash
+# Clone the repository
+git clone https://github.com/alansantos/spark-design-system.git
+cd spark-design-system
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build library
+npm run build
+
+# Run tests
+npm test
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+Built with these amazing technologies:
+
+- [React](https://reactjs.org/) - UI Library
+- [TypeScript](https://www.typescriptlang.org/) - Type Safety
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [Radix UI](https://www.radix-ui.com/) - Accessible Primitives
+- [Vite](https://vitejs.dev/) - Build Tool
+
+## 📊 Stats
+
+![GitHub stars](https://img.shields.io/github/stars/alansantos/spark-design-system?style=social)
+![GitHub forks](https://img.shields.io/github/forks/alansantos/spark-design-system?style=social)
+![GitHub issues](https://img.shields.io/github/issues/alansantos/spark-design-system)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/alansantos/spark-design-system)
 
 ---
 
-⚡ **Spark Design System** - Criando interfaces modernas e consistentes
+<div align="center">
+  <p>Made with ❤️ by <a href="https://github.com/alansantos">Alan Santos</a></p>
+  <p>⭐ Star this repo if you find it useful!</p>
+</div>

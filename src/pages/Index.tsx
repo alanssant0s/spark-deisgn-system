@@ -1,6 +1,6 @@
 import { MetricCard } from "@/components/saas/MetricCard";
-import { GradientButton } from "@/components/saas/GradientButton";
 import { FeatureCard } from "@/components/saas/FeatureCard";
+import { Button } from "@/components/ui/button";
 import {
   Users,
   TrendingUp,
@@ -28,22 +28,23 @@ const Index = () => {
 
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-scale-in">
-          <GradientButton
-            variant="primary"
+          <Button
             size="lg"
-            icon={Rocket}
             className="w-full sm:w-auto shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+            onClick={() => window.location.href = '/components'}
           >
+            <Rocket className="mr-2 h-4 w-4" />
             Explorar Componentes
-          </GradientButton>
-          <GradientButton
-            variant="secondary"
+          </Button>
+          <Button
+            variant="outline"
             size="lg"
-            icon={Sparkles}
             className="w-full sm:w-auto border-2 hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
+            onClick={() => window.location.href = '/design-system'}
           >
+            <Sparkles className="mr-2 h-4 w-4" />
             Ver Design System
-          </GradientButton>
+          </Button>
         </div>
       </section>
 

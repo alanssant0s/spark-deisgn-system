@@ -8,11 +8,39 @@ import { buttonVariants } from "@/components/ui/button";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
+// Configuração personalizada do locale ptBR para garantir dias da semana corretos
+const ptBRCalendar = {
+  ...ptBR,
+  localize: {
+    ...ptBR.localize,
+    day: (n: number) => {
+      const days = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+      return days[n];
+    },
+    dayPeriod: (n: number) => {
+      const periods = ['AM', 'PM'];
+      return periods[n];
+    },
+    month: (n: number) => {
+      const months = [
+        'jan', 'fev', 'mar', 'abr', 'mai', 'jun',
+        'jul', 'ago', 'set', 'out', 'nov', 'dez'
+      ];
+      return months[n];
+    },
+    ordinalNumber: (n: number) => `${n}º`,
+  },
+  options: {
+    ...ptBR.options,
+    weekStartsOn: 1, // Segunda-feira
+  },
+};
+
 function Calendar({
   className,
   classNames,
   showOutsideDays = true,
-  locale = ptBR,
+  locale = ptBRCalendar,
   weekStartsOn = 1, // Segunda-feira (padrão brasileiro)
   ...props
 }: CalendarProps) {
