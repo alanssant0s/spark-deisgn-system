@@ -28,6 +28,7 @@ import DataTablePage from "./pages/components/DataTablePage";
 import ChartsPage from "./pages/components/ChartsPage";
 import LogoProcessorPage from "./pages/LogoProcessor";
 import ErrorPages from "./pages/ErrorPages";
+import AuthPages from "./pages/AuthPages";
 
 // Error Pages
 import NotFoundError from "./pages/errors/NotFound";
@@ -35,6 +36,12 @@ import ServerError from "./pages/errors/ServerError";
 import Forbidden from "./pages/errors/Forbidden";
 import Maintenance from "./pages/errors/Maintenance";
 import ErrorBoundary from "./components/errors/ErrorBoundary";
+
+// Auth Pages
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import ResetPassword from "./pages/auth/ResetPassword";
+import { AuthProvider } from "./contexts/AuthContext";
 
 // Lazy load SaaS pages
 const Analytics = lazy(() => import("./pages/saas/Analytics"));
@@ -51,55 +58,68 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <NotificationProvider>
-          <LayoutContextProvider>
-            <ErrorBoundary>
-              <LayoutProvider>
+        <AuthProvider>
+          <NotificationProvider>
+            <LayoutContextProvider>
+              <ErrorBoundary>
                 <Routes>
-                  <Route path="/" element={<Index />} />
+                  {/* Auth Routes (without layout) */}
+                  <Route path="/auth/login" element={<Login />} />
+                  <Route path="/auth/register" element={<Register />} />
+                  <Route path="/auth/reset-password" element={<ResetPassword />} />
 
-                  {/* SaaS Pages */}
-                  <Route path="/saas/analytics" element={<Suspense fallback={<div>Carregando...</div>}><Analytics /></Suspense>} />
-                  <Route path="/saas/customers" element={<Suspense fallback={<div>Carregando...</div>}><Customers /></Suspense>} />
-                  <Route path="/saas/orders" element={<Suspense fallback={<div>Carregando...</div>}><Orders /></Suspense>} />
-                  <Route path="/saas/products" element={<Suspense fallback={<div>Carregando...</div>}><Products /></Suspense>} />
+                  {/* App Routes (with layout) */}
+                  <Route path="/*" element={
+                    <LayoutProvider>
+                      <Routes>
+                        <Route path="/" element={<Index />} />
 
-                  {/* Component Pages */}
-                  <Route path="/components" element={<Components />} />
-                  <Route path="/components/buttons" element={<ButtonsPage />} />
-                  <Route path="/components/cards" element={<CardsPage />} />
-                  <Route path="/components/alerts" element={<AlertsPage />} />
-                  <Route path="/components/forms" element={<FormsPage />} />
-                  <Route path="/components/datepicker" element={<DatePickerPage />} />
-                  <Route path="/components/dialogs" element={<DialogsPage />} />
-                  <Route path="/components/tables" element={<TablesPage />} />
-                  <Route path="/components/datatable" element={<DataTablePage />} />
-                  <Route path="/components/charts" element={<ChartsPage />} />
+                        {/* SaaS Pages */}
+                        <Route path="/saas/analytics" element={<Suspense fallback={<div>Carregando...</div>}><Analytics /></Suspense>} />
+                        <Route path="/saas/customers" element={<Suspense fallback={<div>Carregando...</div>}><Customers /></Suspense>} />
+                        <Route path="/saas/orders" element={<Suspense fallback={<div>Carregando...</div>}><Orders /></Suspense>} />
+                        <Route path="/saas/products" element={<Suspense fallback={<div>Carregando...</div>}><Products /></Suspense>} />
 
-                  {/* Example Pages */}
-                  <Route path="/design-system" element={<DesignSystem />} />
-                  <Route path="/metrics" element={<Metrics />} />
-                  <Route path="/confirmation" element={<Confirmation />} />
-                  <Route path="/notifications" element={<NotificationsPage />} />
-                  <Route path="/users" element={<UserManagement />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/settings" element={<Settings />} />
-                  <Route path="/logo-processor" element={<LogoProcessorPage />} />
-                  <Route path="/error-pages" element={<ErrorPages />} />
+                        {/* Component Pages */}
+                        <Route path="/components" element={<Components />} />
+                        <Route path="/components/buttons" element={<ButtonsPage />} />
+                        <Route path="/components/cards" element={<CardsPage />} />
+                        <Route path="/components/alerts" element={<AlertsPage />} />
+                        <Route path="/components/forms" element={<FormsPage />} />
+                        <Route path="/components/datepicker" element={<DatePickerPage />} />
+                        <Route path="/components/dialogs" element={<DialogsPage />} />
+                        <Route path="/components/tables" element={<TablesPage />} />
+                        <Route path="/components/datatable" element={<DataTablePage />} />
+                        <Route path="/components/charts" element={<ChartsPage />} />
 
-                  {/* Error Pages */}
-                  <Route path="/errors/404" element={<NotFoundError />} />
-                  <Route path="/errors/500" element={<ServerError />} />
-                  <Route path="/errors/403" element={<Forbidden />} />
-                  <Route path="/errors/maintenance" element={<Maintenance />} />
+                        {/* Example Pages */}
+                        <Route path="/design-system" element={<DesignSystem />} />
+                        <Route path="/metrics" element={<Metrics />} />
+                        <Route path="/confirmation" element={<Confirmation />} />
+                        <Route path="/notifications" element={<NotificationsPage />} />
+                        <Route path="/users" element={<UserManagement />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/settings" element={<Settings />} />
+                        <Route path="/logo-processor" element={<LogoProcessorPage />} />
+                        <Route path="/error-pages" element={<ErrorPages />} />
+                        <Route path="/auth-pages" element={<AuthPages />} />
 
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFoundError />} />
+                        {/* Error Pages */}
+                        <Route path="/errors/404" element={<NotFoundError />} />
+                        <Route path="/errors/500" element={<ServerError />} />
+                        <Route path="/errors/403" element={<Forbidden />} />
+                        <Route path="/errors/maintenance" element={<Maintenance />} />
+
+                        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                        <Route path="*" element={<NotFoundError />} />
+                      </Routes>
+                    </LayoutProvider>
+                  } />
                 </Routes>
-              </LayoutProvider>
-            </ErrorBoundary>
-          </LayoutContextProvider>
-        </NotificationProvider>
+              </ErrorBoundary>
+            </LayoutContextProvider>
+          </NotificationProvider>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
