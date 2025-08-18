@@ -1,12 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { TableCard } from "@/components/ui/table-card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FormModal, InfoModal } from "@/components/ui/modal-examples";
@@ -19,6 +17,17 @@ import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
+
+// Importando os novos componentes de tabela
+import { AdvancedTable, AdvancedTableColumn } from "@/components/ui/advanced-table";
+import {
+  StatusBadge,
+  UserCell,
+  DateCell,
+  ActionsMenu,
+  ActionButtons
+} from "@/components/ui/table-components";
+
 import {
   Users,
   UserPlus,
@@ -47,24 +56,143 @@ import {
   Plus,
   FileText,
   BarChart3,
-  Filter as FilterIcon
+  Filter as FilterIcon,
+  ChevronRight,
+  Building2,
+  UserCheck,
+  UserX,
+  UserCog
 } from "lucide-react";
 
+// ============================================================================
+// TYPES
+// ============================================================================
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  status: "Ativo" | "Inativo" | "Pendente";
+  lastLogin: string;
+  avatar?: string;
+  phone: string;
+  createdAt: string;
+  notes: string;
+  department?: string;
+  permissions?: string[];
+}
+
+// ============================================================================
+// BREADCRUMB COMPONENT
+// ============================================================================
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+  icon?: React.ReactNode;
+  isCurrent?: boolean;
+}
+
+interface DynamicBreadcrumbProps {
+  items: BreadcrumbItem[];
+  className?: string;
+}
+
+function DynamicBreadcrumb({ items, className }: DynamicBreadcrumbProps) {
+  return (
+    <Breadcrumb className={className}>
+      <BreadcrumbList>
+        {items.map((item, index) => (
+          <React.Fragment key={index}>
+            <BreadcrumbItem>
+              {item.isCurrent ? (
+                <BreadcrumbPage className="flex items-center gap-2">
+                  {item.icon}
+                  {item.label}
+                </BreadcrumbPage>
+              ) : (
+                <BreadcrumbLink href={item.href} className="flex items-center gap-2">
+                  {item.icon}
+                  {item.label}
+                </BreadcrumbLink>
+              )}
+            </BreadcrumbItem>
+            {index < items.length - 1 && <BreadcrumbSeparator />}
+          </React.Fragment>
+        ))}
+      </BreadcrumbList>
+    </Breadcrumb>
+  );
+}
+
+// ============================================================================
+// STATS CARDS COMPONENT
+// ============================================================================
+
+interface StatsCardProps {
+  title: string;
+  value: number;
+  description: string;
+  icon: React.ReactNode;
+  trend?: {
+    value: number;
+    isPositive: boolean;
+  };
+  variant?: "default" | "success" | "warning" | "danger";
+}
+
+function StatsCard({ title, value, description, icon, trend, variant = "default" }: StatsCardProps) {
+  const variantClasses = {
+    default: "bg-card",
+    success: "bg-green-50 border-green-200",
+    warning: "bg-yellow-50 border-yellow-200",
+    danger: "bg-red-50 border-red-200",
+  };
+
+  return (
+    <Card className={variantClasses[variant]}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        <div className="text-muted-foreground">
+          {icon}
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold">{value}</div>
+        <p className="text-xs text-muted-foreground">
+          {description}
+          {trend && (
+            <span className={`ml-2 ${trend.isPositive ? 'text-green-600' : 'text-red-600'}`}>
+              {trend.isPositive ? '+' : ''}{trend.value}%
+            </span>
+          )}
+        </p>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ============================================================================
+// MAIN COMPONENT
+// ============================================================================
 
 const UserManagement = () => {
   // Mock users data - em um app real, isso viria do Supabase
-  const [users, setUsers] = useState([
+  const [users, setUsers] = useState<User[]>([
     {
       id: "1",
       name: "João Silva",
       email: "joao.silva@email.com",
       role: "Admin",
       status: "Ativo",
-      lastLogin: "2024-08-17",
+      lastLogin: "2024-08-17T10:30:00Z",
       avatar: "",
       phone: "+55 11 99999-9999",
-      createdAt: "2023-01-15",
-      notes: "Administrador principal do sistema"
+      createdAt: "2023-01-15T00:00:00Z",
+      notes: "Administrador principal do sistema",
+      department: "TI",
+      permissions: ["read", "write", "delete", "admin"]
     },
     {
       id: "2",
@@ -72,11 +200,13 @@ const UserManagement = () => {
       email: "maria.santos@email.com",
       role: "Editor",
       status: "Ativo",
-      lastLogin: "2024-08-16",
+      lastLogin: "2024-08-16T14:22:00Z",
       avatar: "",
       phone: "+55 11 88888-8888",
-      createdAt: "2023-03-22",
-      notes: "Editora de conteúdo"
+      createdAt: "2023-03-22T00:00:00Z",
+      notes: "Editora de conteúdo",
+      department: "Marketing",
+      permissions: ["read", "write"]
     },
     {
       id: "3",
@@ -84,11 +214,13 @@ const UserManagement = () => {
       email: "pedro.oliveira@email.com",
       role: "User",
       status: "Inativo",
-      lastLogin: "2024-08-10",
+      lastLogin: "2024-08-10T08:15:00Z",
       avatar: "",
       phone: "+55 11 77777-7777",
-      createdAt: "2023-06-10",
-      notes: "Usuário inativo há mais de 30 dias"
+      createdAt: "2023-06-10T00:00:00Z",
+      notes: "Usuário inativo há mais de 30 dias",
+      department: "Vendas",
+      permissions: ["read"]
     },
     {
       id: "4",
@@ -96,11 +228,13 @@ const UserManagement = () => {
       email: "ana.costa@email.com",
       role: "Editor",
       status: "Ativo",
-      lastLogin: "2024-08-17",
+      lastLogin: "2024-08-17T16:45:00Z",
       avatar: "",
       phone: "+55 11 66666-6666",
-      createdAt: "2023-09-05",
-      notes: "Editora de conteúdo"
+      createdAt: "2023-09-05T00:00:00Z",
+      notes: "Editora de conteúdo",
+      department: "RH",
+      permissions: ["read", "write"]
     },
     {
       id: "5",
@@ -111,55 +245,188 @@ const UserManagement = () => {
       lastLogin: "Nunca",
       avatar: "",
       phone: "+55 11 55555-5555",
-      createdAt: "2024-08-15",
-      notes: "Aguardando aprovação"
+      createdAt: "2024-08-15T00:00:00Z",
+      notes: "Aguardando aprovação",
+      department: "Financeiro",
+      permissions: []
     }
   ]);
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [roleFilter, setRoleFilter] = useState("all");
-  const [statusFilter, setStatusFilter] = useState("all");
-  const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
-  const [userToDelete, setUserToDelete] = useState<any>(null);
+  const [userToDelete, setUserToDelete] = useState<User | null>(null);
+  const [loading, setLoading] = useState(false);
 
+  // Breadcrumb items
+  const breadcrumbItems: BreadcrumbItem[] = [
+    {
+      label: "Home",
+      href: "/",
+      icon: <Home className="h-4 w-4" />
+    },
+    {
+      label: "Administração",
+      href: "/admin",
+      icon: <Building2 className="h-4 w-4" />
+    },
+    {
+      label: "Gestão de Usuários",
+      icon: <Users className="h-4 w-4" />,
+      isCurrent: true
+    }
+  ];
 
+  // Stats
+  const stats = {
+    total: users.length,
+    active: users.filter(u => u.status === "Ativo").length,
+    inactive: users.filter(u => u.status === "Inativo").length,
+    pending: users.filter(u => u.status === "Pendente").length
+  };
 
-  // Filtrar usuários
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRole = roleFilter === "all" || user.role === roleFilter;
-    const matchesStatus = statusFilter === "all" || user.status === statusFilter;
+  // Table columns
+  const columns: AdvancedTableColumn<User>[] = [
+    {
+      key: "user",
+      title: "Usuário",
+      dataIndex: "name",
+      sortable: true,
+      render: (_, record) => (
+        <UserCell
+          name={record.name}
+          email={record.email}
+          avatar={record.avatar}
+          size="md"
+        />
+      ),
+    },
+    {
+      key: "role",
+      title: "Função",
+      dataIndex: "role",
+      sortable: true,
+      filterable: true,
+      filterOptions: [
+        { label: "Admin", value: "Admin" },
+        { label: "Editor", value: "Editor" },
+        { label: "User", value: "User" },
+      ],
+      render: (value) => {
+        const roleConfig = {
+          Admin: { icon: <Shield className="w-3 h-3" />, className: "bg-purple-600" },
+          Editor: { icon: <Edit className="w-3 h-3" />, className: "bg-blue-600" },
+          User: { icon: <User className="w-3 h-3" />, className: "bg-gray-600" },
+        };
+        const config = roleConfig[value as keyof typeof roleConfig] || roleConfig.User;
 
-    return matchesSearch && matchesRole && matchesStatus;
-  });
+        return (
+          <Badge className={`${config.className} flex items-center gap-1`}>
+            {config.icon}
+            {value}
+          </Badge>
+        );
+      },
+    },
+    {
+      key: "department",
+      title: "Departamento",
+      dataIndex: "department",
+      sortable: true,
+      filterable: true,
+      filterOptions: [
+        { label: "TI", value: "TI" },
+        { label: "Marketing", value: "Marketing" },
+        { label: "Vendas", value: "Vendas" },
+        { label: "RH", value: "RH" },
+        { label: "Financeiro", value: "Financeiro" },
+      ],
+    },
+    {
+      key: "status",
+      title: "Status",
+      dataIndex: "status",
+      sortable: true,
+      align: "center",
+      render: (value) => <StatusBadge status={value} type="user" />,
+    },
+    {
+      key: "lastLogin",
+      title: "Último Acesso",
+      dataIndex: "lastLogin",
+      sortable: true,
+      render: (value) => (
+        <DateCell
+          date={value === "Nunca" ? new Date(0) : value}
+          format="dd/MM/yyyy HH:mm"
+          showTime={true}
+        />
+      ),
+    },
+    {
+      key: "createdAt",
+      title: "Criado em",
+      dataIndex: "createdAt",
+      sortable: true,
+      render: (value) => <DateCell date={value} format="dd/MM/yyyy" />,
+    },
+    {
+      key: "actions",
+      title: "Ações",
+      align: "center",
+      render: (_, record) => (
+        <ActionsMenu
+          record={record}
+          type="usuário"
+          onView={() => handleViewUser(record)}
+          onEdit={() => handleEditUser(record)}
+          onDelete={() => handleDeleteUser(record)}
+        />
+      ),
+    },
+  ];
 
-  const handleDeleteUser = (userId: string) => {
-    setUsers(users.filter(user => user.id !== userId));
-    setUserToDelete(null); // Fecha o dialog
-    setOpenDropdownId(null); // Fecha o dropdown
-    toast({
-      title: "Usuário removido",
-      description: "O usuário foi removido com sucesso.",
-    });
+  // Handlers
+  const handleViewUser = (user: User) => {
+    setSelectedUser(user);
+    setIsViewModalOpen(true);
+  };
+
+  const handleEditUser = (user: User) => {
+    setSelectedUser(user);
+    setIsEditModalOpen(true);
+  };
+
+  const handleDeleteUser = (user: User) => {
+    setUserToDelete(user);
+  };
+
+  const confirmDeleteUser = () => {
+    if (userToDelete) {
+      setUsers(users.filter(user => user.id !== userToDelete.id));
+      setUserToDelete(null);
+      toast({
+        title: "Usuário removido",
+        description: "O usuário foi removido com sucesso.",
+      });
+    }
   };
 
   const handleAddUser = (data: Record<string, any>) => {
-    const newUser = {
+    const newUser: User = {
       id: Date.now().toString(),
       name: data.name,
       email: data.email,
       phone: data.phone,
       role: data.role,
-      status: data.status,
+      status: data.status as "Ativo" | "Inativo" | "Pendente",
       notes: data.notes || "",
       lastLogin: "Nunca",
       avatar: "",
-      createdAt: new Date().toISOString().split('T')[0],
+      createdAt: new Date().toISOString(),
+      department: data.department,
+      permissions: data.permissions || [],
     };
 
     setUsers([...users, newUser]);
@@ -170,7 +437,7 @@ const UserManagement = () => {
     });
   };
 
-  const handleEditUser = (data: Record<string, any>) => {
+  const handleUpdateUser = (data: Record<string, any>) => {
     if (selectedUser) {
       setUsers(users.map(user =>
         user.id === selectedUser.id
@@ -186,80 +453,64 @@ const UserManagement = () => {
     }
   };
 
-  const openEditModal = (user: any) => {
-    setSelectedUser(user);
-    setIsEditModalOpen(true);
+  const handleRefresh = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      toast({
+        title: "Dados atualizados",
+        description: "A lista de usuários foi atualizada.",
+      });
+    }, 1000);
   };
 
-  const openViewModal = (user: any) => {
-    setSelectedUser(user);
-    setIsViewModalOpen(true);
+  const handleExport = () => {
+    toast({
+      title: "Exportando dados",
+      description: "Os dados dos usuários serão exportados em breve.",
+    });
   };
 
-  const openAddModal = () => {
-    setIsAddModalOpen(true);
-  };
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "Ativo":
-        return <Badge variant="default" className="flex items-center gap-1"><CheckCircle className="w-3 h-3" />Ativo</Badge>;
-      case "Inativo":
-        return <Badge variant="secondary" className="flex items-center gap-1"><XCircle className="w-3 h-3" />Inativo</Badge>;
-      case "Pendente":
-        return <Badge variant="outline" className="flex items-center gap-1"><Clock className="w-3 h-3" />Pendente</Badge>;
-      default:
-        return <Badge variant="outline">{status}</Badge>;
+  const handleBulkAction = (action: string, selectedUsers: User[]) => {
+    switch (action) {
+      case "activate":
+        setUsers(users.map(user =>
+          selectedUsers.some(selected => selected.id === user.id)
+            ? { ...user, status: "Ativo" as const }
+            : user
+        ));
+        toast({
+          title: "Usuários ativados",
+          description: `${selectedUsers.length} usuário(s) foram ativado(s).`,
+        });
+        break;
+      case "deactivate":
+        setUsers(users.map(user =>
+          selectedUsers.some(selected => selected.id === user.id)
+            ? { ...user, status: "Inativo" as const }
+            : user
+        ));
+        toast({
+          title: "Usuários desativados",
+          description: `${selectedUsers.length} usuário(s) foram desativado(s).`,
+        });
+        break;
+      case "delete":
+        setUsers(users.filter(user =>
+          !selectedUsers.some(selected => selected.id === user.id)
+        ));
+        toast({
+          title: "Usuários removidos",
+          description: `${selectedUsers.length} usuário(s) foram removido(s).`,
+        });
+        break;
     }
-  };
-
-  const getRoleBadge = (role: string) => {
-    switch (role) {
-      case "Admin":
-        return <Badge className="bg-purple-600 flex items-center gap-1"><Shield className="w-3 h-3" />Admin</Badge>;
-      case "Editor":
-        return <Badge className="bg-blue-600 flex items-center gap-1"><Edit className="w-3 h-3" />Editor</Badge>;
-      case "User":
-        return <Badge variant="outline" className="flex items-center gap-1"><User className="w-3 h-3" />User</Badge>;
-      default:
-        return <Badge variant="outline">{role}</Badge>;
-    }
-  };
-
-  const stats = {
-    total: users.length,
-    active: users.filter(u => u.status === "Ativo").length,
-    inactive: users.filter(u => u.status === "Inativo").length,
-    pending: users.filter(u => u.status === "Pendente").length
   };
 
   return (
     <div className="space-y-8">
       {/* Breadcrumb */}
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/" className="flex items-center gap-2">
-              <Home className="h-4 w-4" />
-              Home
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/settings" className="flex items-center gap-2">
-              <Settings className="h-4 w-4" />
-              Configurações
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage className="flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              Gestão de Usuários
-            </BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <DynamicBreadcrumb items={breadcrumbItems} />
 
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
@@ -269,419 +520,107 @@ const UserManagement = () => {
             Gerencie usuários, permissões e acessos do sistema
           </p>
         </div>
-        <Button className="flex items-center space-x-2" onClick={openAddModal}>
+        <Button className="flex items-center space-x-2" onClick={() => setIsAddModalOpen(true)}>
           <UserPlus className="w-4 h-4" />
           <span>Adicionar Usuário</span>
         </Button>
-
-        <FormModal
-          isOpen={isAddModalOpen}
-          onClose={() => setIsAddModalOpen(false)}
-          onSubmit={handleAddUser}
-          title="Adicionar Novo Usuário"
-          description="Preencha as informações para criar um novo usuário no sistema"
-          submitText="Criar Usuário"
-          cancelText="Cancelar"
-          size="2xl"
-        >
-          <Tabs defaultValue="basic" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="basic">Informações Básicas</TabsTrigger>
-              <TabsTrigger value="permissions">Permissões</TabsTrigger>
-              <TabsTrigger value="advanced">Avançado</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="basic" className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Nome Completo</Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    placeholder="Digite o nome completo..."
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="usuario@email.com"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Telefone</Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    placeholder="+55 11 99999-9999"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="status">Status</Label>
-                  <Select name="status" defaultValue="Ativo">
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecione o status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Ativo">Ativo</SelectItem>
-                      <SelectItem value="Inativo">Inativo</SelectItem>
-                      <SelectItem value="Pendente">Pendente</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="permissions" className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="role">Função</Label>
-                <Select name="role" defaultValue="User">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione uma função" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="User">User - Acesso básico</SelectItem>
-                    <SelectItem value="Editor">Editor - Pode editar conteúdo</SelectItem>
-                    <SelectItem value="Admin">Admin - Acesso completo</SelectItem>
-                  </SelectContent>
-                </Select>
-                <p className="text-sm text-muted-foreground">
-                  Defina o nível de acesso do usuário no sistema
-                </p>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="advanced" className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="notes">Observações</Label>
-                <Textarea
-                  id="notes"
-                  name="notes"
-                  placeholder="Adicione observações sobre o usuário..."
-                  className="resize-none"
-                />
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex flex-row items-center justify-between rounded-lg border p-4">
-                  <div className="space-y-0.5">
-                    <Label className="text-base">Enviar email de boas-vindas</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Envia um email automático com credenciais de acesso
-                    </p>
-                  </div>
-                  <Switch name="sendWelcomeEmail" defaultChecked />
-                </div>
-
-                <div className="flex flex-row items-center justify-between rounded-lg border p-4">
-                  <div className="space-y-0.5">
-                    <Label className="text-base">Exigir troca de senha</Label>
-                    <p className="text-sm text-muted-foreground">
-                      O usuário será obrigado a trocar a senha no primeiro login
-                    </p>
-                  </div>
-                  <Switch name="requirePasswordChange" />
-                </div>
-              </div>
-            </TabsContent>
-          </Tabs>
-        </FormModal>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
-                <Users className="w-6 h-6 text-blue-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{stats.total}</p>
-                <p className="text-sm text-muted-foreground">Total de Usuários</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-green-100 dark:bg-green-900 rounded-lg">
-                <Activity className="w-6 h-6 text-green-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{stats.active}</p>
-                <p className="text-sm text-muted-foreground">Usuários Ativos</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg">
-                <Shield className="w-6 h-6 text-purple-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{users.filter(u => u.role === "Admin").length}</p>
-                <p className="text-sm text-muted-foreground">Administradores</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-orange-100 dark:bg-orange-900 rounded-lg">
-                <Calendar className="w-6 h-6 text-orange-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{stats.pending}</p>
-                <p className="text-sm text-muted-foreground">Pendentes</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatsCard
+          title="Total de Usuários"
+          value={stats.total}
+          description="Usuários cadastrados"
+          icon={<Users className="h-4 w-4 text-muted-foreground" />}
+          trend={{ value: 12, isPositive: true }}
+        />
+        <StatsCard
+          title="Usuários Ativos"
+          value={stats.active}
+          description="Usuários ativos"
+          icon={<UserCheck className="h-4 w-4 text-green-600" />}
+          variant="success"
+        />
+        <StatsCard
+          title="Usuários Inativos"
+          value={stats.inactive}
+          description="Usuários inativos"
+          icon={<UserX className="h-4 w-4 text-red-600" />}
+          variant="danger"
+        />
+        <StatsCard
+          title="Pendentes"
+          value={stats.pending}
+          description="Aguardando aprovação"
+          icon={<UserCog className="h-4 w-4 text-yellow-600" />}
+          variant="warning"
+        />
       </div>
 
-      {/* Users Table */}
-      <TableCard
+      {/* Advanced Table */}
+      <AdvancedTable
+        data={users}
+        columns={columns}
         title="Lista de Usuários"
         description="Gerencie todos os usuários do sistema"
-        actions={
-          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
-                  placeholder="Buscar por nome ou email..."
-                  className="pl-10"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-            </div>
+        loading={loading}
+        selectable={true}
+        searchable={true}
+        filterable={true}
+        sortable={true}
+        pagination={{
+          enabled: true,
+          pageSize: 10,
+          pageSizeOptions: [5, 10, 20, 50],
+          showSizeChanger: true,
+        }}
+        actions={{
+          add: {
+            label: "Adicionar Usuário",
+            onClick: () => setIsAddModalOpen(true),
+          },
+          export: {
+            label: "Exportar",
+            onClick: handleExport,
+          },
+          refresh: {
+            label: "Atualizar",
+            onClick: handleRefresh,
+          },
+          bulk: {
+            enabled: true,
+            actions: [
+              {
+                key: "activate",
+                label: "Ativar Selecionados",
+                onClick: (selectedUsers) => handleBulkAction("activate", selectedUsers),
+              },
+              {
+                key: "deactivate",
+                label: "Desativar Selecionados",
+                onClick: (selectedUsers) => handleBulkAction("deactivate", selectedUsers),
+              },
+              {
+                key: "delete",
+                label: "Excluir Selecionados",
+                onClick: (selectedUsers) => handleBulkAction("delete", selectedUsers),
+                variant: "destructive",
+              },
+            ],
+          },
+        }}
+        onRowClick={(record) => handleViewUser(record)}
+      />
 
-            <Select value={roleFilter} onValueChange={setRoleFilter}>
-              <SelectTrigger className="w-full md:w-40">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Todas as funções</SelectItem>
-                <SelectItem value="Admin">Admin</SelectItem>
-                <SelectItem value="Editor">Editor</SelectItem>
-                <SelectItem value="User">User</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-full md:w-40">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Todos os status</SelectItem>
-                <SelectItem value="Ativo">Ativo</SelectItem>
-                <SelectItem value="Inativo">Inativo</SelectItem>
-                <SelectItem value="Pendente">Pendente</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Button variant="outline" className="flex items-center space-x-2">
-              <Download className="w-4 h-4" />
-              <span>Exportar</span>
-            </Button>
-          </div>
-        }
-      >
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Usuário</TableHead>
-              <TableHead>Função</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Último Login</TableHead>
-              <TableHead>Criado em</TableHead>
-              <TableHead className="text-right">Ações</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredUsers.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>
-                  <div className="flex items-center space-x-3">
-                    <Avatar>
-                      <AvatarImage src={user.avatar} />
-                      <AvatarFallback>
-                        {user.name.split(' ').map(n => n[0]).join('')}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="font-medium">{user.name}</p>
-                      <p className="text-sm text-muted-foreground">{user.email}</p>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>{getRoleBadge(user.role)}</TableCell>
-                <TableCell>{getStatusBadge(user.status)}</TableCell>
-                <TableCell className="text-sm">{user.lastLogin}</TableCell>
-                <TableCell className="text-sm">{new Date(user.createdAt).toLocaleDateString('pt-BR')}</TableCell>
-                <TableCell className="text-right">
-                  <DropdownMenu
-                    open={openDropdownId === user.id}
-                    onOpenChange={(open) => setOpenDropdownId(open ? user.id : null)}
-                  >
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm">
-                        <MoreHorizontal className="w-4 h-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem
-                        className="flex items-center space-x-2"
-                        onClick={() => {
-                          openViewModal(user);
-                          setOpenDropdownId(null);
-                        }}
-                      >
-                        <Eye className="w-4 h-4" />
-                        <span>Visualizar</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="flex items-center space-x-2"
-                        onClick={() => {
-                          openEditModal(user);
-                          setOpenDropdownId(null);
-                        }}
-                      >
-                        <Edit className="w-4 h-4" />
-                        <span>Editar</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="flex items-center space-x-2">
-                        <Mail className="w-4 h-4" />
-                        <span>Enviar Email</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="flex items-center space-x-2">
-                        <Lock className="w-4 h-4" />
-                        <span>Resetar Senha</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="flex items-center space-x-2 text-red-600"
-                        onClick={() => {
-                          setUserToDelete(user);
-                          setOpenDropdownId(null);
-                        }}
-                      >
-                        <Trash className="w-4 h-4" />
-                        <span>Remover</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-
-        {filteredUsers.length === 0 && (
-          <div className="text-center py-8">
-            <Users className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-            <p className="text-muted-foreground">Nenhum usuário encontrado com os filtros aplicados.</p>
-          </div>
-        )}
-      </TableCard>
-
-      {/* Modal de Visualização de Usuário */}
-      <InfoModal
-        isOpen={isViewModalOpen}
-        onClose={() => setIsViewModalOpen(false)}
-        title="Detalhes do Usuário"
-        description="Informações completas do usuário selecionado"
-        size="2xl"
-        actions={
-          <Button onClick={() => {
-            setIsViewModalOpen(false);
-            openEditModal(selectedUser);
-          }}>
-            <Edit className="w-4 h-4 mr-2" />
-            Editar Usuário
-          </Button>
-        }
-      >
-        {selectedUser && (
-          <div className="space-y-6">
-            <div className="flex items-center space-x-4">
-              <Avatar className="w-16 h-16">
-                <AvatarImage src={selectedUser.avatar} />
-                <AvatarFallback className="text-lg">
-                  {selectedUser.name.split(' ').map(n => n[0]).join('')}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-xl font-semibold">{selectedUser.name}</h3>
-                <p className="text-muted-foreground">{selectedUser.email}</p>
-                <div className="flex items-center space-x-2 mt-2">
-                  {getRoleBadge(selectedUser.role)}
-                  {getStatusBadge(selectedUser.status)}
-                </div>
-              </div>
-            </div>
-
-            <Separator />
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label className="text-sm font-medium text-muted-foreground">Telefone</Label>
-                <p className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  {selectedUser.phone}
-                </p>
-              </div>
-              <div className="space-y-2">
-                <Label className="text-sm font-medium text-muted-foreground">Último Login</Label>
-                <p className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  {selectedUser.lastLogin}
-                </p>
-              </div>
-              <div className="space-y-2">
-                <Label className="text-sm font-medium text-muted-foreground">Data de Criação</Label>
-                <p>{new Date(selectedUser.createdAt).toLocaleDateString('pt-BR')}</p>
-              </div>
-              <div className="space-y-2">
-                <Label className="text-sm font-medium text-muted-foreground">ID do Usuário</Label>
-                <p className="font-mono text-sm">{selectedUser.id}</p>
-              </div>
-            </div>
-
-            {selectedUser.notes && (
-              <>
-                <Separator />
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-muted-foreground">Observações</Label>
-                  <p className="text-sm">{selectedUser.notes}</p>
-                </div>
-              </>
-            )}
-          </div>
-        )}
-      </InfoModal>
-
-      {/* Modal de Edição de Usuário */}
+      {/* Add User Modal */}
       <FormModal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        onSubmit={handleEditUser}
-        title="Editar Usuário"
-        description="Atualize as informações do usuário selecionado"
-        submitText="Atualizar Usuário"
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSubmit={handleAddUser}
+        title="Adicionar Novo Usuário"
+        description="Preencha as informações para criar um novo usuário no sistema"
+        submitText="Criar Usuário"
         cancelText="Cancelar"
         size="2xl"
       >
@@ -695,39 +634,68 @@ const UserManagement = () => {
           <TabsContent value="basic" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="edit-name">Nome Completo</Label>
+                <Label htmlFor="name">Nome Completo</Label>
                 <Input
-                  id="edit-name"
+                  id="name"
                   name="name"
-                  placeholder="Digite o nome completo..."
-                  defaultValue={selectedUser?.name}
+                  placeholder="Digite o nome completo"
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="edit-email">Email</Label>
+                <Label htmlFor="email">E-mail</Label>
                 <Input
-                  id="edit-email"
+                  id="email"
                   name="email"
                   type="email"
                   placeholder="usuario@email.com"
-                  defaultValue={selectedUser?.email}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="edit-phone">Telefone</Label>
+                <Label htmlFor="phone">Telefone</Label>
                 <Input
-                  id="edit-phone"
+                  id="phone"
                   name="phone"
                   placeholder="+55 11 99999-9999"
-                  defaultValue={selectedUser?.phone}
-                  required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="edit-status">Status</Label>
-                <Select name="status" defaultValue={selectedUser?.status}>
+                <Label htmlFor="department">Departamento</Label>
+                <Select name="department">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o departamento" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="TI">TI</SelectItem>
+                    <SelectItem value="Marketing">Marketing</SelectItem>
+                    <SelectItem value="Vendas">Vendas</SelectItem>
+                    <SelectItem value="RH">RH</SelectItem>
+                    <SelectItem value="Financeiro">Financeiro</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="permissions" className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="role">Função</Label>
+                <Select name="role" required>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione a função" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Admin">Admin</SelectItem>
+                    <SelectItem value="Editor">Editor</SelectItem>
+                    <SelectItem value="User">User</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="status">Status</Label>
+                <Select name="status" required>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione o status" />
                   </SelectTrigger>
@@ -741,69 +709,275 @@ const UserManagement = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="permissions" className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="edit-role">Função</Label>
-              <Select name="role" defaultValue={selectedUser?.role}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione uma função" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="User">User - Acesso básico</SelectItem>
-                  <SelectItem value="Editor">Editor - Pode editar conteúdo</SelectItem>
-                  <SelectItem value="Admin">Admin - Acesso completo</SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-sm text-muted-foreground">
-                Defina o nível de acesso do usuário no sistema
-              </p>
-            </div>
-          </TabsContent>
-
           <TabsContent value="advanced" className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="edit-notes">Observações</Label>
+              <Label htmlFor="notes">Observações</Label>
               <Textarea
-                id="edit-notes"
+                id="notes"
                 name="notes"
-                placeholder="Adicione observações sobre o usuário..."
-                className="resize-none"
-                defaultValue={selectedUser?.notes}
+                placeholder="Observações sobre o usuário..."
+                rows={3}
               />
             </div>
           </TabsContent>
         </Tabs>
       </FormModal>
 
-      {/* Dialog de Confirmação de Remoção */}
-      <AlertDialog
-        open={userToDelete !== null}
-        onOpenChange={(open) => {
-          if (!open) {
-            setUserToDelete(null);
-          }
+      {/* Edit User Modal */}
+      <FormModal
+        isOpen={isEditModalOpen}
+        onClose={() => {
+          setIsEditModalOpen(false);
+          setSelectedUser(null);
         }}
+        onSubmit={handleUpdateUser}
+        title="Editar Usuário"
+        description="Atualize as informações do usuário"
+        submitText="Salvar Alterações"
+        cancelText="Cancelar"
+        size="2xl"
       >
+        <Tabs defaultValue="basic" className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="basic">Informações Básicas</TabsTrigger>
+            <TabsTrigger value="permissions">Permissões</TabsTrigger>
+            <TabsTrigger value="advanced">Avançado</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="basic" className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Nome Completo</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  placeholder="Digite o nome completo"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">E-mail</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="usuario@email.com"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Telefone</Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  placeholder="+55 11 99999-9999"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="department">Departamento</Label>
+                <Select name="department">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o departamento" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="TI">TI</SelectItem>
+                    <SelectItem value="Marketing">Marketing</SelectItem>
+                    <SelectItem value="Vendas">Vendas</SelectItem>
+                    <SelectItem value="RH">RH</SelectItem>
+                    <SelectItem value="Financeiro">Financeiro</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="permissions" className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="role">Função</Label>
+                <Select name="role" required>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione a função" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Admin">Admin</SelectItem>
+                    <SelectItem value="Editor">Editor</SelectItem>
+                    <SelectItem value="User">User</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="status">Status</Label>
+                <Select name="status" required>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Ativo">Ativo</SelectItem>
+                    <SelectItem value="Inativo">Inativo</SelectItem>
+                    <SelectItem value="Pendente">Pendente</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="advanced" className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="notes">Observações</Label>
+              <Textarea
+                id="notes"
+                name="notes"
+                placeholder="Observações sobre o usuário..."
+                rows={3}
+              />
+            </div>
+          </TabsContent>
+        </Tabs>
+      </FormModal>
+
+      {/* View User Modal */}
+      <Dialog open={isViewModalOpen} onOpenChange={setIsViewModalOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Detalhes do Usuário</DialogTitle>
+            <DialogDescription>
+              Informações completas do usuário selecionado
+            </DialogDescription>
+          </DialogHeader>
+
+          {selectedUser && (
+            <div className="space-y-6">
+              {/* User Header */}
+              <div className="flex items-center space-x-4">
+                <Avatar className="h-16 w-16">
+                  <AvatarImage src={selectedUser.avatar} alt={selectedUser.name} />
+                  <AvatarFallback className="text-lg">
+                    {selectedUser.name.split(' ').map(n => n[0]).join('')}
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <h3 className="text-xl font-semibold">{selectedUser.name}</h3>
+                  <p className="text-muted-foreground">{selectedUser.email}</p>
+                  <div className="flex items-center space-x-2 mt-2">
+                    {getRoleBadge(selectedUser.role)}
+                    {getStatusBadge(selectedUser.status)}
+                  </div>
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* User Details */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Telefone</Label>
+                  <p className="text-sm text-muted-foreground">{selectedUser.phone}</p>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Departamento</Label>
+                  <p className="text-sm text-muted-foreground">{selectedUser.department || "Não informado"}</p>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Último Acesso</Label>
+                  <p className="text-sm text-muted-foreground">
+                    {selectedUser.lastLogin === "Nunca" ? "Nunca acessou" :
+                      new Date(selectedUser.lastLogin).toLocaleString('pt-BR')}
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Data de Criação</Label>
+                  <p className="text-sm text-muted-foreground">
+                    {new Date(selectedUser.createdAt).toLocaleDateString('pt-BR')}
+                  </p>
+                </div>
+              </div>
+
+              {selectedUser.notes && (
+                <>
+                  <Separator />
+                  <div className="space-y-2">
+                    <Label className="text-sm font-medium">Observações</Label>
+                    <p className="text-sm text-muted-foreground">{selectedUser.notes}</p>
+                  </div>
+                </>
+              )}
+
+              {/* Actions */}
+              <div className="flex justify-end space-x-2">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setIsViewModalOpen(false);
+                    handleEditUser(selectedUser);
+                  }}
+                >
+                  <Edit className="w-4 h-4 mr-2" />
+                  Editar
+                </Button>
+                <Button
+                  variant="destructive"
+                  onClick={() => {
+                    setIsViewModalOpen(false);
+                    handleDeleteUser(selectedUser);
+                  }}
+                >
+                  <Trash className="w-4 h-4 mr-2" />
+                  Excluir
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={!!userToDelete} onOpenChange={() => setUserToDelete(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Remover usuário?</AlertDialogTitle>
+            <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>
             <AlertDialogDescription>
-              Esta ação não pode ser desfeita. O usuário "{userToDelete?.name}" será removido permanentemente do sistema.
+              Tem certeza que deseja excluir o usuário "{userToDelete?.name}"?
+              Esta ação não pode ser desfeita.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => handleDeleteUser(userToDelete?.id)}
-              className="bg-red-600 hover:bg-red-700"
-            >
-              Remover
+            <AlertDialogAction onClick={confirmDeleteUser} className="bg-red-600 hover:bg-red-700">
+              Excluir
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
     </div>
   );
+};
+
+// Helper functions
+const getStatusBadge = (status: string) => {
+  switch (status) {
+    case "Ativo":
+      return <Badge variant="default" className="flex items-center gap-1"><CheckCircle className="w-3 h-3" />Ativo</Badge>;
+    case "Inativo":
+      return <Badge variant="secondary" className="flex items-center gap-1"><XCircle className="w-3 h-3" />Inativo</Badge>;
+    case "Pendente":
+      return <Badge variant="outline" className="flex items-center gap-1"><Clock className="w-3 h-3" />Pendente</Badge>;
+    default:
+      return <Badge variant="outline">{status}</Badge>;
+  }
+};
+
+const getRoleBadge = (role: string) => {
+  switch (role) {
+    case "Admin":
+      return <Badge className="bg-purple-600 flex items-center gap-1"><Shield className="w-3 h-3" />Admin</Badge>;
+    case "Editor":
+      return <Badge className="bg-blue-600 flex items-center gap-1"><Edit className="w-3 h-3" />Editor</Badge>;
+    case "User":
+      return <Badge variant="outline" className="flex items-center gap-1"><User className="w-3 h-3" />User</Badge>;
+    default:
+      return <Badge variant="outline">{role}</Badge>;
+  }
 };
 
 export default UserManagement;

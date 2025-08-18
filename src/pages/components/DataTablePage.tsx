@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import {
@@ -12,7 +12,10 @@ import {
     Users,
     TrendingUp,
     Package,
-    DollarSign
+    DollarSign,
+    Home,
+    Settings,
+    Database
 } from "lucide-react";
 
 import { DataTable, DataTableColumn } from "@/components/ui/data-table";
@@ -28,9 +31,106 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { useToast } from "@/hooks/use-toast";
 
-// Sample data types
+// Importando os novos componentes
+import {
+    StatusBadge,
+    UserCell,
+    PriceCell,
+    StockCell,
+    RatingCell,
+    OrderIdCell,
+    DateCell,
+    ActionsMenu,
+    MetricCell
+} from "@/components/ui/table-components";
+
+// ============================================================================
+// BREADCRUMB COMPONENT
+// ============================================================================
+
+interface BreadcrumbItem {
+    label: string;
+    href?: string;
+    icon?: React.ReactNode;
+    isCurrent?: boolean;
+}
+
+interface DynamicBreadcrumbProps {
+    items: BreadcrumbItem[];
+    className?: string;
+}
+
+function DynamicBreadcrumb({ items, className }: DynamicBreadcrumbProps) {
+    return (
+        <Breadcrumb className={className}>
+            <BreadcrumbList>
+                {items.map((item, index) => (
+                    <React.Fragment key={index}>
+                        <BreadcrumbItem>
+                            {item.isCurrent ? (
+                                <BreadcrumbPage className="flex items-center gap-2">
+                                    {item.icon}
+                                    {item.label}
+                                </BreadcrumbPage>
+                            ) : (
+                                <BreadcrumbLink href={item.href} className="flex items-center gap-2">
+                                    {item.icon}
+                                    {item.label}
+                                </BreadcrumbLink>
+                            )}
+                        </BreadcrumbItem>
+                        {index < items.length - 1 && <BreadcrumbSeparator />}
+                    </React.Fragment>
+                ))}
+            </BreadcrumbList>
+        </Breadcrumb>
+    );
+}
+
+// ============================================================================
+// STATS CARD COMPONENT
+// ============================================================================
+
+interface StatsCardProps {
+    title: string;
+    value: string | number;
+    description: string;
+    icon: React.ReactNode;
+    trend?: {
+        value: number;
+        isPositive: boolean;
+    };
+}
+
+function StatsCard({ title, value, description, icon, trend }: StatsCardProps) {
+    return (
+        <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">{title}</CardTitle>
+                {icon}
+            </CardHeader>
+            <CardContent>
+                <div className="text-2xl font-bold">{value}</div>
+                <p className="text-xs text-muted-foreground">
+                    {description}
+                    {trend && (
+                        <span className={`ml-2 ${trend.isPositive ? 'text-green-600' : 'text-red-600'}`}>
+                            {trend.isPositive ? '+' : ''}{trend.value}%
+                        </span>
+                    )}
+                </p>
+            </CardContent>
+        </Card>
+    );
+}
+
+// ============================================================================
+// TYPES
+// ============================================================================
+
 interface User {
     id: string;
     name: string;
@@ -65,7 +165,10 @@ interface Order {
     paymentMethod: string;
 }
 
-// Sample data
+// ============================================================================
+// SAMPLE DATA
+// ============================================================================
+
 const sampleUsers: User[] = [
     {
         id: "1",
@@ -225,6 +328,10 @@ const sampleOrders: Order[] = [
     },
 ];
 
+// ============================================================================
+// MAIN COMPONENT
+// ============================================================================
+
 export default function DataTablePage() {
     const { toast } = useToast();
     const [selectedUsers, setSelectedUsers] = useState<React.Key[]>([]);
@@ -232,74 +339,24 @@ export default function DataTablePage() {
     const [selectedOrders, setSelectedOrders] = useState<React.Key[]>([]);
     const [loading, setLoading] = useState(false);
 
-    // Status badge components
-    const StatusBadge = ({ status, type }: { status: string; type: "user" | "product" | "order" }) => {
-        const variants = {
-            user: {
-                active: "bg-green-100 text-green-800 border-green-200",
-                inactive: "bg-gray-100 text-gray-800 border-gray-200",
-                pending: "bg-yellow-100 text-yellow-800 border-yellow-200",
-            },
-            product: {
-                available: "bg-green-100 text-green-800 border-green-200",
-                out_of_stock: "bg-red-100 text-red-800 border-red-200",
-                discontinued: "bg-gray-100 text-gray-800 border-gray-200",
-            },
-            order: {
-                pending: "bg-yellow-100 text-yellow-800 border-yellow-200",
-                processing: "bg-blue-100 text-blue-800 border-blue-200",
-                shipped: "bg-purple-100 text-purple-800 border-purple-200",
-                delivered: "bg-green-100 text-green-800 border-green-200",
-                cancelled: "bg-red-100 text-red-800 border-red-200",
-            },
-        };
-
-        const labels = {
-            user: { active: "Ativo", inactive: "Inativo", pending: "Pendente" },
-            product: { available: "Disponível", out_of_stock: "Sem Estoque", discontinued: "Descontinuado" },
-            order: { pending: "Pendente", processing: "Processando", shipped: "Enviado", delivered: "Entregue", cancelled: "Cancelado" },
-        };
-
-        return (
-            <Badge
-                variant="secondary"
-                className={variants[type][status as keyof typeof variants[typeof type]]}
-            >
-                {labels[type][status as keyof typeof labels[typeof type]]}
-            </Badge>
-        );
-    };
-
-    // Actions menu component
-    const ActionsMenu = ({ record, type }: { record: any; type: string }) => (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                    <span className="sr-only">Abrir menu</span>
-                    <MoreHorizontal className="h-4 w-4" />
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Ações</DropdownMenuLabel>
-                <DropdownMenuItem onClick={() => toast({ title: `Visualizar ${type}`, description: `ID: ${record.id}` })}>
-                    <Eye className="mr-2 h-4 w-4" />
-                    Visualizar
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => toast({ title: `Editar ${type}`, description: `ID: ${record.id}` })}>
-                    <Edit className="mr-2 h-4 w-4" />
-                    Editar
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                    className="text-red-600"
-                    onClick={() => toast({ title: `Excluir ${type}`, description: `ID: ${record.id}`, variant: "destructive" })}
-                >
-                    <Trash2 className="mr-2 h-4 w-4" />
-                    Excluir
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
-    );
+    // Breadcrumb items
+    const breadcrumbItems: BreadcrumbItem[] = [
+        {
+            label: "Home",
+            href: "/",
+            icon: <Home className="h-4 w-4" />
+        },
+        {
+            label: "Componentes",
+            href: "/components",
+            icon: <Settings className="h-4 w-4" />
+        },
+        {
+            label: "DataTable",
+            icon: <Database className="h-4 w-4" />,
+            isCurrent: true
+        }
+    ];
 
     // Users table columns
     const userColumns: DataTableColumn<User>[] = [
@@ -309,16 +366,12 @@ export default function DataTablePage() {
             dataIndex: "name",
             sortable: true,
             render: (_, record) => (
-                <div className="flex items-center space-x-3">
-                    <Avatar className="h-8 w-8">
-                        <AvatarImage src={record.avatar} alt={record.name} />
-                        <AvatarFallback>{record.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                        <div className="font-medium">{record.name}</div>
-                        <div className="text-sm text-muted-foreground">{record.email}</div>
-                    </div>
-                </div>
+                <UserCell
+                    name={record.name}
+                    email={record.email}
+                    avatar={record.avatar}
+                    size="md"
+                />
             ),
         },
         {
@@ -359,20 +412,28 @@ export default function DataTablePage() {
             title: "Criado em",
             dataIndex: "createdAt",
             sortable: true,
-            render: (value) => format(new Date(value), "dd/MM/yyyy", { locale: ptBR }),
+            render: (value) => <DateCell date={value} format="dd/MM/yyyy" />,
         },
         {
             key: "lastLogin",
             title: "Último Acesso",
             dataIndex: "lastLogin",
             sortable: true,
-            render: (value) => value ? format(new Date(value), "dd/MM/yyyy HH:mm", { locale: ptBR }) : "Nunca",
+            render: (value) => value ? <DateCell date={value} format="dd/MM/yyyy HH:mm" showTime={true} /> : "Nunca",
         },
         {
             key: "actions",
             title: "Ações",
             align: "center",
-            render: (_, record) => <ActionsMenu record={record} type="usuário" />,
+            render: (_, record) => (
+                <ActionsMenu
+                    record={record}
+                    type="usuário"
+                    onView={() => toast({ title: `Visualizar usuário`, description: `ID: ${record.id}` })}
+                    onEdit={() => toast({ title: `Editar usuário`, description: `ID: ${record.id}` })}
+                    onDelete={() => toast({ title: `Excluir usuário`, description: `ID: ${record.id}`, variant: "destructive" })}
+                />
+            ),
         },
     ];
 
@@ -402,7 +463,7 @@ export default function DataTablePage() {
             dataIndex: "price",
             sortable: true,
             align: "right",
-            render: (value) => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value),
+            render: (value) => <PriceCell price={value} />,
         },
         {
             key: "stock",
@@ -410,11 +471,7 @@ export default function DataTablePage() {
             dataIndex: "stock",
             sortable: true,
             align: "center",
-            render: (value) => (
-                <Badge variant={value > 0 ? "secondary" : "destructive"}>
-                    {value} un.
-                </Badge>
-            ),
+            render: (value) => <StockCell stock={value} />,
         },
         {
             key: "rating",
@@ -422,12 +479,7 @@ export default function DataTablePage() {
             dataIndex: "rating",
             sortable: true,
             align: "center",
-            render: (value) => (
-                <div className="flex items-center space-x-1">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span>{value}</span>
-                </div>
-            ),
+            render: (value) => <RatingCell rating={value} />,
         },
         {
             key: "sales",
@@ -435,7 +487,7 @@ export default function DataTablePage() {
             dataIndex: "sales",
             sortable: true,
             align: "right",
-            render: (value) => value.toLocaleString("pt-BR"),
+            render: (value) => <MetricCell value={value} format="number" />,
         },
         {
             key: "status",
@@ -449,7 +501,15 @@ export default function DataTablePage() {
             key: "actions",
             title: "Ações",
             align: "center",
-            render: (_, record) => <ActionsMenu record={record} type="produto" />,
+            render: (_, record) => (
+                <ActionsMenu
+                    record={record}
+                    type="produto"
+                    onView={() => toast({ title: `Visualizar produto`, description: `ID: ${record.id}` })}
+                    onEdit={() => toast({ title: `Editar produto`, description: `ID: ${record.id}` })}
+                    onDelete={() => toast({ title: `Excluir produto`, description: `ID: ${record.id}`, variant: "destructive" })}
+                />
+            ),
         },
     ];
 
@@ -460,11 +520,7 @@ export default function DataTablePage() {
             title: "ID do Pedido",
             dataIndex: "id",
             sortable: true,
-            render: (value) => (
-                <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
-                    {value}
-                </code>
-            ),
+            render: (value) => <OrderIdCell id={value} />,
         },
         {
             key: "customer",
@@ -478,7 +534,7 @@ export default function DataTablePage() {
             dataIndex: "total",
             sortable: true,
             align: "right",
-            render: (value) => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value),
+            render: (value) => <PriceCell price={value} />,
         },
         {
             key: "items",
@@ -513,13 +569,21 @@ export default function DataTablePage() {
             title: "Data",
             dataIndex: "date",
             sortable: true,
-            render: (value) => format(new Date(value), "dd/MM/yyyy", { locale: ptBR }),
+            render: (value) => <DateCell date={value} format="dd/MM/yyyy" />,
         },
         {
             key: "actions",
             title: "Ações",
             align: "center",
-            render: (_, record) => <ActionsMenu record={record} type="pedido" />,
+            render: (_, record) => (
+                <ActionsMenu
+                    record={record}
+                    type="pedido"
+                    onView={() => toast({ title: `Visualizar pedido`, description: `ID: ${record.id}` })}
+                    onEdit={() => toast({ title: `Editar pedido`, description: `ID: ${record.id}` })}
+                    onDelete={() => toast({ title: `Excluir pedido`, description: `ID: ${record.id}`, variant: "destructive" })}
+                />
+            ),
         },
     ];
 
@@ -537,6 +601,9 @@ export default function DataTablePage() {
 
     return (
         <div className="space-y-8">
+            {/* Breadcrumb */}
+            <DynamicBreadcrumb items={breadcrumbItems} />
+
             {/* Header */}
             <div className="space-y-2">
                 <h1 className="text-3xl font-bold text-foreground">DataTable</h1>
@@ -547,62 +614,38 @@ export default function DataTablePage() {
 
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total de Usuários</CardTitle>
-                        <Users className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{sampleUsers.length}</div>
-                        <p className="text-xs text-muted-foreground">
-                            +2 novos este mês
-                        </p>
-                    </CardContent>
-                </Card>
+                <StatsCard
+                    title="Total de Usuários"
+                    value={sampleUsers.length}
+                    description="+2 novos este mês"
+                    icon={<Users className="h-4 w-4 text-muted-foreground" />}
+                    trend={{ value: 12, isPositive: true }}
+                />
 
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Produtos</CardTitle>
-                        <Package className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{sampleProducts.length}</div>
-                        <p className="text-xs text-muted-foreground">
-                            {sampleProducts.filter(p => p.status === 'available').length} disponíveis
-                        </p>
-                    </CardContent>
-                </Card>
+                <StatsCard
+                    title="Produtos"
+                    value={sampleProducts.length}
+                    description={`${sampleProducts.filter(p => p.status === 'available').length} disponíveis`}
+                    icon={<Package className="h-4 w-4 text-muted-foreground" />}
+                />
 
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Pedidos</CardTitle>
-                        <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{sampleOrders.length}</div>
-                        <p className="text-xs text-muted-foreground">
-                            {sampleOrders.filter(o => o.status === 'delivered').length} entregues
-                        </p>
-                    </CardContent>
-                </Card>
+                <StatsCard
+                    title="Pedidos"
+                    value={sampleOrders.length}
+                    description={`${sampleOrders.filter(o => o.status === 'delivered').length} entregues`}
+                    icon={<TrendingUp className="h-4 w-4 text-muted-foreground" />}
+                />
 
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Receita Total</CardTitle>
-                        <DollarSign className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">
-                            {new Intl.NumberFormat("pt-BR", {
-                                style: "currency",
-                                currency: "BRL"
-                            }).format(sampleOrders.reduce((acc, order) => acc + order.total, 0))}
-                        </div>
-                        <p className="text-xs text-muted-foreground">
-                            +15% desde o último mês
-                        </p>
-                    </CardContent>
-                </Card>
+                <StatsCard
+                    title="Receita Total"
+                    value={new Intl.NumberFormat("pt-BR", {
+                        style: "currency",
+                        currency: "BRL"
+                    }).format(sampleOrders.reduce((acc, order) => acc + order.total, 0))}
+                    description="+15% desde o último mês"
+                    icon={<DollarSign className="h-4 w-4 text-muted-foreground" />}
+                    trend={{ value: 15, isPositive: true }}
+                />
             </div>
 
             {/* Users Table */}

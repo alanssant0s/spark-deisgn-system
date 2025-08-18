@@ -45,6 +45,7 @@ import DeepLevel4 from "./pages/breadcrumb-demo/DeepLevel4";
 import NotFoundError from "./pages/errors/NotFound";
 import ServerError from "./pages/errors/ServerError";
 import Forbidden from "./pages/errors/Forbidden";
+import Unauthorized from "./pages/errors/Unauthorized";
 import Maintenance from "./pages/errors/Maintenance";
 import ErrorBoundary from "./components/errors/ErrorBoundary";
 
@@ -134,6 +135,7 @@ const App = () => (
                         <Route path="/errors/404" element={<NotFoundError />} />
                         <Route path="/errors/500" element={<ServerError />} />
                         <Route path="/errors/403" element={<Forbidden />} />
+                        <Route path="/errors/401" element={<Unauthorized />} />
                         <Route path="/errors/maintenance" element={<Maintenance />} />
 
                         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

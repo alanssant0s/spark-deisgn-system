@@ -10,7 +10,10 @@ import {
     Wrench,
     Bug,
     ExternalLink,
-    Eye
+    Eye,
+    Code,
+    Layers,
+    Package
 } from "lucide-react";
 
 const ErrorPages = () => {
@@ -31,7 +34,8 @@ const ErrorPages = () => {
                 "Botões de navegação",
                 "Design amigável",
                 "Ilustração interativa"
-            ]
+            ],
+            component: "BaseErrorPage + errorConfigs.notFound()"
         },
         {
             id: "500",
@@ -47,7 +51,8 @@ const ErrorPages = () => {
                 "Botão de refresh com loading",
                 "Passos de troubleshooting",
                 "Informações para desenvolvedores"
-            ]
+            ],
+            component: "BaseErrorPage + ErrorAlert + TroubleshootingSteps"
         },
         {
             id: "403",
@@ -63,7 +68,25 @@ const ErrorPages = () => {
                 "Informações da conta",
                 "Ações alternativas",
                 "Solicitação de acesso"
-            ]
+            ],
+            component: "BaseErrorPage + ErrorAlert + custom content"
+        },
+        {
+            id: "401",
+            title: "401 - Não Autorizado",
+            description: "Página para usuários não autenticados",
+            icon: Shield,
+            color: "text-orange-600",
+            bgColor: "bg-orange-50",
+            borderColor: "border-orange-200",
+            route: "/errors/401",
+            features: [
+                "Redirecionamento para login",
+                "Mensagem clara",
+                "Design consistente",
+                "Configuração simples"
+            ],
+            component: "BaseErrorPage + errorConfigs.unauthorized()"
         },
         {
             id: "maintenance",
@@ -79,7 +102,55 @@ const ErrorPages = () => {
                 "Progresso da manutenção",
                 "Lista de melhorias",
                 "Links para atualizações"
-            ]
+            ],
+            component: "MaintenancePage (especializado)"
+        }
+    ];
+
+    const components = [
+        {
+            name: "BaseErrorPage",
+            description: "Componente base para todas as páginas de erro",
+            features: [
+                "Layout consistente",
+                "Sistema de cores configurável",
+                "Ações personalizáveis",
+                "Sugestões de navegação"
+            ],
+            icon: Layers
+        },
+        {
+            name: "ErrorAlert",
+            description: "Componente para exibir alertas de status",
+            features: [
+                "Variantes de cor (destructive, warning, info)",
+                "Ícones personalizáveis",
+                "Texto estruturado",
+                "Reutilizável"
+            ],
+            icon: AlertTriangle
+        },
+        {
+            name: "TroubleshootingSteps",
+            description: "Lista de passos para resolução de problemas",
+            features: [
+                "Numeração automática",
+                "Ícones opcionais",
+                "Layout responsivo",
+                "Fácil customização"
+            ],
+            icon: Code
+        },
+        {
+            name: "TechnicalDetails",
+            description: "Detalhes técnicos expansíveis",
+            features: [
+                "Collapsible por padrão",
+                "Formatação de código",
+                "Informações estruturadas",
+                "Para desenvolvedores"
+            ],
+            icon: Package
         }
     ];
 
@@ -96,11 +167,74 @@ const ErrorPages = () => {
         <div className="space-y-8">
             {/* Header */}
             <div className="space-y-2">
-                <h1 className="text-3xl font-bold text-foreground">Páginas de Erro</h1>
+                <h1 className="text-3xl font-bold text-foreground">Páginas de Erro Componentizadas</h1>
                 <p className="text-muted-foreground">
-                    Páginas personalizadas para diferentes tipos de erro e situações especiais
+                    Sistema modular e reutilizável para páginas de erro com componentes compartilhados
                 </p>
             </div>
+
+            {/* Architecture Overview */}
+            <Card className="border-2 border-dashed border-green-200">
+                <CardHeader>
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 bg-green-50 rounded-lg">
+                            <Layers className="h-6 w-6 text-green-600" />
+                        </div>
+                        <div>
+                            <CardTitle className="text-xl">Nova Arquitetura</CardTitle>
+                            <CardDescription>
+                                Sistema componentizado com reutilização máxima e facilidade de manutenção
+                            </CardDescription>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 className="font-medium text-sm mb-2">Benefícios:</h4>
+                            <ul className="space-y-1">
+                                <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <div className="w-1.5 h-1.5 bg-green-600 rounded-full" />
+                                    Reutilização de componentes
+                                </li>
+                                <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <div className="w-1.5 h-1.5 bg-green-600 rounded-full" />
+                                    Configurações pré-definidas
+                                </li>
+                                <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <div className="w-1.5 h-1.5 bg-green-600 rounded-full" />
+                                    Manutenção simplificada
+                                </li>
+                                <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <div className="w-1.5 h-1.5 bg-green-600 rounded-full" />
+                                    Consistência visual
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-medium text-sm mb-2">Componentes:</h4>
+                            <ul className="space-y-1">
+                                <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
+                                    BaseErrorPage (base)
+                                </li>
+                                <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
+                                    ErrorAlert (alerta)
+                                </li>
+                                <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
+                                    TroubleshootingSteps (passos)
+                                </li>
+                                <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
+                                    MaintenancePage (especializado)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
 
             {/* Error Pages Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -125,6 +259,13 @@ const ErrorPages = () => {
                             </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
+                            {/* Component Used */}
+                            <div className="bg-muted/50 rounded-lg p-3">
+                                <p className="text-xs font-mono text-muted-foreground">
+                                    <strong>Componente:</strong> {error.component}
+                                </p>
+                            </div>
+
                             {/* Features */}
                             <div>
                                 <h4 className="font-medium text-sm mb-2">Recursos inclusos:</h4>
@@ -158,6 +299,38 @@ const ErrorPages = () => {
                         </CardContent>
                     </Card>
                 ))}
+            </div>
+
+            {/* Components Showcase */}
+            <div className="space-y-4">
+                <h2 className="text-2xl font-bold">Componentes Compartilhados</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {components.map((component) => (
+                        <Card key={component.name} className="border-2 border-dashed border-blue-200">
+                            <CardHeader>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-blue-50 rounded-lg">
+                                        <component.icon className="h-5 w-5 text-blue-600" />
+                                    </div>
+                                    <div>
+                                        <CardTitle className="text-lg">{component.name}</CardTitle>
+                                        <CardDescription>{component.description}</CardDescription>
+                                    </div>
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <ul className="space-y-1">
+                                    {component.features.map((feature, index) => (
+                                        <li key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
+                                            <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
             </div>
 
             {/* Error Boundary Demo */}
@@ -217,39 +390,38 @@ const ErrorPages = () => {
             {/* Implementation Guide */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Como Usar</CardTitle>
+                    <CardTitle>Como Usar a Nova Arquitetura</CardTitle>
                     <CardDescription>
-                        Guia de implementação das páginas de erro
+                        Guia de implementação das páginas de erro componentizadas
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div className="space-y-3">
                         <div>
-                            <h4 className="font-medium text-sm">1. Rotas Diretas</h4>
+                            <h4 className="font-medium text-sm">1. Página Simples (404)</h4>
                             <p className="text-sm text-muted-foreground">
-                                Acesse diretamente através das URLs: <code className="bg-muted px-1 rounded">/errors/404</code>,
-                                <code className="bg-muted px-1 rounded ml-1">/errors/500</code>, etc.
+                                Use <code className="bg-muted px-1 rounded">errorConfigs.notFound()</code> para criar uma página 404 rapidamente.
                             </p>
                         </div>
 
                         <div>
-                            <h4 className="font-medium text-sm">2. Error Boundary</h4>
+                            <h4 className="font-medium text-sm">2. Página com Conteúdo Customizado (500)</h4>
                             <p className="text-sm text-muted-foreground">
-                                Já integrado na aplicação - captura automaticamente erros JavaScript não tratados.
+                                Use <code className="bg-muted px-1 rounded">BaseErrorPage</code> com <code className="bg-muted px-1 rounded">children</code> para conteúdo personalizado.
                             </p>
                         </div>
 
                         <div>
-                            <h4 className="font-medium text-sm">3. Redirecionamento Programático</h4>
+                            <h4 className="font-medium text-sm">3. Página Especializada (Maintenance)</h4>
                             <p className="text-sm text-muted-foreground">
-                                Use <code className="bg-muted px-1 rounded">navigate('/errors/500')</code> para redirecionar para páginas de erro específicas.
+                                Use <code className="bg-muted px-1 rounded">MaintenancePage</code> para páginas de manutenção com funcionalidades específicas.
                             </p>
                         </div>
 
                         <div>
-                            <h4 className="font-medium text-sm">4. Personalização</h4>
+                            <h4 className="font-medium text-sm">4. Componentes Compartilhados</h4>
                             <p className="text-sm text-muted-foreground">
-                                Todas as páginas seguem o design system e podem ser facilmente personalizadas.
+                                Reutilize <code className="bg-muted px-1 rounded">ErrorAlert</code>, <code className="bg-muted px-1 rounded">TroubleshootingSteps</code> e <code className="bg-muted px-1 rounded">TechnicalDetails</code> em qualquer página.
                             </p>
                         </div>
                     </div>

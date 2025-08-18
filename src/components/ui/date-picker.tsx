@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export interface DatePickerProps {
     selected?: Date;
@@ -364,32 +365,31 @@ export function DateRangePicker({
     };
 
     return (
-        <Popover open={isOpen} onOpenChange={handleClose}>
-            <PopoverTrigger asChild>
-                <button
-                    className={cn(
-                        buttonVariants({ variant: "outline" }),
-                        "w-full justify-start text-left font-normal",
-                        !selected && "text-muted-foreground",
-                        className
-                    )}
-                    disabled={disabled}
-                    onClick={() => {
-                        console.log('DateRangePicker - trigger clicked');
-                        setIsOpen(true);
-                    }}
-                    aria-label={selected ? `Período selecionado: ${format(selected.from, "dd/MM/yyyy", { locale: ptBR })} - ${format(selected.to, "dd/MM/yyyy", { locale: ptBR })}` : placeholder}
-                >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {selected ? (
-                        `${format(selected.from, "dd/MM/yyyy", { locale: ptBR })} - ${format(selected.to, "dd/MM/yyyy", { locale: ptBR })}`
-                    ) : (
-                        <span>{placeholder}</span>
-                    )}
-                </button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-                <div className="p-3">
+        <div className="relative">
+            <button
+                className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "w-full justify-start text-left font-normal",
+                    !selected && "text-muted-foreground",
+                    className
+                )}
+                disabled={disabled}
+                onClick={() => {
+                    console.log('DateRangePicker - trigger clicked');
+                    setIsOpen(!isOpen);
+                }}
+                aria-label={selected ? `Período selecionado: ${format(selected.from, "dd/MM/yyyy", { locale: ptBR })} - ${format(selected.to, "dd/MM/yyyy", { locale: ptBR })}` : placeholder}
+            >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {selected ? (
+                    `${format(selected.from, "dd/MM/yyyy", { locale: ptBR })} - ${format(selected.to, "dd/MM/yyyy", { locale: ptBR })}`
+                ) : (
+                    <span>{placeholder}</span>
+                )}
+            </button>
+
+            {isOpen && (
+                <div className="absolute top-full left-0 right-0 mt-1 bg-background border rounded-md shadow-lg z-50 p-3">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4">
                         <button
@@ -475,8 +475,22 @@ export function DateRangePicker({
                             <p className="font-medium">De: {format(tempRange.from, "dd/MM/yyyy", { locale: ptBR })}</p>
                         </div>
                     )}
+
+                    {/* Botão para fechar */}
+                    <div className="mt-3 flex justify-end">
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                                console.log('DateRangePicker - fechando manualmente');
+                                setIsOpen(false);
+                            }}
+                        >
+                            Fechar
+                        </Button>
+                    </div>
                 </div>
-            </PopoverContent>
-        </Popover>
+            )}
+        </div>
     );
 }

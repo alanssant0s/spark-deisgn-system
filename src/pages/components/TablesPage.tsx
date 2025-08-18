@@ -1,3 +1,4 @@
+import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { TableCard } from "@/components/ui/table-card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -86,10 +87,10 @@ const TablesPage = () => {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <Badge 
+                    <Badge
                       variant={
-                        user.status === "Ativo" ? "default" : 
-                        user.status === "Inativo" ? "secondary" : "outline"
+                        user.status === "Ativo" ? "default" :
+                          user.status === "Inativo" ? "secondary" : "outline"
                       }
                     >
                       {user.status}
@@ -123,8 +124,8 @@ const TablesPage = () => {
             <div className="flex items-center space-x-2">
               <div className="relative">
                 <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground h-3 w-3" />
-                <Input 
-                  placeholder="Buscar produtos..." 
+                <Input
+                  placeholder="Buscar produtos..."
                   className="pl-7 h-8 w-48 text-sm"
                 />
               </div>
@@ -162,18 +163,17 @@ const TablesPage = () => {
                   <TableCell className="text-sm">{product.category}</TableCell>
                   <TableCell className="font-medium text-sm">{product.price}</TableCell>
                   <TableCell>
-                    <span className={`text-sm ${
-                      product.stock === 0 ? 'text-red-600' : 
-                      product.stock < 20 ? 'text-orange-600' : 'text-green-600'
-                    }`}>
+                    <span className={`text-sm ${product.stock === 0 ? 'text-red-600' :
+                        product.stock < 20 ? 'text-orange-600' : 'text-green-600'
+                      }`}>
                       {product.stock} unidades
                     </span>
                   </TableCell>
                   <TableCell>
-                    <Badge 
+                    <Badge
                       variant={
-                        product.status === "Disponível" ? "default" : 
-                        product.status === "Baixo Estoque" ? "outline" : "secondary"
+                        product.status === "Disponível" ? "default" :
+                          product.status === "Baixo Estoque" ? "outline" : "secondary"
                       }
                     >
                       {product.status}
