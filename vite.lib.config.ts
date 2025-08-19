@@ -1,93 +1,22 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "path";
-import dts from "vite-plugin-dts";
 
 export default defineConfig({
-    plugins: [
-        react(),
-        dts({
-            insertTypesEntry: true,
-            include: [
-                "src/components/ui/**/*",
-                "src/components/auth/**/*",
-                "src/components/errors/**/*",
-                "src/components/forms/**/*",
-                "src/components/layouts/**/*",
-                "src/components/notifications/**/*",
-                "src/components/saas/**/*",
-                "src/components/LogoProcessor.tsx",
-                "src/components/LayoutSettings.tsx",
-                "src/components/page-header.tsx",
-                "src/lib/**/*",
-                "src/hooks/**/*",
-                "src/contexts/**/*"
-            ],
-            exclude: [
-                "src/**/*.stories.*",
-                "src/**/*.test.*",
-                "src/pages/**/*",
-                "src/App.tsx",
-                "src/main.tsx",
-                "src/stories/**/*"
-            ],
-            outDir: "dist",
-            copyDtsFiles: true,
-            logLevel: "info"
-        }),
-    ],
+    plugins: [react()],
     build: {
         lib: {
-            entry: {
-                index: resolve(__dirname, "src/lib/index.ts"),
-                // Componentes individuais para tree-shaking
-                "components/ui/button": resolve(__dirname, "src/components/ui/button.tsx"),
-                "components/ui/card": resolve(__dirname, "src/components/ui/card.tsx"),
-                "components/ui/input": resolve(__dirname, "src/components/ui/input.tsx"),
-                "components/ui/label": resolve(__dirname, "src/components/ui/label.tsx"),
-                "components/ui/badge": resolve(__dirname, "src/components/ui/badge.tsx"),
-                "components/ui/avatar": resolve(__dirname, "src/components/ui/avatar.tsx"),
-                "components/ui/skeleton": resolve(__dirname, "src/components/ui/skeleton.tsx"),
-                "components/ui/separator": resolve(__dirname, "src/components/ui/separator.tsx"),
-                "components/ui/progress": resolve(__dirname, "src/components/ui/progress.tsx"),
-                "components/ui/form": resolve(__dirname, "src/components/ui/form.tsx"),
-                "components/ui/checkbox": resolve(__dirname, "src/components/ui/checkbox.tsx"),
-                "components/ui/radio-group": resolve(__dirname, "src/components/ui/radio-group.tsx"),
-                "components/ui/select": resolve(__dirname, "src/components/ui/select.tsx"),
-                "components/ui/switch": resolve(__dirname, "src/components/ui/switch.tsx"),
-                "components/ui/slider": resolve(__dirname, "src/components/ui/slider.tsx"),
-                "components/ui/textarea": resolve(__dirname, "src/components/ui/textarea.tsx"),
-                "components/ui/accordion": resolve(__dirname, "src/components/ui/accordion.tsx"),
-                "components/ui/tabs": resolve(__dirname, "src/components/ui/tabs.tsx"),
-                "components/ui/table": resolve(__dirname, "src/components/ui/table.tsx"),
-                "components/ui/dialog": resolve(__dirname, "src/components/ui/dialog.tsx"),
-                "components/ui/sheet": resolve(__dirname, "src/components/ui/sheet.tsx"),
-                "components/ui/popover": resolve(__dirname, "src/components/ui/popover.tsx"),
-                "components/ui/tooltip": resolve(__dirname, "src/components/ui/tooltip.tsx"),
-                "components/ui/dropdown-menu": resolve(__dirname, "src/components/ui/dropdown-menu.tsx"),
-                "components/ui/breadcrumb": resolve(__dirname, "src/components/ui/breadcrumb.tsx"),
-                "components/ui/toast": resolve(__dirname, "src/components/ui/toast.tsx"),
-                "components/ui/toaster": resolve(__dirname, "src/components/ui/toaster.tsx"),
-                "components/ui/alert": resolve(__dirname, "src/components/ui/alert.tsx"),
-                "components/ui/alert-dialog": resolve(__dirname, "src/components/ui/alert-dialog.tsx"),
-                "components/ui/calendar": resolve(__dirname, "src/components/ui/calendar.tsx"),
-                "components/ui/date-picker": resolve(__dirname, "src/components/ui/date-picker.tsx"),
-                "components/ui/carousel": resolve(__dirname, "src/components/ui/carousel.tsx"),
-                "components/ui/pagination": resolve(__dirname, "src/components/ui/pagination.tsx"),
-                "components/ui/page-header": resolve(__dirname, "src/components/ui/page-header.tsx"),
-                "lib/utils": resolve(__dirname, "src/lib/utils.ts"),
-            },
+            entry: resolve(__dirname, "src/lib/index.ts"),
             name: "SparkDesignSystem",
             formats: ["es"],
-            fileName: (format, entryName) => `${entryName}.${format === "es" ? "esm" : format}.js`,
+            fileName: "index"
         },
-        cssCodeSplit: true,
+        cssCodeSplit: false,
         rollupOptions: {
             external: [
                 "react",
                 "react-dom",
                 "react/jsx-runtime",
-                "tailwindcss",
                 "@radix-ui/react-accordion",
                 "@radix-ui/react-alert-dialog",
                 "@radix-ui/react-aspect-ratio",
@@ -136,8 +65,6 @@ export default defineConfig({
                     "react-dom": "ReactDOM",
                     "react/jsx-runtime": "jsx",
                 },
-                preserveModules: true,
-                preserveModulesRoot: "src",
             },
         },
         sourcemap: true,
