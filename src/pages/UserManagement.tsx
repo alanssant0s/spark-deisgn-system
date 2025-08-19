@@ -11,6 +11,7 @@ import { FormModal, InfoModal } from "@/components/ui/modal-examples";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import PageHeader, { PageHeaderBreadcrumbItem } from "@/components/ui/page-header";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
@@ -260,7 +261,7 @@ const UserManagement = () => {
   const [loading, setLoading] = useState(false);
 
   // Breadcrumb items
-  const breadcrumbItems: BreadcrumbItem[] = [
+  const breadcrumbItems: PageHeaderBreadcrumbItem[] = [
     {
       label: "Home",
       href: "/",
@@ -509,22 +510,17 @@ const UserManagement = () => {
 
   return (
     <div className="space-y-8">
-      {/* Breadcrumb */}
-      <DynamicBreadcrumb items={breadcrumbItems} />
-
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Gestão de Usuários</h1>
-          <p className="text-muted-foreground">
-            Gerencie usuários, permissões e acessos do sistema
-          </p>
-        </div>
-        <Button className="flex items-center space-x-2" onClick={() => setIsAddModalOpen(true)}>
-          <UserPlus className="w-4 h-4" />
-          <span>Adicionar Usuário</span>
-        </Button>
-      </div>
+      <PageHeader
+        items={breadcrumbItems}
+        title="Gestão de Usuários"
+        subtitle="Gerencie usuários, permissões e acessos do sistema"
+        actions={(
+          <Button className="flex items-center gap-2" onClick={() => setIsAddModalOpen(true)}>
+            <UserPlus className="w-4 h-4" />
+            <span>Adicionar Usuário</span>
+          </Button>
+        )}
+      />
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

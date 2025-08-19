@@ -1,7 +1,7 @@
 {
   "name": "@alanssant0s/spark-ds",
   "private": false,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "A modern React design system built with Tailwind CSS and Radix UI",
   "keywords": [
@@ -22,24 +22,64 @@
   "bugs": {
     "url": "https://github.com/alansantos/spark-design-system/issues"
   },
-  "main": "./dist/index.cjs.js",
+  "main": "./dist/index.esm.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist/index.cjs.js",
-    "dist/index.esm.js",
-    "dist/index.d.ts",
-    "dist/style.css",
+    "dist/**/*",
     "README.md",
     "LICENSE"
   ],
   "exports": {
     ".": {
       "import": "./dist/index.esm.js",
-      "require": "./dist/index.cjs.js",
       "types": "./dist/index.d.ts"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./button": {
+      "import": "./dist/components/ui/button.esm.js",
+      "types": "./dist/components/ui/button.d.ts"
+    },
+    "./card": {
+      "import": "./dist/components/ui/card.esm.js",
+      "types": "./dist/components/ui/card.d.ts"
+    },
+    "./input": {
+      "import": "./dist/components/ui/input.esm.js",
+      "types": "./dist/components/ui/input.d.ts"
+    },
+    "./label": {
+      "import": "./dist/components/ui/label.esm.js",
+      "types": "./dist/components/ui/label.d.ts"
+    },
+    "./badge": {
+      "import": "./dist/components/ui/badge.esm.js",
+      "types": "./dist/components/ui/badge.d.ts"
+    },
+    "./avatar": {
+      "import": "./dist/components/ui/avatar.esm.js",
+      "types": "./dist/components/ui/avatar.d.ts"
+    },
+    "./form": {
+      "import": "./dist/components/ui/form.esm.js",
+      "types": "./dist/components/ui/form.d.ts"
+    },
+    "./dialog": {
+      "import": "./dist/components/ui/dialog.esm.js",
+      "types": "./dist/components/ui/dialog.d.ts"
+    },
+    "./toast": {
+      "import": "./dist/components/ui/toast.esm.js",
+      "types": "./dist/components/ui/toast.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/lib/utils.esm.js",
+      "types": "./dist/lib/utils.d.ts"
+    },
+    "./page-header": {
+      "import": "./dist/components/ui/page-header.esm.js",
+      "types": "./dist/components/ui/page-header.d.ts"
+    },
+    "./styles": "./dist/style.css"
   },
   "scripts": {
     "dev": "vite",

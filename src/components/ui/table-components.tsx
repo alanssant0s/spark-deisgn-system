@@ -1,6 +1,6 @@
 import React from "react";
 import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import { ptBR } from "date-fns/locale/pt-BR";
 import {
     MoreHorizontal,
     Eye,
@@ -258,13 +258,13 @@ export interface DateCellProps {
     showTime?: boolean;
 }
 
-export function DateCell({ date, format = "dd/MM/yyyy", showTime = false }: DateCellProps) {
+export function DateCell({ date, format: formatString = "dd/MM/yyyy", showTime = false }: DateCellProps) {
     const dateObj = typeof date === "string" ? new Date(date) : date;
-    const formatString = showTime ? `${format} HH:mm` : format;
+    const finalFormat = showTime ? `${formatString} HH:mm` : formatString;
 
     return (
         <span className="text-sm">
-            {format(dateObj, formatString, { locale: ptBR })}
+            {format(dateObj, finalFormat, { locale: ptBR })}
         </span>
     );
 }
