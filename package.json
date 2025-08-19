@@ -1,7 +1,7 @@
 {
   "name": "@alanssant0s/spark-ds",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.3",
   "type": "module",
   "description": "A modern React design system built with Tailwind CSS and Radix UI",
   "keywords": [

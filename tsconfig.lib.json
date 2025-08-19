@@ -24,8 +24,17 @@
     },
     "include": [
         "src/components/ui/**/*",
+        "src/components/auth/**/*",
+        "src/components/errors/**/*",
+        "src/components/forms/**/*",
+        "src/components/layouts/**/*",
+        "src/components/notifications/**/*",
+        "src/components/saas/**/*",
+        "src/components/LogoProcessor.tsx",
+        "src/components/LayoutSettings.tsx",
         "src/lib/**/*",
-        "src/hooks/**/*"
+        "src/hooks/**/*",
+        "src/contexts/**/*"
     ],
     "exclude": [
         "src/**/*.stories.*",
@@ -33,6 +42,7 @@
         "src/pages/**/*",
         "src/App.tsx",
         "src/main.tsx",
+        "src/stories/**/*",
         "node_modules",
         "dist"
     ]

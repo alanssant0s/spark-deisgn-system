@@ -23,18 +23,18 @@ A modern, accessible React component library built with TypeScript, Tailwind CSS
 ### Installation
 
 ```bash
-npm install alansantos-spark-ds
+npm install @alanssant0s/spark-ds
 # or
-yarn add alansantos-spark-ds
+yarn add @alanssant0s/spark-ds
 # or
-pnpm add alansantos-spark-ds
+pnpm add @alanssant0s/spark-ds
 ```
 
 ### Setup
 
 1. **Import styles** in your main CSS file:
 ```css
-@import 'alansantos-spark-ds/dist/style.css';
+@import '@alanssant0s/spark-ds/dist/style.css';
 ```
 
 2. **Configure Tailwind** (optional, for custom styling):
@@ -43,7 +43,7 @@ pnpm add alansantos-spark-ds
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/alansantos-spark-ds/dist/**/*.{js,ts,jsx,tsx}"
+    "./node_modules/@alanssant0s/spark-ds/dist/**/*.{js,ts,jsx,tsx}"
   ],
   // ... rest of config
 }
@@ -52,7 +52,7 @@ module.exports = {
 ### Basic Usage
 
 ```tsx
-import { Button, Card, CardContent, CardHeader, CardTitle } from 'alansantos-spark-ds';
+import { Button, Card, CardContent, CardHeader, CardTitle } from '@alanssant0s/spark-ds';
 
 function App() {
   return (
