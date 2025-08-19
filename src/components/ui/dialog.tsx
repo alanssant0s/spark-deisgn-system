@@ -34,8 +34,13 @@ const DialogContent = React.forwardRef<
   // Detecta se há DialogHeader, DialogBody ou DialogFooter
   const hasStructuredContent = React.Children.toArray(children).some((child) => {
     if (React.isValidElement(child)) {
-      const displayName = child.type?.displayName || child.type?.name || '';
-      return ['DialogHeader', 'DialogBody', 'DialogFooter'].includes(displayName);
+      const childType = child.type;
+      const displayName = typeof childType === 'function' && 'displayName' in childType
+        ? childType.displayName
+        : typeof childType === 'function' && 'name' in childType
+          ? childType.name
+          : '';
+      return ['DialogHeader', 'DialogBody', 'DialogFooter'].includes(displayName as string);
     }
     return false;
   });

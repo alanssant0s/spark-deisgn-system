@@ -394,14 +394,14 @@ export function ActionButtons({
             key: "edit",
             label: "Editar",
             variant: "outline" as const,
-            size: "sm" as const,
+            size: "default" as const,
             onClick: onEdit,
         }] : []),
         ...(onDelete ? [{
             key: "delete",
             label: "Excluir",
             variant: "destructive" as const,
-            size: "sm" as const,
+            size: "default" as const,
             onClick: onDelete,
         }] : []),
     ];

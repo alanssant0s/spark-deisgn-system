@@ -2,51 +2,40 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "target": "ES2020",
-        "useDefineForClassFields": true,
+        "module": "ESNext",
         "lib": [
             "ES2020",
             "DOM",
             "DOM.Iterable"
         ],
-        "module": "ESNext",
-        "skipLibCheck": true,
-        "moduleResolution": "bundler",
-        "allowImportingTsExtensions": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": false,
-        "declaration": true,
-        "declarationMap": true,
-        "emitDeclarationOnly": true,
-        "outDir": "dist",
-        "strict": true,
-        "noUnusedLocals": false,
-        "noUnusedParameters": false,
-        "noFallthroughCasesInSwitch": true,
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
         "jsx": "react-jsx",
+        "moduleResolution": "bundler",
+        "skipLibCheck": true,
+        "strict": true,
+        "isolatedModules": true,
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "declarationMap": true,
+        "outDir": "dist",
         "baseUrl": ".",
         "paths": {
             "@/*": [
                 "./src/*"
             ]
-        }
+        },
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true
     },
     "include": [
-        "src/components/**/*",
-        "src/lib/**/*",
+        "src/components/ui/**/*",
         "src/hooks/**/*",
-        "src/contexts/**/*"
+        "src/lib/**/*",
+        "src/contexts/**/*",
+        "src/types/**/*"
     ],
     "exclude": [
-        "src/**/*.stories.*",
-        "src/**/*.test.*",
-        "src/pages/**/*",
-        "src/App.tsx",
-        "src/main.tsx",
         "src/stories/**/*",
+        "src/pages/**/*",
         "node_modules",
         "dist"
     ]

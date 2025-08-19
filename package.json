@@ -1,7 +1,7 @@
 {
   "name": "@alanssant0s/spark-ds",
   "private": false,
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "description": "A modern React design system built with Tailwind CSS and Radix UI",
   "keywords": [
@@ -35,13 +35,136 @@
       "import": "./dist/index.esm.js",
       "types": "./dist/index.d.ts"
     },
+    "./button": {
+      "import": "./dist/button.esm.js",
+      "types": "./dist/button.d.ts"
+    },
+    "./card": {
+      "import": "./dist/card.esm.js",
+      "types": "./dist/card.d.ts"
+    },
+    "./input": {
+      "import": "./dist/input.esm.js",
+      "types": "./dist/input.d.ts"
+    },
+    "./label": {
+      "import": "./dist/label.esm.js",
+      "types": "./dist/label.d.ts"
+    },
+    "./badge": {
+      "import": "./dist/badge.esm.js",
+      "types": "./dist/badge.d.ts"
+    },
+    "./avatar": {
+      "import": "./dist/avatar.esm.js",
+      "types": "./dist/avatar.d.ts"
+    },
+    "./skeleton": {
+      "import": "./dist/skeleton.esm.js",
+      "types": "./dist/skeleton.d.ts"
+    },
+    "./separator": {
+      "import": "./dist/separator.esm.js",
+      "types": "./dist/separator.d.ts"
+    },
+    "./progress": {
+      "import": "./dist/progress.esm.js",
+      "types": "./dist/progress.d.ts"
+    },
+    "./form": {
+      "import": "./dist/form.esm.js",
+      "types": "./dist/form.d.ts"
+    },
+    "./checkbox": {
+      "import": "./dist/checkbox.esm.js",
+      "types": "./dist/checkbox.d.ts"
+    },
+    "./radio-group": {
+      "import": "./dist/radio-group.esm.js",
+      "types": "./dist/radio-group.d.ts"
+    },
+    "./select": {
+      "import": "./dist/select.esm.js",
+      "types": "./dist/select.d.ts"
+    },
+    "./switch": {
+      "import": "./dist/switch.esm.js",
+      "types": "./dist/switch.d.ts"
+    },
+    "./slider": {
+      "import": "./dist/slider.esm.js",
+      "types": "./dist/slider.d.ts"
+    },
+    "./textarea": {
+      "import": "./dist/textarea.esm.js",
+      "types": "./dist/textarea.d.ts"
+    },
+    "./accordion": {
+      "import": "./dist/accordion.esm.js",
+      "types": "./dist/accordion.d.ts"
+    },
+    "./tabs": {
+      "import": "./dist/tabs.esm.js",
+      "types": "./dist/tabs.d.ts"
+    },
+    "./table": {
+      "import": "./dist/table.esm.js",
+      "types": "./dist/table.d.ts"
+    },
+    "./sheet": {
+      "import": "./dist/sheet.esm.js",
+      "types": "./dist/sheet.d.ts"
+    },
+    "./popover": {
+      "import": "./dist/popover.esm.js",
+      "types": "./dist/popover.d.ts"
+    },
+    "./tooltip": {
+      "import": "./dist/tooltip.esm.js",
+      "types": "./dist/tooltip.d.ts"
+    },
+    "./dropdown-menu": {
+      "import": "./dist/dropdown-menu.esm.js",
+      "types": "./dist/dropdown-menu.d.ts"
+    },
+    "./breadcrumb": {
+      "import": "./dist/breadcrumb.esm.js",
+      "types": "./dist/breadcrumb.d.ts"
+    },
+    "./toast": {
+      "import": "./dist/toast.esm.js",
+      "types": "./dist/toast.d.ts"
+    },
+    "./toaster": {
+      "import": "./dist/toaster.esm.js",
+      "types": "./dist/toaster.d.ts"
+    },
+    "./alert": {
+      "import": "./dist/alert.esm.js",
+      "types": "./dist/alert.d.ts"
+    },
+    "./alert-dialog": {
+      "import": "./dist/alert-dialog.esm.js",
+      "types": "./dist/alert-dialog.d.ts"
+    },
+    "./pagination": {
+      "import": "./dist/pagination.esm.js",
+      "types": "./dist/pagination.d.ts"
+    },
+    "./page-header": {
+      "import": "./dist/page-header.esm.js",
+      "types": "./dist/page-header.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils.esm.js",
+      "types": "./dist/utils.d.ts"
+    },
     "./styles": "./dist/style.css"
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:lib && npm run generate:types",
+    "build": "vite build --config vite.lib.config.ts",
     "build:lib": "vite build --config vite.lib.config.ts",
-    "generate:types": "node scripts/generate-types.js",
     "build:types": "tsc --project tsconfig.lib.json",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
