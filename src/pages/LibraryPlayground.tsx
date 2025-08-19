@@ -57,7 +57,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
     useToast,
-    useIsMobile
+    useMobile
 } from '../lib/index';
 
 const LibraryPlayground = () => {
@@ -66,7 +66,7 @@ const LibraryPlayground = () => {
     const [switchValue, setSwitchValue] = useState(false);
     const [sliderValue, setSliderValue] = useState([50]);
     const { toast } = useToast();
-    const isMobile = useIsMobile();
+    const isMobile = useMobile();
 
     const handleToast = () => {
         toast({
