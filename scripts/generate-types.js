@@ -63,7 +63,7 @@ try {
             "src/components/ui/toast.tsx",
             "src/components/ui/toaster.tsx",
             "src/components/ui/alert.tsx",
-            "src/components/ui/alert-dialog.tsx",
+
             "src/components/ui/pagination.tsx",
             "src/components/ui/page-header.tsx",
             "src/hooks/use-toast.ts",
@@ -79,7 +79,7 @@ try {
             "src/components/ui/calendar.tsx",
             "src/components/ui/date-picker.tsx",
             "src/components/ui/carousel.tsx",
-            "src/components/ui/dialog.tsx",
+
             "src/components/layouts/**/*",
             "src/components/saas/**/*",
             "src/components/auth/**/*",

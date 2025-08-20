@@ -163,7 +163,7 @@ Types:
 
 Examples:
 - `feat(button): add loading state variant`
-- `fix(dialog): resolve focus trap issue`
+- `fix(button): resolve loading state issue`
 - `docs(readme): update installation instructions`
 
 ## 🔍 Review Process

@@ -192,80 +192,7 @@ function Dashboard() {
 }
 ```
 
-### Modal de Confirmação
 
-```tsx
-import React, { useState } from 'react';
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  Alert,
-  AlertDescription
-} from 'spark-design-system';
-
-function ConfirmationExample() {
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleConfirm = async () => {
-    setLoading(true);
-    // Simular operação async
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setLoading(false);
-    setOpen(false);
-  };
-
-  return (
-    <div className="p-6">
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button variant="destructive">
-            Excluir Item
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Confirmar Exclusão</DialogTitle>
-            <DialogDescription>
-              Esta ação não pode ser desfeita. Isso excluirá permanentemente
-              o item selecionado.
-            </DialogDescription>
-          </DialogHeader>
-          
-          <Alert>
-            <AlertDescription>
-              Tem certeza de que deseja continuar?
-            </AlertDescription>
-          </Alert>
-          
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setOpen(false)}
-              disabled={loading}
-            >
-              Cancelar
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={handleConfirm}
-              disabled={loading}
-            >
-              {loading ? "Excluindo..." : "Confirmar"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-}
-```
 
 ### Formulário com Validação
 
@@ -485,7 +412,7 @@ function ResponsiveComponent() {
 - ✅ **Accordion** - Conteúdo expansível
 - ✅ **Tabs** - Abas de navegação
 - ✅ **Table** - Tabelas de dados
-- ✅ **Dialog** - Modais
+
 - ✅ **Sheet** - Painéis laterais
 - ✅ **Popover** - Pop-ups contextuais
 - ✅ **Tooltip** - Dicas de ferramentas

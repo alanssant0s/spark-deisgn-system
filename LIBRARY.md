@@ -129,7 +129,7 @@ function Dashboard() {
 - **Card** - Flexible content containers
 - **Input** - Form input fields
 - **Select** - Dropdown select components
-- **Dialog** - Modal dialogs
+
 - **Toast** - Notification messages
 - **Table** - Data tables
 - **Tabs** - Tabbed interfaces

@@ -42,7 +42,6 @@ import { Checkbox } from '@alanssant0s/spark-ds/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@alanssant0s/spark-ds/select';
 
 // Componentes de layout
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@alanssant0s/spark-ds/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@alanssant0s/spark-ds/tabs';
 
 // Componentes de notificação
@@ -105,7 +104,7 @@ import { Badge } from '@alanssant0s/spark-ds/badge';
 import { Button } from '@alanssant0s/spark-ds/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@alanssant0s/spark-ds/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@alanssant0s/spark-ds/table';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@alanssant0s/spark-ds/dialog';
+
 
 function Dashboard() {
   return (
@@ -166,17 +165,7 @@ function Dashboard() {
                 <TableCell>joao@email.com</TableCell>
                 <TableCell><Badge variant="success">Ativo</Badge></TableCell>
                 <TableCell>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" size="sm">Editar</Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Editar Usuário</DialogTitle>
-                      </DialogHeader>
-                      {/* Formulário de edição */}
-                    </DialogContent>
-                  </Dialog>
+                  <Button variant="outline" size="sm">Editar</Button>
                 </TableCell>
               </TableRow>
             </TableBody>

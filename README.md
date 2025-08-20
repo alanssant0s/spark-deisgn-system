@@ -93,7 +93,6 @@ function App() {
 - **Separator** - Visual content dividers
 
 ### Overlay Components
-- **Dialog** - Modal dialogs
 - **Sheet** - Slide-out panels
 - **Popover** - Contextual overlays
 - **Tooltip** - Helpful hints and information

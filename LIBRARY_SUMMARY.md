@@ -66,9 +66,9 @@ A biblioteca não estava exportando os componentes corretamente, impedindo que o
 - AspectRatio, Toggle, ToggleGroup
 - Form, Checkbox, RadioGroup, Select, Switch, Slider, Textarea, InputOTP
 - Accordion, Tabs, Table, Collapsible, ResizableHandle, ScrollArea
-- Dialog, Sheet, Popover, Tooltip, HoverCard, Drawer
+- Sheet, Popover, Tooltip, HoverCard, Drawer
 - DropdownMenu, Breadcrumb, NavigationMenu, Menubar, Command, ContextMenu
-- Toast, Toaster, Alert, AlertDialog
+- Toast, Toaster, Alert
 - Calendar, DatePicker, DateRangePicker
 - Carousel, Pagination
 

@@ -47,8 +47,8 @@ export const componentPages: NavigationItem[] = [
     { name: "Tabelas", path: "/components/tables", icon: Table },
     { name: "DataTable", path: "/components/datatable", icon: Database },
     { name: "Alertas", path: "/components/alerts", icon: AlertTriangle },
-    { name: "Diálogos", path: "/components/dialogs", icon: MessageSquare },
-    { name: "Modais", path: "/components/modals", icon: Square },
+
+
     { name: "Gráficos", path: "/components/charts", icon: PieChart },
     { name: "Breadcrumb", path: "/components/breadcrumb", icon: Navigation },
     { name: "Processador Logo", path: "/logo-processor", icon: Zap },

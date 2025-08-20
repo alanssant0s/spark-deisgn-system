@@ -8,6 +8,7 @@ export { Avatar, AvatarImage, AvatarFallback } from "../components/ui/avatar";
 export { Skeleton } from "../components/ui/skeleton";
 export { Separator } from "../components/ui/separator";
 export { Progress } from "../components/ui/progress";
+export { AspectRatio } from "../components/ui/aspect-ratio";
 
 // Form Components
 export { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage, useFormField } from "../components/ui/form";
@@ -22,9 +23,10 @@ export { Textarea } from "../components/ui/textarea";
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../components/ui/accordion";
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "../components/ui/tabs";
 export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption } from "../components/ui/table";
+export { Collapsible, CollapsibleTrigger, CollapsibleContent } from "../components/ui/collapsible";
+export { Sidebar } from "../components/ui/sidebar";
 
 // Overlay Components
-export { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from "../components/ui/dialog";
 export { Sheet, SheetTrigger, SheetClose, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription } from "../components/ui/sheet";
 export { Popover, PopoverTrigger, PopoverContent } from "../components/ui/popover";
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "../components/ui/tooltip";
@@ -37,16 +39,32 @@ export { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbP
 export { Toast, ToastAction, ToastClose, ToastDescription, ToastProvider, ToastTitle, ToastViewport } from "../components/ui/toast";
 export { Toaster } from "../components/ui/toaster";
 export { Alert, AlertTitle, AlertDescription } from "../components/ui/alert";
-export { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../components/ui/alert-dialog";
+
 
 // Date Components
 export { Calendar } from "../components/ui/calendar";
-export { DatePicker } from "../components/ui/date-picker";
+export { DatePicker, DateRangePicker } from "../components/ui/date-picker";
 
 // Data Display Components
 export { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../components/ui/carousel";
 export { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../components/ui/pagination";
 export { PageHeader } from "../components/ui/page-header";
+export {
+    ChartContainer as Chart,
+    ChartTooltip,
+    ChartTooltipContent,
+    ChartLegend,
+    ChartLegendContent,
+    ChartStyle
+} from "../components/ui/chart";
+export { DataTable } from "../components/ui/data-table";
+export { AdvancedTable } from "../components/ui/advanced-table";
+export type { AdvancedTableColumn } from "../components/ui/advanced-table";
+export { TableCard } from "../components/ui/table-card";
+export { StatusBadge, UserCell, DateCell, ActionsMenu, ActionButtons, ProductCell, PriceCell, StockCell, RatingCell, OrderIdCell, MetricCell } from "../components/ui/table-components";
+
+// Chart Components
+export { ChartContainer as Chart, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartStyle } from "../components/ui/chart";
 
 // Hooks
 export { useToast } from "../hooks/use-toast";
@@ -75,6 +93,20 @@ export { RadioGroupField } from "../components/forms/RadioGroupField";
 export { RegistrationForm } from "../components/forms/RegistrationForm";
 export { SwitchGroup } from "../components/forms/SwitchGroup";
 export { ValidatedFormField } from "../components/forms/ValidatedFormField";
+
+// Advanced Layout Components
+export { ResizablePanel, ResizablePanelGroup, ResizableHandle } from "../components/ui/resizable";
+export { ScrollArea, ScrollBar } from "../components/ui/scroll-area";
+export { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport } from "../components/ui/navigation-menu";
+export { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "../components/ui/menubar";
+export { InputOTP, InputOTPGroup, InputOTPSlot } from "../components/ui/input-otp";
+export { HoverCard, HoverCardTrigger, HoverCardContent } from "../components/ui/hover-card";
+export { Drawer } from "../components/ui/drawer";
+export { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuCheckboxItem, ContextMenuRadioItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut, ContextMenuGroup, ContextMenuPortal, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuRadioGroup } from "../components/ui/context-menu";
+export { Command } from "../components/ui/command";
+export { Toggle, toggleVariants } from "../components/ui/toggle";
+export { ToggleGroup, ToggleGroupItem } from "../components/ui/toggle-group";
+export { Toaster as Sonner, toast } from "../components/ui/sonner";
 
 // Advanced Layout Components
 export { HorizontalLayout } from "../components/layouts/HorizontalLayout";

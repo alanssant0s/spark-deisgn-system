@@ -17,10 +17,6 @@ const ptBRCalendar = {
       const days = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
       return days[n];
     },
-    dayPeriod: (n: number) => {
-      const periods = ['AM', 'PM'];
-      return periods[n];
-    },
     month: (n: number) => {
       const months = [
         'jan', 'fev', 'mar', 'abr', 'mai', 'jun',
@@ -32,7 +28,7 @@ const ptBRCalendar = {
   },
   options: {
     ...ptBR.options,
-    weekStartsOn: 1, // Segunda-feira
+    weekStartsOn: 1 as const, // Segunda-feira
   },
 };
 
@@ -91,7 +87,7 @@ function Calendar({
       components={{
         IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" {...props} />,
         IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" {...props} />,
-      }}
+      } as any}
       {...props}
     />
   );

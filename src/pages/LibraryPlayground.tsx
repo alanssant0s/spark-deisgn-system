@@ -36,26 +36,12 @@ import {
     TabsContent,
     TabsList,
     TabsTrigger,
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+
     Toast,
     Toaster,
     Alert,
     AlertDescription,
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
+
     useToast,
     useMobile
 } from '../lib/index';
@@ -302,12 +288,12 @@ const LibraryPlayground = () => {
                     </CardContent>
                 </Card>
 
-                {/* Dialog Components */}
+                {/* Alert Components */}
                 <Card>
                     <CardHeader>
-                        <CardTitle>Dialog & Alert Components</CardTitle>
+                        <CardTitle>Alert Components</CardTitle>
                         <CardDescription>
-                            Componentes para modais e alertas
+                            Componentes para alertas e notificações
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -318,44 +304,6 @@ const LibraryPlayground = () => {
                         </Alert>
 
                         <div className="flex flex-wrap gap-2">
-                            <Dialog>
-                                <DialogTrigger asChild>
-                                    <Button variant="outline">Abrir Dialog</Button>
-                                </DialogTrigger>
-                                <DialogContent>
-                                    <DialogHeader>
-                                        <DialogTitle>Exemplo de Dialog</DialogTitle>
-                                        <DialogDescription>
-                                            Este é um exemplo de como usar o componente Dialog da biblioteca.
-                                        </DialogDescription>
-                                    </DialogHeader>
-                                    <div className="py-4">
-                                        <p>Conteúdo do dialog aqui...</p>
-                                    </div>
-                                    <DialogFooter>
-                                        <Button>Confirmar</Button>
-                                    </DialogFooter>
-                                </DialogContent>
-                            </Dialog>
-
-                            <AlertDialog>
-                                <AlertDialogTrigger asChild>
-                                    <Button variant="destructive">Alert Dialog</Button>
-                                </AlertDialogTrigger>
-                                <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                        <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
-                                        <AlertDialogDescription>
-                                            Esta ação não pode ser desfeita. Isso excluirá permanentemente os dados.
-                                        </AlertDialogDescription>
-                                    </AlertDialogHeader>
-                                    <AlertDialogFooter>
-                                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                        <AlertDialogAction>Continuar</AlertDialogAction>
-                                    </AlertDialogFooter>
-                                </AlertDialogContent>
-                            </AlertDialog>
-
                             <Button onClick={handleToast}>
                                 Mostrar Toast
                             </Button>

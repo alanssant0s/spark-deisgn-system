@@ -17,8 +17,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+
 import { toast } from "@/hooks/use-toast";
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import {
@@ -319,57 +318,7 @@ const Components = () => {
         </div>
       </section>
 
-      {/* Modals */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-foreground">Modais</h2>
-        <div className="flex flex-wrap gap-4">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline">Abrir Modal</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Editar Perfil</DialogTitle>
-                <DialogDescription>
-                  Faça alterações no seu perfil aqui. Clique em salvar quando terminar.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">Nome</Label>
-                  <Input id="name" defaultValue="João Silva" className="col-span-3" />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="email" className="text-right">Email</Label>
-                  <Input id="email" defaultValue="joao@email.com" className="col-span-3" />
-                </div>
-              </div>
-              <div className="flex justify-end space-x-2">
-                <Button variant="outline">Cancelar</Button>
-                <Button>Salvar</Button>
-              </div>
-            </DialogContent>
-          </Dialog>
 
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="destructive">Excluir Item</Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Esta ação não pode ser desfeita. Isso excluirá permanentemente o item.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                <AlertDialogAction>Continuar</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        </div>
-      </section>
 
       {/* Toast Examples */}
       <section className="space-y-4">

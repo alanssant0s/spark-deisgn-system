@@ -162,13 +162,13 @@ module.exports = {
 - `Accordion`, `Tabs`, `Table`, `Collapsible`, `ResizableHandle`, `ScrollArea`
 
 ### Overlay Components
-- `Dialog`, `Sheet`, `Popover`, `Tooltip`, `HoverCard`, `Drawer`
+- `Sheet`, `Popover`, `Tooltip`, `HoverCard`, `Drawer`
 
 ### Navigation Components
 - `DropdownMenu`, `Breadcrumb`, `NavigationMenu`, `Menubar`, `Command`, `ContextMenu`
 
 ### Notification Components
-- `Toast`, `Toaster`, `Alert`, `AlertDialog`
+- `Toast`, `Toaster`, `Alert`
 
 ### Date Components
 - `Calendar`, `DatePicker`, `DateRangePicker`

@@ -23,7 +23,7 @@ import AlertsPage from "./pages/components/AlertsPage";
 import FormsPage from "./pages/components/FormsPage";
 import DatePickerPage from "./pages/components/DatePickerPage";
 
-import ModalsPage from "./pages/components/ModalsPage";
+
 import TablesPage from "./pages/components/TablesPage";
 import DataTablePage from "./pages/components/DataTablePage";
 import ChartsPage from "./pages/components/ChartsPage";
@@ -100,7 +100,7 @@ const App = () => (
                         <Route path="/components/forms" element={<FormsPage />} />
                         <Route path="/components/datepicker" element={<DatePickerPage />} />
 
-                        <Route path="/components/modals" element={<ModalsPage />} />
+
                         <Route path="/components/tables" element={<TablesPage />} />
                         <Route path="/components/datatable" element={<DataTablePage />} />
                         <Route path="/components/charts" element={<ChartsPage />} />

@@ -6,9 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { FormModal, InfoModal } from "@/components/ui/modal-examples";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+
+
+
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import PageHeader, { PageHeaderBreadcrumbItem } from "@/components/ui/page-header";
@@ -832,119 +832,7 @@ const UserManagement = () => {
         </Tabs>
       </FormModal>
 
-      {/* View User Modal */}
-      <Dialog open={isViewModalOpen} onOpenChange={setIsViewModalOpen}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>Detalhes do Usuário</DialogTitle>
-            <DialogDescription>
-              Informações completas do usuário selecionado
-            </DialogDescription>
-          </DialogHeader>
 
-          {selectedUser && (
-            <div className="space-y-6">
-              {/* User Header */}
-              <div className="flex items-center space-x-4">
-                <Avatar className="h-16 w-16">
-                  <AvatarImage src={selectedUser.avatar} alt={selectedUser.name} />
-                  <AvatarFallback className="text-lg">
-                    {selectedUser.name.split(' ').map(n => n[0]).join('')}
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <h3 className="text-xl font-semibold">{selectedUser.name}</h3>
-                  <p className="text-muted-foreground">{selectedUser.email}</p>
-                  <div className="flex items-center space-x-2 mt-2">
-                    {getRoleBadge(selectedUser.role)}
-                    {getStatusBadge(selectedUser.status)}
-                  </div>
-                </div>
-              </div>
-
-              <Separator />
-
-              {/* User Details */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium">Telefone</Label>
-                  <p className="text-sm text-muted-foreground">{selectedUser.phone}</p>
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium">Departamento</Label>
-                  <p className="text-sm text-muted-foreground">{selectedUser.department || "Não informado"}</p>
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium">Último Acesso</Label>
-                  <p className="text-sm text-muted-foreground">
-                    {selectedUser.lastLogin === "Nunca" ? "Nunca acessou" :
-                      new Date(selectedUser.lastLogin).toLocaleString('pt-BR')}
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium">Data de Criação</Label>
-                  <p className="text-sm text-muted-foreground">
-                    {new Date(selectedUser.createdAt).toLocaleDateString('pt-BR')}
-                  </p>
-                </div>
-              </div>
-
-              {selectedUser.notes && (
-                <>
-                  <Separator />
-                  <div className="space-y-2">
-                    <Label className="text-sm font-medium">Observações</Label>
-                    <p className="text-sm text-muted-foreground">{selectedUser.notes}</p>
-                  </div>
-                </>
-              )}
-
-              {/* Actions */}
-              <div className="flex justify-end space-x-2">
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setIsViewModalOpen(false);
-                    handleEditUser(selectedUser);
-                  }}
-                >
-                  <Edit className="w-4 h-4 mr-2" />
-                  Editar
-                </Button>
-                <Button
-                  variant="destructive"
-                  onClick={() => {
-                    setIsViewModalOpen(false);
-                    handleDeleteUser(selectedUser);
-                  }}
-                >
-                  <Trash className="w-4 h-4 mr-2" />
-                  Excluir
-                </Button>
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
-
-      {/* Delete Confirmation Dialog */}
-      <AlertDialog open={!!userToDelete} onOpenChange={() => setUserToDelete(null)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>
-            <AlertDialogDescription>
-              Tem certeza que deseja excluir o usuário "{userToDelete?.name}"?
-              Esta ação não pode ser desfeita.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDeleteUser} className="bg-red-600 hover:bg-red-700">
-              Excluir
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 };
