@@ -248,7 +248,7 @@ export function DataTable<T = any>({
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    if (pagination?.onChange) {
+    if ((pagination as any)?.onChange) {
       (pagination as any).onChange(page, pageSize);
     }
   };
@@ -257,7 +257,7 @@ export function DataTable<T = any>({
     const newSize = parseInt(size);
     setPageSize(newSize);
     setCurrentPage(1);
-    if (pagination?.onChange) {
+    if ((pagination as any)?.onChange) {
       (pagination as any).onChange(1, newSize);
     }
   };

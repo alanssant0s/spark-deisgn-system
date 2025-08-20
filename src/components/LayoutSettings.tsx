@@ -58,8 +58,8 @@ export function LayoutSettings() {
                     <button
                       onClick={() => setDesktopLayoutType('vertical')}
                       className={`p-4 border rounded-lg text-left transition-colors ${desktopLayoutType === 'vertical'
-                          ? 'border-primary bg-primary/5 text-primary'
-                          : 'border-border hover:bg-accent'
+                        ? 'border-primary bg-primary/5 text-primary'
+                        : 'border-border hover:bg-accent'
                         }`}
                     >
                       <div className="space-y-2">
@@ -77,8 +77,8 @@ export function LayoutSettings() {
                     <button
                       onClick={() => setDesktopLayoutType('horizontal')}
                       className={`p-4 border rounded-lg text-left transition-colors ${desktopLayoutType === 'horizontal'
-                          ? 'border-primary bg-primary/5 text-primary'
-                          : 'border-border hover:bg-accent'
+                        ? 'border-primary bg-primary/5 text-primary'
+                        : 'border-border hover:bg-accent'
                         }`}
                     >
                       <div className="space-y-2">
@@ -105,8 +105,8 @@ export function LayoutSettings() {
                     <button
                       onClick={() => setMobileLayoutType('vertical')}
                       className={`p-4 border rounded-lg text-left transition-colors ${mobileLayoutType === 'vertical'
-                          ? 'border-primary bg-primary/5 text-primary'
-                          : 'border-border hover:bg-accent'
+                        ? 'border-primary bg-primary/5 text-primary'
+                        : 'border-border hover:bg-accent'
                         }`}
                     >
                       <div className="space-y-2">
@@ -124,8 +124,8 @@ export function LayoutSettings() {
                     <button
                       onClick={() => setMobileLayoutType('horizontal')}
                       className={`p-4 border rounded-lg text-left transition-colors ${mobileLayoutType === 'horizontal'
-                          ? 'border-primary bg-primary/5 text-primary'
-                          : 'border-border hover:bg-accent'
+                        ? 'border-primary bg-primary/5 text-primary'
+                        : 'border-border hover:bg-accent'
                         }`}
                     >
                       <div className="space-y-2">
@@ -152,8 +152,8 @@ export function LayoutSettings() {
                     <button
                       onClick={() => setSidebarTheme('light')}
                       className={`p-4 border rounded-lg text-left transition-colors ${sidebarTheme === 'light'
-                          ? 'border-primary bg-primary/5 text-primary'
-                          : 'border-border hover:bg-accent'
+                        ? 'border-primary bg-primary/5 text-primary'
+                        : 'border-border hover:bg-accent'
                         }`}
                     >
                       <div className="space-y-2">
@@ -171,8 +171,8 @@ export function LayoutSettings() {
                     <button
                       onClick={() => setSidebarTheme('dark')}
                       className={`p-4 border rounded-lg text-left transition-colors ${sidebarTheme === 'dark'
-                          ? 'border-primary bg-primary/5 text-primary'
-                          : 'border-border hover:bg-accent'
+                        ? 'border-primary bg-primary/5 text-primary'
+                        : 'border-border hover:bg-accent'
                         }`}
                     >
                       <div className="space-y-2">
@@ -211,7 +211,8 @@ export function LayoutSettings() {
               </div>
             </div>
           </div>
-      )}
         </div>
-      );
+      )}
+    </div>
+  );
 }

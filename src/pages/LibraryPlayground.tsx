@@ -38,7 +38,7 @@ import {
     TabsTrigger,
 
     Toast,
-    Toaster,
+    ToastToaster,
     Alert,
     AlertDescription,
 
@@ -322,7 +322,7 @@ const LibraryPlayground = () => {
                 </Card>
             </div>
 
-            <Toaster />
+            <ToastToaster />
         </div>
     );
 };

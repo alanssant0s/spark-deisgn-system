@@ -2,7 +2,7 @@ import { MetricCard } from "@/components/saas/MetricCard";
 import { StatCard } from "@/components/saas/StatCard";
 
 import { FeatureCard } from "@/components/saas/FeatureCard";
-import { StatusBadge } from "@/components/saas/StatusBadge";
+import { SaasStatusBadge } from "@/components/saas/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -153,13 +153,13 @@ const Components = () => {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold text-foreground">Status Badges</h2>
         <div className="flex flex-wrap gap-4">
-          <StatusBadge status="active" />
-          <StatusBadge status="inactive" />
-          <StatusBadge status="pending" />
-          <StatusBadge status="error" />
-          <StatusBadge status="success" />
-          <StatusBadge status="active" text="Online" />
-          <StatusBadge status="pending" text="Processando" />
+          <SaasStatusBadge status="active" />
+          <SaasStatusBadge status="inactive" />
+          <SaasStatusBadge status="pending" />
+          <SaasStatusBadge status="error" />
+          <SaasStatusBadge status="success" />
+          <SaasStatusBadge status="active" text="Online" />
+          <SaasStatusBadge status="pending" text="Processando" />
         </div>
       </section>
 

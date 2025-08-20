@@ -6,7 +6,7 @@ interface StatusBadgeProps {
   className?: string;
 }
 
-export const StatusBadge = ({ status, text, className }: StatusBadgeProps) => {
+export const SaasStatusBadge = ({ status, text, className }: StatusBadgeProps) => {
   const statusConfig = {
     active: {
       bg: "bg-success-light",
@@ -17,7 +17,7 @@ export const StatusBadge = ({ status, text, className }: StatusBadgeProps) => {
     },
     inactive: {
       bg: "bg-muted",
-      text: "text-muted-foreground", 
+      text: "text-muted-foreground",
       border: "border-muted-foreground/30",
       dot: "bg-muted-foreground",
       label: text || "Inativo"
@@ -25,7 +25,7 @@ export const StatusBadge = ({ status, text, className }: StatusBadgeProps) => {
     pending: {
       bg: "bg-warning-light",
       text: "text-warning",
-      border: "border-warning/30", 
+      border: "border-warning/30",
       dot: "bg-warning",
       label: text || "Pendente"
     },
@@ -33,7 +33,7 @@ export const StatusBadge = ({ status, text, className }: StatusBadgeProps) => {
       bg: "bg-destructive-light",
       text: "text-destructive",
       border: "border-destructive/30",
-      dot: "bg-destructive", 
+      dot: "bg-destructive",
       label: text || "Erro"
     },
     success: {

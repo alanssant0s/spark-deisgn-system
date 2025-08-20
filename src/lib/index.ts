@@ -37,7 +37,7 @@ export { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbP
 
 // Notification Components
 export { Toast, ToastAction, ToastClose, ToastDescription, ToastProvider, ToastTitle, ToastViewport } from "../components/ui/toast";
-export { Toaster } from "../components/ui/toaster";
+export { Toaster as ToastToaster } from "../components/ui/toaster";
 export { Alert, AlertTitle, AlertDescription } from "../components/ui/alert";
 
 
@@ -63,8 +63,7 @@ export type { AdvancedTableColumn } from "../components/ui/advanced-table";
 export { TableCard } from "../components/ui/table-card";
 export { StatusBadge, UserCell, DateCell, ActionsMenu, ActionButtons, ProductCell, PriceCell, StockCell, RatingCell, OrderIdCell, MetricCell } from "../components/ui/table-components";
 
-// Chart Components
-export { ChartContainer as Chart, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartStyle } from "../components/ui/chart";
+
 
 // Hooks
 export { useToast } from "../hooks/use-toast";
@@ -81,6 +80,9 @@ export { default as AuthLayout } from "../components/auth/AuthLayout";
 export { LoadingButton } from "../components/auth/LoadingButton";
 export { PasswordStrength } from "../components/auth/PasswordStrength";
 export { SocialLogin } from "../components/auth/SocialLogin";
+
+// Supabase Auth Components
+export * from "../components/auth/supabase";
 
 // Advanced Form Components
 export { FormField as AdvancedFormField } from "../components/forms/FormField";
@@ -121,7 +123,7 @@ export { FeatureCard } from "../components/saas/FeatureCard";
 export { MetricCard } from "../components/saas/MetricCard";
 export { SaasLayout } from "../components/saas/SaasLayout";
 export { StatCard } from "../components/saas/StatCard";
-export { StatusBadge } from "../components/saas/StatusBadge";
+export { SaasStatusBadge } from "../components/saas/StatusBadge";
 
 // Error Components
 export { default as BaseErrorPage } from "../components/errors/BaseErrorPage";
